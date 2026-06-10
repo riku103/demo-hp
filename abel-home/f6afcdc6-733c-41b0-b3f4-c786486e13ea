@@ -1,0 +1,198 @@
+/* Sections.jsx — 実績ストリップ / 施工事例 / 選ばれる理由 / お客様の声 / 相談の流れ / 会社案内
+   ※提案ラフ：未確認情報は安全表現＋確認中タグ。事例・声は掲載イメージと明示。 */
+
+/* 下層ページ想定リンク（同セクションに戻らないことを明示） */
+function LowerPageLink({ label, onClick }) {
+  const { Button } = window.YUI_195e4a;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+      <Button variant="secondary" withArrow onClick={(e) => { e.preventDefault(); onClick && onClick(); }}>{label}</Button>
+      <span style={{ font: "11px/1 var(--font-body)", color: "var(--text-muted)" }}>※別ページ（一覧）に遷移予定</span>
+    </div>
+  );
+}
+
+/* ---------- 実績ストリップ（墨の濃色帯・安全表現） ---------- */
+function StatsStrip() {
+  const { STATS } = window;
+  return (
+    <div style={{ background: "var(--color-ink-surface)", color: "var(--text-on-dark)" }}>
+      <div className="stats-row" style={{ maxWidth: "var(--container)", margin: "0 auto", padding: "20px 24px", display: "flex", gap: 36, flexWrap: "wrap", justifyContent: "center", alignItems: "baseline" }}>
+        {STATS.map((s, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
+            <span style={{ font: "12px/1 var(--font-body)", color: "rgba(245,241,234,.66)" }}>{s[0]}</span>
+            <span style={{ fontFamily: "var(--font-gothic)", fontWeight: 700, fontSize: 20, letterSpacing: ".02em" }}>{s[1]}</span>
+            <span style={{ font: "11px/1.4 var(--font-body)", color: "rgba(245,241,234,.6)" }}>{s[2]}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- 施工事例（掲載イメージ／課題→工事→結果の短文） ---------- */
+function WorkCard({ w, onJump }) {
+  const { Frame, Icon } = window;
+  const { Tag } = window.YUI_195e4a;
+  const [hover, setHover] = React.useState(false);
+  return (
+    <a onClick={(e) => { e.preventDefault(); onJump("works-detail"); }}
+      onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+      style={{ display: "block", textDecoration: "none", cursor: "pointer" }}>
+      <div style={{ overflow: "hidden", borderRadius: "var(--radius-md)", boxShadow: hover ? "var(--shadow-md)" : "var(--shadow-xs)", transition: "var(--transition-base)" }}>
+        <div style={{ transform: hover ? "scale(1.04)" : "none", transition: "var(--transition-base)" }}>
+          <Frame tone={w.tone} ratio="4 / 3" kicker="Before / After" />
+        </div>
+      </div>
+      <div style={{ paddingTop: 16 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 10 }}>
+          {w.tags.map((t, i) => <Tag key={i} tone={t.tone || "neutral"}>{t.label}</Tag>)}
+        </div>
+        <h3 style={{ fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: "var(--fs-h3)", lineHeight: "var(--lh-heading)", letterSpacing: "var(--ls-normal)", color: hover ? "var(--c-kawara)" : "var(--text-primary)", margin: 0, transition: "var(--transition-fast)", textWrap: "pretty" }}>{w.title}</h3>
+        <p style={{ font: "13.5px/1.8 var(--font-body)", color: "var(--text-secondary)", marginTop: 10, textWrap: "pretty" }}>{w.summary}</p>
+      </div>
+    </a>
+  );
+}
+
+function WorksSection({ onJump }) {
+  const { Container, WORKS } = window;
+  const { SectionHeading } = window.YUI_195e4a;
+  return (
+    <section data-screen-label="施工事例" className="sec" style={{ background: "var(--color-surface)", padding: "var(--section-y) 0" }}>
+      <Container width="var(--container-wide)">
+        <div className="head-row" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 20, flexWrap: "wrap" }}>
+          <div>
+            <SectionHeading label="Works" title="施工事例" lead="ビフォーアフターと、工事の内容が一目で分かるように。" />
+            <div style={{ marginTop: 10, font: "12px/1.6 var(--font-body)", color: "var(--text-muted)" }}>※下記はレイアウト確認用の掲載イメージです。実際の施工事例に差し替えます。</div>
+          </div>
+          <LowerPageLink label="施工事例一覧へ" onClick={() => onJump("works-detail")} />
+        </div>
+        <div className="resp-grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 28, marginTop: 40 }}>
+          {WORKS.map((w, i) => <WorkCard key={i} w={w} onJump={onJump} />)}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ---------- 選ばれる理由 ---------- */
+function ReasonsSection() {
+  const { Container, Icon, REASONS } = window;
+  const { SectionHeading } = window.YUI_195e4a;
+  return (
+    <section data-screen-label="選ばれる理由" className="sec" style={{ background: "var(--color-bg)", padding: "var(--section-y) 0" }}>
+      <Container>
+        <SectionHeading align="center" label="Reasons" title="岡山で、相談しやすい理由。"
+          lead="リフォームは、会社えらびがいちばん大切。アベルホームが大切にしている4つのこと。" />
+        <div className="resp-grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20, marginTop: 44 }}>
+          {REASONS.map((r) => (
+            <div key={r.index} style={{ display: "flex", gap: 20, background: "var(--color-surface)", border: "1px solid var(--border)", borderRadius: "var(--radius-md)", boxShadow: "var(--shadow-xs)", padding: "26px 28px" }}>
+              <div style={{ flex: "none", display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+                <span style={{ fontFamily: "var(--font-en)", fontWeight: 300, fontSize: 30, color: "var(--c-wood)", lineHeight: 1 }}>{r.index}</span>
+                <Icon name={r.icon} size={26} color="var(--c-wood-deep)" />
+              </div>
+              <div>
+                <h3 style={{ font: "var(--fw-bold) 19px/1.4 var(--font-gothic)", color: "var(--text-primary)", margin: 0 }}>{r.title}</h3>
+                <p style={{ font: "14px/1.85 var(--font-body)", color: "var(--text-secondary)", marginTop: 10, textWrap: "pretty" }}>{r.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ---------- お客様の声（掲載イメージ） ---------- */
+function VoiceCardLocal({ v }) {
+  const { Frame } = window;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", background: "var(--color-surface)", border: "1px solid var(--border)", borderRadius: "var(--radius-md)", overflow: "hidden", boxShadow: "var(--shadow-xs)", height: "100%" }}>
+      <Frame tone={v.tone} ratio="16 / 10" kicker="イメージ" />
+      <div style={{ padding: "22px 24px 24px", display: "flex", flexDirection: "column", flex: 1 }}>
+        <div style={{ fontFamily: "var(--font-serif)", fontSize: 32, lineHeight: 1, height: 16, color: "var(--c-wood)", marginBottom: 6 }}>“</div>
+        <p style={{ fontFamily: "var(--font-serif)", fontWeight: 400, fontSize: "var(--fs-body-lg)", lineHeight: "var(--lh-snug)", letterSpacing: "var(--ls-normal)", color: "var(--text-primary)", margin: 0, flex: 1, textWrap: "pretty" }}>{v.quote}</p>
+        <div style={{ marginTop: 16, paddingTop: 14, borderTop: "1px solid var(--border-faint)" }}>
+          <div style={{ font: "var(--fw-bold) var(--fs-sm)/1.4 var(--font-gothic)", color: "var(--text-primary)" }}>{v.name}</div>
+          <div style={{ font: "var(--type-caption)", color: "var(--text-muted)", marginTop: 3 }}>{v.meta}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function VoiceSection() {
+  const { Container, VOICES } = window;
+  const { SectionHeading } = window.YUI_195e4a;
+  return (
+    <section data-screen-label="お客様の声" className="sec" style={{ background: "var(--color-surface)", padding: "var(--section-y) 0" }}>
+      <Container>
+        <SectionHeading align="center" label="Voice" title="お客様の声"
+          lead="工事が終わってからが、本当のお付き合い。" />
+        <div style={{ textAlign: "center", marginTop: 12, font: "12px/1.6 var(--font-body)", color: "var(--text-muted)" }}>※下記は表現サンプル（掲載イメージ）です。実際にいただいた声に差し替えます。</div>
+        <div className="resp-grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24, marginTop: 36 }}>
+          {VOICES.map((v, i) => <VoiceCardLocal key={i} v={v} />)}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ---------- 相談の流れ ---------- */
+function FlowSection({ onJump }) {
+  const { Container, FLOW } = window;
+  const { SectionHeading, FlowStep, Button } = window.YUI_195e4a;
+  return (
+    <section data-screen-label="相談の流れ" className="sec" style={{ background: "var(--c-shikkui-sunken)", padding: "var(--section-y) 0" }}>
+      <Container>
+        <div className="resp-flow" style={{ display: "grid", gridTemplateColumns: "0.85fr 1.15fr", gap: 56, alignItems: "start" }}>
+          <div className="flow-aside">
+            <SectionHeading label="Flow" title="相談の流れ"
+              lead="はじめてのリフォームも、見通しがあれば安心です。相談から工事のあとまで、ご一緒に。" />
+            <div style={{ marginTop: 26 }}>
+              <Button variant="primary" withArrow onClick={() => onJump("contact")}>まずは無料で相談する</Button>
+            </div>
+          </div>
+          <div>
+            {FLOW.map((s, i) => (
+              <FlowStep key={s.step} step={s.step} title={s.title} body={s.body} meta={s.meta} isLast={i === FLOW.length - 1} />
+            ))}
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ---------- 会社案内（確認中タグ付き） ---------- */
+function CompanySection() {
+  const { Frame, Container, Icon, Provisional, COMPANY, ABEL } = window;
+  const { SectionHeading } = window.YUI_195e4a;
+  return (
+    <section data-screen-label="会社案内" className="sec" style={{ background: "var(--color-bg)", padding: "var(--section-y) 0" }}>
+      <Container>
+        <div className="resp-company" style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 56, alignItems: "center" }}>
+          <div>
+            <SectionHeading label="Company" title="岡山の住まいを、地元で支える。"
+              lead="アベルホームは、岡山に根ざした住宅リフォームの会社です。小さな修繕から、まるごと改装まで。地域の暮らしに寄り添います。" />
+            <div style={{ marginTop: 26, border: "1px solid var(--border)", borderRadius: "var(--radius-md)", overflow: "hidden", background: "var(--color-surface)" }}>
+              {COMPANY.map((row, i) => (
+                <div key={i} className="co-row" style={{ display: "grid", gridTemplateColumns: "140px 1fr", borderTop: i ? "1px solid var(--border-faint)" : "none" }}>
+                  <div style={{ padding: "14px 18px", background: "var(--c-shikkui-sunken)", font: "var(--fw-medium) 13px/1.6 var(--font-gothic)", color: "var(--text-secondary)" }}>{row[0]}</div>
+                  <div style={{ padding: "13px 18px", font: "14px/1.7 var(--font-body)", color: "var(--text-primary)", display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+                    <span>{row[1]}</span>{row[2] && <Provisional>要確認</Provisional>}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: 14, font: "12px/1.7 var(--font-body)", color: "var(--text-muted)" }}>※「要確認」の項目は、御社からのご提供情報に差し替えます。</div>
+          </div>
+          <Frame tone="moss" ratio="4/5" radius="var(--radius-md)" style={{ boxShadow: "var(--shadow-sm)" }} kicker="店舗・スタッフ" />
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+Object.assign(window, { StatsStrip, WorksSection, ReasonsSection, VoiceSection, FlowSection, CompanySection });

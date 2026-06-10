@@ -1,0 +1,185 @@
+/* Hero.jsx — ファーストビュー 3案（岡山密着・相談しやすい・実在感を重視）
+   A: 信頼・大きく（写真背景）  B: クイック相談（左コピー＋右に悩み選択）  C: 情緒ステートメント（中央）
+   ※未確認の件数は出さず、安全な表現に。電話番号は確認中表示。 */
+
+function TrustBadge({ light = false }) {
+  const { Icon } = window;
+  return (
+    <div style={{
+      display: "inline-flex", alignItems: "center", gap: 9, padding: "7px 15px 7px 12px",
+      borderRadius: "var(--radius-pill)",
+      background: light ? "rgba(245,241,234,.14)" : "var(--c-clay-tint)",
+      border: light ? "1px solid rgba(245,241,234,.3)" : "1px solid transparent",
+    }}>
+      <Icon name="shield" size={16} color={light ? "#fff" : "var(--c-kawara)"} />
+      <span style={{ font: "var(--fw-medium) 13px/1.4 var(--font-gothic)", letterSpacing: ".03em", color: light ? "#fff" : "var(--c-wood-deep)", whiteSpace: "nowrap" }}>
+        岡山密着・地域の住まいに対応してきました
+      </span>
+    </div>
+  );
+}
+
+/* 電話の見せ方：番号確認中はダイヤルせず注記、入力済みなら番号表示 */
+function HeroPhone({ tel, light }) {
+  const { Icon } = window;
+  const hasTel = !!(tel && tel.trim());
+  const sub = light ? "rgba(245,241,234,.85)" : "var(--text-muted)";
+  if (!hasTel) {
+    return (
+      <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 22 }}>
+        <Icon name="phone" size={16} color={light ? "rgba(245,241,234,.85)" : "var(--c-kawara)"} />
+        <span style={{ font: "13px/1.5 var(--font-body)", color: sub }}>お電話でのご相談：<b style={{ fontWeight: 500 }}>正式番号に差し替え予定</b></span>
+      </div>
+    );
+  }
+  return (
+    <a href={`tel:${tel.replace(/[^0-9]/g, "")}`} style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 22, color: light ? "#fff" : "var(--text-primary)", textDecoration: "none", whiteSpace: "nowrap" }}>
+      <Icon name="phone" size={17} color={light ? "#fff" : "var(--c-kawara)"} />
+      <span style={{ font: "13px/1 var(--font-body)", color: sub }}>電話で相談</span>
+      <span style={{ fontFamily: "var(--font-en)", fontSize: 22, letterSpacing: ".02em" }}>{tel}</span>
+    </a>
+  );
+}
+
+function OutlineCTA({ children, onClick, light, icon }) {
+  const { Icon } = window;
+  return (
+    <a onClick={onClick} style={{
+      cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 9,
+      padding: "16px 26px", borderRadius: "var(--radius-sm)",
+      border: `1px solid ${light ? "rgba(245,241,234,.6)" : "var(--c-sumi)"}`,
+      color: light ? "#fff" : "var(--c-sumi)",
+      font: "var(--fw-bold) 15px/1 var(--font-gothic)", letterSpacing: ".04em",
+      transition: "var(--transition-base)", whiteSpace: "nowrap",
+    }}
+    onMouseEnter={(e) => { e.currentTarget.style.background = light ? "rgba(245,241,234,.12)" : "var(--c-sumi)"; if (!light) e.currentTarget.style.color = "#fff"; }}
+    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; if (!light) e.currentTarget.style.color = "var(--c-sumi)"; }}>
+      {icon && <Icon name={icon} size={16} />}{children}
+    </a>
+  );
+}
+
+const HERO_HEAD = ["岡山で、住まいの悩みを", "相談しやすいリフォーム会社へ。"];
+const HERO_SUB = "水回りも、屋根も、内装も。「どこに相談すればいいか分からない」を、なくします。岡山に根ざした地元のリフォーム会社として、あなたのお悩みからご一緒に整理します。";
+
+/* ---------- A: 信頼・大きく（写真背景） ---------- */
+function HeroTrust({ tel, onJump }) {
+  const { Container, Frame } = window;
+  const { Button } = window.YUI_195e4a;
+  return (
+    <div className="hero-trust" style={{ position: "relative" }}>
+      <Frame tone="wood" note style={{ minHeight: 620, borderRadius: 0 }}>
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(42,37,33,.78) 0%, rgba(42,37,33,.46) 44%, rgba(42,37,33,.12) 82%)" }} />
+        <span style={{ position: "absolute", bottom: 12, right: 16, font: "10.5px/1 var(--font-body)", color: "rgba(255,255,255,.7)" }}>写真はご提供素材に差し替え予定</span>
+        <Container style={{ position: "relative", height: "100%", display: "flex", alignItems: "center" }}>
+          <div className="hero-copy" style={{ maxWidth: 680, paddingTop: 52, paddingBottom: 52 }}>
+            <div style={{ fontFamily: "var(--font-en)", fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(245,241,234,.9)", display: "flex", alignItems: "center", gap: 12 }}>
+              <span style={{ width: 28, height: 1, background: "rgba(245,241,234,.7)" }} />Okayama Reform
+            </div>
+            <h1 style={{ fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: 44, lineHeight: 1.44, letterSpacing: ".02em", color: "#fff", margin: "20px 0 0", textWrap: "balance" }}>
+              {HERO_HEAD[0]}<br />{HERO_HEAD[1]}
+            </h1>
+            <p style={{ font: "var(--fw-regular) 16px/1.95 var(--font-body)", letterSpacing: ".04em", color: "rgba(245,241,234,.9)", marginTop: 20, maxWidth: 540 }}>{HERO_SUB}</p>
+            <div style={{ marginTop: 22 }}><TrustBadge light /></div>
+            <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
+              <Button variant="primary" size="lg" withArrow onClick={() => onJump("contact")}>無料で相談する</Button>
+              <OutlineCTA light onClick={() => onJump("works")}>施工事例を見る</OutlineCTA>
+              <OutlineCTA light onClick={() => onJump("categories")}>リフォームメニューを見る</OutlineCTA>
+            </div>
+            <HeroPhone tel={tel} light />
+          </div>
+        </Container>
+      </Frame>
+    </div>
+  );
+}
+
+/* ---------- B: クイック相談（左コピー＋右に悩み選択） ---------- */
+function HeroSplit({ tel, onJump, onPick }) {
+  const { Container, Icon, CATEGORIES } = window;
+  const { Button } = window.YUI_195e4a;
+  return (
+    <section style={{ background: "var(--color-bg)", borderBottom: "1px solid var(--border-faint)" }}>
+      <Container width="var(--container-wide)" style={{ paddingTop: 56, paddingBottom: 56 }}>
+        <div className="resp-hero" style={{ display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: 48, alignItems: "center" }}>
+          {/* left */}
+          <div>
+            <div style={{ fontFamily: "var(--font-en)", fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: "var(--text-accent)", display: "flex", alignItems: "center", gap: 12 }}>
+              <span style={{ width: 28, height: 1, background: "var(--c-wood)" }} />Okayama Reform
+            </div>
+            <h1 style={{ fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: 40, lineHeight: 1.46, letterSpacing: ".02em", color: "var(--text-primary)", margin: "18px 0 0", textWrap: "balance" }}>
+              {HERO_HEAD[0]}<br />{HERO_HEAD[1]}
+            </h1>
+            <p style={{ font: "var(--fw-regular) 16px/1.95 var(--font-body)", letterSpacing: ".04em", color: "var(--text-secondary)", marginTop: 18, maxWidth: 520 }}>{HERO_SUB}</p>
+            <div style={{ marginTop: 22 }}><TrustBadge /></div>
+            <div style={{ display: "flex", gap: 12, marginTop: 24, flexWrap: "wrap", alignItems: "center" }}>
+              <Button variant="primary" size="lg" withArrow onClick={() => onJump("contact")}>無料で相談する</Button>
+            </div>
+            <HeroPhone tel={tel} />
+          </div>
+          {/* right: 悩み選択カード */}
+          <div style={{ background: "var(--color-surface)", border: "1px solid var(--border)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", padding: "28px 28px 30px" }}>
+            <div style={{ font: "var(--fw-bold) 17px/1.5 var(--font-gothic)", color: "var(--text-primary)" }}>お悩みから、相談内容を選ぶ</div>
+            <p style={{ font: "13px/1.7 var(--font-body)", color: "var(--text-muted)", marginTop: 6 }}>選ぶと、相談フォームの「相談内容」に反映されます。</p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 16 }}>
+              {CATEGORIES.map((c) => (
+                <a key={c.title} onClick={() => onPick(c.title)} style={{
+                  cursor: "pointer", display: "flex", alignItems: "center", gap: 10, padding: "13px 14px",
+                  borderRadius: "var(--radius-sm)", border: "1px solid var(--border)", background: "var(--color-bg)",
+                  transition: "var(--transition-fast)",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--c-kawara)"; e.currentTarget.style.background = "var(--c-shikkui-light)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.background = "var(--color-bg)"; }}>
+                  <Icon name={c.icon} size={20} color="var(--c-wood-deep)" />
+                  <span style={{ font: "var(--fw-medium) 14px/1.3 var(--font-gothic)", color: "var(--text-primary)" }}>{c.title}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ---------- C: 情緒ステートメント（中央） ---------- */
+function HeroStatement({ tel, onJump }) {
+  const { Container, Frame } = window;
+  const { Button } = window.YUI_195e4a;
+  const mini = [["地域密着", "岡山"], ["ご相談", "無料"], ["対応", "県内中心"]];
+  return (
+    <section style={{ background: "var(--color-bg)" }}>
+      <Container style={{ paddingTop: 64, paddingBottom: 40, textAlign: "center" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 12, fontFamily: "var(--font-en)", fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: "var(--text-accent)" }}>
+          <span style={{ width: 26, height: 1, background: "var(--c-wood)" }} />Okayama Reform<span style={{ width: 26, height: 1, background: "var(--c-wood)" }} />
+        </div>
+        <h1 style={{ fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: 46, lineHeight: 1.44, letterSpacing: ".02em", color: "var(--text-primary)", margin: "18px 0 0", textWrap: "balance" }}>
+          {HERO_HEAD[0]}<br />{HERO_HEAD[1]}
+        </h1>
+        <p style={{ font: "var(--fw-regular) 16px/1.95 var(--font-body)", letterSpacing: ".04em", color: "var(--text-secondary)", margin: "18px auto 0", maxWidth: 620, textWrap: "pretty" }}>{HERO_SUB}</p>
+        <div style={{ display: "inline-flex", gap: 0, marginTop: 26, border: "1px solid var(--border)", borderRadius: "var(--radius-md)", overflow: "hidden", background: "var(--color-surface)", flexWrap: "wrap" }}>
+          {mini.map((m, i) => (
+            <div key={i} style={{ padding: "13px 26px", borderLeft: i ? "1px solid var(--border-faint)" : "none", display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}>
+              <span style={{ font: "11px/1 var(--font-body)", color: "var(--text-muted)" }}>{m[0]}</span>
+              <span style={{ font: "var(--fw-bold) 17px/1 var(--font-gothic)", color: "var(--c-kawara)" }}>{m[1]}</span>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: "flex", gap: 12, marginTop: 30, flexWrap: "wrap", justifyContent: "center" }}>
+          <Button variant="primary" size="lg" withArrow onClick={() => onJump("contact")}>無料で相談する</Button>
+          <OutlineCTA onClick={() => onJump("works")}>施工事例を見る</OutlineCTA>
+          <OutlineCTA onClick={() => onJump("categories")}>リフォームメニューを見る</OutlineCTA>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center" }}><HeroPhone tel={tel} /></div>
+      </Container>
+      <Frame tone="wood" style={{ height: 280, borderRadius: 0 }} kicker="施工イメージ" />
+    </section>
+  );
+}
+
+function Hero({ variant, tel, onJump, onPick }) {
+  if (variant === "split") return <HeroSplit tel={tel} onJump={onJump} onPick={onPick} />;
+  if (variant === "statement") return <HeroStatement tel={tel} onJump={onJump} />;
+  return <HeroTrust tel={tel} onJump={onJump} />;
+}
+window.Hero = Hero;

@@ -1,0 +1,72 @@
+/* Header.jsx — グローバルヘッダー（アベルホーム）
+   電話番号は確認中のため、未入力時は「正式番号に差し替え予定」と表示。
+   スマホでは詰まらないよう nav と電話ブロックを隠し、社名＋相談CTAに集約。 */
+function Header({ companyName, tel, scrolled, onJump }) {
+  const { Button } = window.YUI_195e4a;
+  const { Icon, NAV, ABEL } = window;
+  const hasTel = !!(tel && tel.trim());
+  return (
+    <header style={{
+      position: "sticky", top: 0, zIndex: 200,
+      background: scrolled ? "rgba(245,241,234,0.9)" : "var(--color-bg)",
+      backdropFilter: scrolled ? "saturate(140%) blur(10px)" : "none",
+      borderBottom: `1px solid ${scrolled ? "var(--border)" : "transparent"}`,
+      transition: "var(--transition-base)",
+    }}>
+      <div className="hdr-inner" style={{
+        maxWidth: "var(--container-wide)", margin: "0 auto",
+        padding: scrolled ? "11px 20px" : "15px 20px",
+        display: "flex", alignItems: "center", gap: 16,
+        transition: "var(--transition-base)",
+      }}>
+        {/* Wordmark */}
+        <a onClick={() => onJump("top")} style={{ cursor: "pointer", display: "flex", flexDirection: "column", gap: 2, flex: "none" }}>
+          <span style={{ fontFamily: "var(--font-serif)", fontWeight: 600, fontSize: 22, letterSpacing: ".05em", color: "var(--text-primary)", lineHeight: 1 }}>
+            {companyName || ABEL.short}
+          </span>
+          <span style={{ fontFamily: "var(--font-en)", fontSize: 9, letterSpacing: ".22em", color: "var(--text-muted)", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+            Abel Home・岡山のリフォーム
+          </span>
+        </a>
+
+        {/* Nav（スマホ非表示） */}
+        <nav className="hdr-nav" style={{ display: "flex", gap: 0, marginLeft: "auto", flex: "none" }}>
+          {NAV.map((n) => (
+            <a key={n.target} onClick={() => onJump(n.target)} style={{
+              cursor: "pointer", padding: "9px 10px",
+              font: "var(--fw-medium) 13.5px/1 var(--font-gothic)", letterSpacing: ".01em",
+              color: "var(--text-secondary)", whiteSpace: "nowrap", transition: "var(--transition-fast)",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}>{n.label}</a>
+          ))}
+        </nav>
+
+        {/* CTA */}
+        <div className="hdr-cta" style={{ display: "flex", alignItems: "center", gap: 14, flex: "none", marginLeft: "auto" }}>
+          <div className="hdr-phone" style={{ textAlign: "right", lineHeight: 1.25, whiteSpace: "nowrap" }}>
+            {hasTel ? (
+              <a href={`tel:${tel.replace(/[^0-9]/g, "")}`} style={{ textDecoration: "none" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, justifyContent: "flex-end" }}>
+                  <Icon name="phone" size={14} color="var(--c-kawara)" />
+                  <span style={{ fontFamily: "var(--font-en)", fontSize: 18, color: "var(--text-primary)", letterSpacing: ".02em" }}>{tel}</span>
+                </div>
+                <div style={{ font: "10px/1 var(--font-body)", color: "var(--text-muted)", marginTop: 3 }}>無料相談ダイヤル</div>
+              </a>
+            ) : (
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, justifyContent: "flex-end" }}>
+                  <Icon name="phone" size={13} color="var(--text-muted)" />
+                  <span style={{ font: "var(--fw-medium) 13px/1 var(--font-gothic)", color: "var(--text-secondary)" }}>無料相談ダイヤル</span>
+                </div>
+                <div style={{ font: "10px/1.4 var(--font-body)", color: "var(--text-muted)", marginTop: 3 }}>正式番号に差し替え予定</div>
+              </div>
+            )}
+          </div>
+          <Button variant="primary" size="sm" onClick={() => onJump("contact")}>無料で相談する</Button>
+        </div>
+      </div>
+    </header>
+  );
+}
+window.Header = Header;
