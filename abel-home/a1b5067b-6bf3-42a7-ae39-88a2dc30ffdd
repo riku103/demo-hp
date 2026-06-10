@@ -1,0 +1,184 @@
+/* Categories.jsx — よくある悩み別カテゴリ導線（3レイアウト案）
+   cards: アイコン付きカード  list: 比較しやすい横並びリスト  tabs: 悩みを選ぶと詳細が出る
+   カテゴリを選ぶと相談フォームの「相談内容」に反映（onPick）。費用・工期は目安表示。 */
+
+function accentChip(accent) {
+  if (accent === "lively") return { bg: "var(--c-kawara)", fg: "#fff" };
+  if (accent === "standard") return { bg: "var(--c-clay-tint)", fg: "var(--c-kawara)" };
+  return { bg: "var(--c-shikkui-sunken)", fg: "var(--c-wood-deep)" };
+}
+
+function CatHeading() {
+  const { SectionHeading } = window.YUI_195e4a;
+  return (
+    <SectionHeading align="center" label="Menu" title="お悩み別に、相談内容を選べます。"
+      lead="「水回りだけ？」「家まるごと？」——迷ったままで大丈夫です。気になる入口を選ぶと、相談フォームに反映されます。" />
+  );
+}
+
+/* ---------- A: カードグリッド ---------- */
+function CatCards({ accent, onPick }) {
+  const { Icon, CATEGORIES } = window;
+  const chip = accentChip(accent);
+  return (
+    <div className="resp-grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24, marginTop: 40 }}>
+      {CATEGORIES.map((c) => (
+        <a key={c.title} onClick={() => onPick(c.title)} style={{
+          cursor: "pointer", display: "flex", flexDirection: "column", textDecoration: "none",
+          background: "var(--color-surface)", border: "1px solid var(--border)", borderRadius: "var(--radius-md)",
+          boxShadow: "var(--shadow-xs)", padding: "26px 24px 22px", transition: "var(--transition-base)",
+        }}
+        onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "var(--shadow-md)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
+        onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "var(--shadow-xs)"; e.currentTarget.style.transform = "none"; }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <span style={{ width: 52, height: 52, borderRadius: "var(--radius-sm)", background: chip.bg, display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
+              <Icon name={c.icon} size={26} color={chip.fg} />
+            </span>
+            <div>
+              <div style={{ fontFamily: "var(--font-en)", fontSize: 10, letterSpacing: ".2em", textTransform: "uppercase", color: "var(--text-muted)" }}>{c.en}</div>
+              <h3 style={{ font: "var(--fw-bold) 19px/1.3 var(--font-gothic)", color: "var(--text-primary)", margin: "3px 0 0" }}>{c.title}</h3>
+            </div>
+          </div>
+          <p style={{ font: "13.5px/1.7 var(--font-body)", color: "var(--text-secondary)", marginTop: 16 }}>{c.sub}</p>
+          <ul style={{ listStyle: "none", padding: 0, margin: "14px 0 0", display: "flex", flexDirection: "column", gap: 7 }}>
+            {c.examples.map((ex, i) => (
+              <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8, font: "13px/1.6 var(--font-body)", color: "var(--text-secondary)" }}>
+                <Icon name="check" size={15} color="var(--c-moss)" style={{ marginTop: 2 }} />「{ex}」
+              </li>
+            ))}
+          </ul>
+          <div style={{ marginTop: "auto", paddingTop: 18, display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 12, borderTop: "1px solid var(--border-faint)" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              <span style={{ font: "var(--fw-medium) 12.5px/1.3 var(--font-gothic)", color: "var(--c-kawara)", whiteSpace: "nowrap" }}>{c.price}</span>
+              <span style={{ font: "11.5px/1.3 var(--font-body)", color: "var(--text-muted)", whiteSpace: "nowrap" }}>{c.term}</span>
+            </div>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, font: "var(--fw-bold) 13px/1 var(--font-gothic)", color: "var(--text-primary)", whiteSpace: "nowrap" }}>
+              相談する<Icon name="arrow" size={15} />
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  );
+}
+
+/* ---------- B: 比較しやすい横並びリスト ---------- */
+function CatList({ accent, onPick }) {
+  const { Icon, CATEGORIES } = window;
+  const chip = accentChip(accent);
+  return (
+    <div style={{ marginTop: 36, border: "1px solid var(--border)", borderRadius: "var(--radius-md)", overflow: "hidden", background: "var(--color-surface)" }}>
+      {CATEGORIES.map((c, i) => (
+        <a key={c.title} onClick={() => onPick(c.title)} className="resp-listrow" style={{
+          cursor: "pointer", display: "grid", gridTemplateColumns: "minmax(190px,1fr) 1.4fr auto auto", gap: 24, alignItems: "center",
+          padding: "20px 26px", borderTop: i ? "1px solid var(--border-faint)" : "none", textDecoration: "none",
+          transition: "var(--transition-fast)",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.background = "var(--c-shikkui-light)")}
+        onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <span style={{ width: 48, height: 48, borderRadius: "var(--radius-sm)", background: chip.bg, display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
+              <Icon name={c.icon} size={24} color={chip.fg} />
+            </span>
+            <div>
+              <h3 style={{ font: "var(--fw-bold) 18px/1.3 var(--font-gothic)", color: "var(--text-primary)", margin: 0 }}>{c.title}</h3>
+              <div style={{ font: "12px/1.5 var(--font-body)", color: "var(--text-muted)", marginTop: 4 }}>{c.sub}</div>
+            </div>
+          </div>
+          <div className="lr-ex" style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {c.examples.map((ex, j) => (
+              <span key={j} style={{ font: "12.5px/1.5 var(--font-body)", color: "var(--text-secondary)", background: "var(--c-shikkui-sunken)", borderRadius: "var(--radius-sm)", padding: "5px 10px" }}>「{ex}」</span>
+            ))}
+          </div>
+          <div className="lr-meta" style={{ display: "flex", flexDirection: "column", gap: 4, whiteSpace: "nowrap" }}>
+            <span style={{ font: "var(--fw-medium) 13px/1.3 var(--font-gothic)", color: "var(--c-kawara)" }}>{c.price}</span>
+            <span style={{ font: "11.5px/1.3 var(--font-body)", color: "var(--text-muted)" }}>{c.term}</span>
+          </div>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, font: "var(--fw-bold) 13px/1 var(--font-gothic)", color: "var(--text-primary)", whiteSpace: "nowrap" }}>
+            相談する<Icon name="arrow" size={15} />
+          </span>
+        </a>
+      ))}
+    </div>
+  );
+}
+
+/* ---------- C: 悩みを選ぶと詳細が出る（タブ） ---------- */
+function CatTabs({ accent, onPick }) {
+  const { Frame, Icon, CATEGORIES } = window;
+  const { Button } = window.YUI_195e4a;
+  const [sel, setSel] = React.useState(0);
+  const chip = accentChip(accent);
+  const c = CATEGORIES[sel];
+  return (
+    <div className="resp-tabs" style={{ display: "grid", gridTemplateColumns: "290px 1fr", gap: 32, marginTop: 40, alignItems: "start" }}>
+      {/* tab list */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {CATEGORIES.map((cat, i) => {
+          const active = i === sel;
+          return (
+            <button key={cat.title} onClick={() => setSel(i)} style={{
+              cursor: "pointer", display: "flex", alignItems: "center", gap: 13, textAlign: "left",
+              padding: "15px 16px", borderRadius: "var(--radius-sm)",
+              border: `1px solid ${active ? "var(--c-sumi)" : "var(--border)"}`,
+              background: active ? "var(--c-sumi)" : "var(--color-surface)",
+              transition: "var(--transition-fast)",
+            }}>
+              <Icon name={cat.icon} size={22} color={active ? "var(--c-wood)" : "var(--c-wood-deep)"} />
+              <span style={{ font: "var(--fw-medium) 15px/1.3 var(--font-gothic)", color: active ? "#fff" : "var(--text-primary)" }}>{cat.title}</span>
+              <Icon name="arrow" size={15} color={active ? "#fff" : "var(--text-muted)"} style={{ marginLeft: "auto" }} />
+            </button>
+          );
+        })}
+      </div>
+      {/* detail panel */}
+      <div style={{ background: "var(--color-surface)", border: "1px solid var(--border)", borderRadius: "var(--radius-md)", overflow: "hidden", boxShadow: "var(--shadow-sm)" }}>
+        <div className="resp-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <Frame tone={c.tone} style={{ minHeight: 280 }} kicker={c.title} />
+          <div style={{ padding: "28px 30px", display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <span style={{ width: 46, height: 46, borderRadius: "var(--radius-sm)", background: chip.bg, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Icon name={c.icon} size={24} color={chip.fg} />
+              </span>
+              <div>
+                <div style={{ fontFamily: "var(--font-en)", fontSize: 10, letterSpacing: ".2em", textTransform: "uppercase", color: "var(--text-muted)" }}>{c.en}</div>
+                <h3 style={{ font: "var(--fw-bold) 21px/1.3 var(--font-gothic)", color: "var(--text-primary)", margin: "3px 0 0" }}>{c.title}</h3>
+              </div>
+            </div>
+            <p style={{ font: "14px/1.8 var(--font-body)", color: "var(--text-secondary)", marginTop: 16 }}>{c.sub}</p>
+            <ul style={{ listStyle: "none", padding: 0, margin: "12px 0 0", display: "flex", flexDirection: "column", gap: 8 }}>
+              {c.examples.map((ex, i) => (
+                <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8, font: "13.5px/1.6 var(--font-body)", color: "var(--text-secondary)" }}>
+                  <Icon name="check" size={16} color="var(--c-moss)" style={{ marginTop: 2 }} />「{ex}」
+                </li>
+              ))}
+            </ul>
+            <div style={{ display: "flex", gap: 22, marginTop: 18, paddingTop: 16, borderTop: "1px solid var(--border-faint)", flexWrap: "wrap" }}>
+              <span style={{ font: "var(--fw-medium) 15px/1.3 var(--font-gothic)", color: "var(--c-kawara)", whiteSpace: "nowrap" }}>{c.price}</span>
+              <span style={{ font: "var(--fw-medium) 14px/1.3 var(--font-gothic)", color: "var(--text-primary)", whiteSpace: "nowrap" }}>{c.term}</span>
+            </div>
+            <div style={{ marginTop: 20, display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <Button variant="primary" withArrow onClick={() => onPick(c.title)}>この内容で相談する</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Categories({ layout, accent, onPick }) {
+  const { Container } = window;
+  return (
+    <section data-screen-label="悩み別カテゴリ導線" className="sec" style={{ background: "var(--color-bg)", padding: "var(--section-y) 0" }}>
+      <Container width="var(--container-wide)">
+        <CatHeading />
+        <div style={{ textAlign: "center", marginTop: 12, font: "12px/1.6 var(--font-body)", color: "var(--text-muted)" }}>※費用・工期は一般的な目安です。内容により変わります。</div>
+        {layout === "list" ? <CatList accent={accent} onPick={onPick} />
+          : layout === "tabs" ? <CatTabs accent={accent} onPick={onPick} />
+          : <CatCards accent={accent} onPick={onPick} />}
+      </Container>
+    </section>
+  );
+}
+window.Categories = Categories;

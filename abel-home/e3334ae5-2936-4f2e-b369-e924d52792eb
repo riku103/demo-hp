@@ -1,0 +1,79 @@
+/* App.jsx — 組み立て＋Tweaks（ヒーロー案 / カテゴリ導線 / アクセント強さ / 会社情報）
+   ・カテゴリを選ぶと相談フォームの「相談内容」に反映し、フォームへスクロール
+   ・電話番号は既定で空＝「確認中」表示。正式番号が分かれば Tweaks で入力 */
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "heroVariant": "trust",
+  "categoryLayout": "cards",
+  "accent": "subtle",
+  "companyName": "アベルホーム",
+  "tel": ""
+}/*EDITMODE-END*/;
+
+const ACCENT_VARS = {
+  subtle: {},
+  standard: { "--text-accent": "var(--c-kawara)" },
+  lively: { "--text-accent": "var(--c-kawara)", "--c-wood": "var(--c-kawara)", "--c-wood-deep": "var(--c-kawara-deep)" },
+};
+
+const HERO_OPTS = [{ value: "trust", label: "信頼型" }, { value: "split", label: "相談型" }, { value: "statement", label: "情緒型" }];
+const CAT_OPTS = [{ value: "cards", label: "カード" }, { value: "list", label: "リスト" }, { value: "tabs", label: "タブ" }];
+const ACC_OPTS = [{ value: "subtle", label: "控えめ" }, { value: "standard", label: "標準" }, { value: "lively", label: "元気" }];
+
+function App() {
+  const { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakText } = window;
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [scrolled, setScrolled] = React.useState(false);
+  const [picked, setPicked] = React.useState(null);
+
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const jump = (id) => {
+    if (id === "top") { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+    const el = document.getElementById("sec-" + id);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 64;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
+
+  // カテゴリ選択 → フォームに反映してスクロール
+  const pickCategory = (title) => { setPicked(title); jump("contact"); };
+
+  const { Header, Hero, StatsStrip, Categories, WorksSection, ReasonsSection, VoiceSection, FlowSection, CompanySection, ContactSection, Footer } = window;
+  const accentVars = ACCENT_VARS[t.accent] || {};
+
+  return (
+    <div style={{ ...accentVars, background: "var(--color-bg)" }}>
+      <Header companyName={t.companyName} tel={t.tel} scrolled={scrolled} onJump={jump} />
+      <Hero variant={t.heroVariant} tel={t.tel} onJump={jump} onPick={pickCategory} />
+      <StatsStrip />
+      <div id="sec-categories"><Categories layout={t.categoryLayout} accent={t.accent} onPick={pickCategory} /></div>
+      <div id="sec-works"><WorksSection onJump={jump} /></div>
+      <div id="sec-voice"><VoiceSection /></div>
+      <div id="sec-reasons"><ReasonsSection /></div>
+      <div id="sec-flow"><FlowSection onJump={jump} /></div>
+      <div id="sec-company"><CompanySection /></div>
+      <div id="sec-contact"><ContactSection tel={t.tel} companyName={t.companyName} picked={picked} setPicked={setPicked} /></div>
+      <Footer companyName={t.companyName} tel={t.tel} onJump={jump} />
+
+      <TweaksPanel>
+        <TweakSection label="ファーストビュー" />
+        <TweakRadio label="ヒーロー案" value={t.heroVariant} options={HERO_OPTS} onChange={(v) => setTweak("heroVariant", v)} />
+        <TweakSection label="悩み別カテゴリ導線" />
+        <TweakRadio label="レイアウト" value={t.categoryLayout} options={CAT_OPTS} onChange={(v) => setTweak("categoryLayout", v)} />
+        <TweakSection label="配色" />
+        <TweakRadio label="オレンジの効かせ方" value={t.accent} options={ACC_OPTS} onChange={(v) => setTweak("accent", v)} />
+        <TweakSection label="会社情報（正式情報に差し替え用）" />
+        <TweakText label="社名（表示用）" value={t.companyName} onChange={(v) => setTweak("companyName", v)} />
+        <TweakText label="電話番号（空＝確認中表示）" value={t.tel} onChange={(v) => setTweak("tel", v)} />
+      </TweaksPanel>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);

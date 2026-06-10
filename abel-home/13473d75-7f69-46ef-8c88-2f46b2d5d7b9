@@ -1,0 +1,55 @@
+/* Footer.jsx — フッター（アベルホーム）
+   内部向け表記（デザインシステム名・提案ラフ等）は出さない。電話・エリア・定休は確認中表現。 */
+function Footer({ companyName, tel, onJump }) {
+  const { Icon, ABEL } = window;
+  const hasTel = !!(tel && tel.trim());
+  const cols = [
+    { h: "Menu", items: ["水回り", "屋根・外壁", "内装・間取り", "外構・エクステリア", "バリアフリー・介護", "全面改装・増改築"], t: "categories" },
+    { h: "Guide", items: [["施工事例", "works"], ["お客様の声", "voice"], ["選ばれる理由", "reasons"], ["相談の流れ", "flow"], ["会社案内", "company"]] },
+  ];
+  return (
+    <footer style={{ background: "var(--color-ink-surface)", color: "var(--text-on-dark)" }}>
+      <div className="ft-top" style={{ maxWidth: "var(--container-wide)", margin: "0 auto", padding: "56px 24px 0", display: "flex", gap: 56, flexWrap: "wrap" }}>
+        <div style={{ flex: "1 1 300px", minWidth: 240 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <span style={{ fontFamily: "var(--font-serif)", fontWeight: 600, fontSize: 24, letterSpacing: ".05em" }}>{companyName || ABEL.jp}</span>
+            <span style={{ fontFamily: "var(--font-en)", fontSize: 10, letterSpacing: ".24em", color: "rgba(245,241,234,.55)", textTransform: "uppercase" }}>Abel Home</span>
+          </div>
+          <p style={{ font: "13px/1.9 var(--font-body)", color: "rgba(245,241,234,.66)", marginTop: 16, maxWidth: 320 }}>{ABEL.tag}。<br />水回りから全面改装まで、岡山の住まいのお困りごとに寄り添います。</p>
+          {hasTel ? (
+            <a href={`tel:${tel.replace(/[^0-9]/g, "")}`} style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 18, textDecoration: "none" }}>
+              <Icon name="phone" size={17} color="var(--c-wood)" />
+              <span style={{ fontFamily: "var(--font-en)", fontSize: 24, color: "#fff", letterSpacing: ".02em" }}>{tel}</span>
+            </a>
+          ) : (
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 18 }}>
+              <Icon name="phone" size={15} color="rgba(245,241,234,.6)" />
+              <span style={{ font: "13px/1.5 var(--font-body)", color: "rgba(245,241,234,.72)" }}>無料相談ダイヤル：正式番号に差し替え予定</span>
+            </div>
+          )}
+          <div style={{ font: "12px/1.8 var(--font-body)", color: "rgba(245,241,234,.55)", marginTop: 10 }}>{ABEL.areaSafe}<br />受付時間・定休日は確認中です。</div>
+        </div>
+        {cols.map((c, i) => (
+          <div key={i} style={{ flex: "0 1 200px", minWidth: 160 }}>
+            <div style={{ fontFamily: "var(--font-en)", fontSize: 11, letterSpacing: ".18em", textTransform: "uppercase", color: "var(--c-wood)", marginBottom: 16 }}>{c.h}</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
+              {c.items.map((it, j) => {
+                const label = Array.isArray(it) ? it[0] : it;
+                const target = Array.isArray(it) ? it[1] : c.t;
+                return (
+                  <a key={j} onClick={() => onJump && onJump(target)} style={{ cursor: "pointer", font: "14px/1.4 var(--font-gothic)", color: "rgba(245,241,234,.82)", transition: "var(--transition-fast)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(245,241,234,.82)")}>{label}</a>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ maxWidth: "var(--container-wide)", margin: "44px auto 0", padding: "20px 24px", borderTop: "1px solid rgba(245,241,234,.14)" }}>
+        <span style={{ font: "12px/1 var(--font-body)", color: "rgba(245,241,234,.5)" }}>© {new Date().getFullYear()} {companyName || ABEL.jp}</span>
+      </div>
+    </footer>
+  );
+}
+window.Footer = Footer;

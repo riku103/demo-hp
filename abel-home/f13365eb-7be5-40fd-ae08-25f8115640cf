@@ -1,0 +1,2957 @@
+/* @ds-bundle: {"format":3,"namespace":"YUI_195e4a","components":[{"name":"EventCard","sourcePath":"components/content/EventCard.jsx"},{"name":"FeatureCard","sourcePath":"components/content/FeatureCard.jsx"},{"name":"StaffCard","sourcePath":"components/content/StaffCard.jsx"},{"name":"VoiceCard","sourcePath":"components/content/VoiceCard.jsx"},{"name":"WorksCard","sourcePath":"components/content/WorksCard.jsx"},{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"SectionHeading","sourcePath":"components/core/SectionHeading.jsx"},{"name":"Tag","sourcePath":"components/core/Tag.jsx"},{"name":"ContactCTABand","sourcePath":"components/cta/ContactCTABand.jsx"},{"name":"FAQAccordion","sourcePath":"components/structure/FAQAccordion.jsx"},{"name":"FlowStep","sourcePath":"components/structure/FlowStep.jsx"},{"name":"PerformanceSpec","sourcePath":"components/structure/PerformanceSpec.jsx"}],"sourceHashes":{"components/content/EventCard.jsx":"eefaa6b6ab4b","components/content/FeatureCard.jsx":"068b65d2b105","components/content/StaffCard.jsx":"005691412119","components/content/VoiceCard.jsx":"0b0413b081ac","components/content/WorksCard.jsx":"0d7bebc72fea","components/core/Button.jsx":"0ab0eb445c6f","components/core/SectionHeading.jsx":"cc6142532585","components/core/Tag.jsx":"898f2347f47b","components/cta/ContactCTABand.jsx":"f4156d5b445c","components/structure/FAQAccordion.jsx":"9656dc3262f2","components/structure/FlowStep.jsx":"55251c6dd940","components/structure/PerformanceSpec.jsx":"62956bdc2070","ui_kits/website/ContactPage.jsx":"56fd77b9e229","ui_kits/website/FlowPage.jsx":"2da29d61324e","ui_kits/website/Footer.jsx":"b74db73c13e8","ui_kits/website/Header.jsx":"6a132aa82046","ui_kits/website/TopPage.jsx":"2c65c3a553e4","ui_kits/website/WorksDetailPage.jsx":"2c305b72ad19","ui_kits/website/WorksListPage.jsx":"04d9ec400d47"},"inlinedExternals":[],"unexposedExports":[]} */
+
+(() => {
+
+const __ds_ns = (window.YUI_195e4a = window.YUI_195e4a || {});
+
+const __ds_scope = {};
+
+(__ds_ns.__errors = __ds_ns.__errors || []);
+
+// components/content/FeatureCard.jsx
+try { (() => {
+/**
+ * FeatureCard — 結 YUI
+ * 強み・こだわりを伝えるカード。写真 or 番号/アイコンの2バリエーション。
+ * スペックではなく「暮らしの利点」を短く。
+ */
+
+function Photo({
+  src,
+  label,
+  ratio = "4 / 3",
+  radius = "var(--radius-md) var(--radius-md) 0 0"
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      aspectRatio: ratio,
+      background: src ? `center/cover no-repeat url(${src})` : "var(--c-soil)",
+      borderRadius: radius,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }
+  }, !src && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 11,
+      letterSpacing: ".2em",
+      textTransform: "uppercase",
+      color: "rgba(255,255,255,.85)"
+    }
+  }, label || "Photo"));
+}
+function FeatureCard({
+  image,
+  imageLabel,
+  index,
+  // 番号（"01"）。imageが無いとき使う
+  title,
+  body,
+  tag,
+  // 任意の小ラベル
+  href,
+  style
+}) {
+  const [hover, setHover] = React.useState(false);
+  const Wrap = href ? "a" : "div";
+  return /*#__PURE__*/React.createElement(Wrap, {
+    href: href,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+    style: {
+      display: "block",
+      background: "var(--color-surface)",
+      border: "1px solid var(--border)",
+      borderRadius: "var(--radius-md)",
+      boxShadow: hover ? "var(--shadow-md)" : "var(--shadow-sm)",
+      overflow: "hidden",
+      textDecoration: "none",
+      transform: hover && href ? "translateY(-3px)" : "none",
+      transition: "var(--transition-base)",
+      ...style
+    }
+  }, image !== undefined ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      transform: hover && href ? "scale(var(--image-zoom))" : "none",
+      transition: "var(--transition-base)"
+    }
+  }, /*#__PURE__*/React.createElement(Photo, {
+    src: image,
+    label: imageLabel
+  }))) : null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "26px 26px 28px"
+    }
+  }, index && image === undefined && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 30,
+      fontWeight: "var(--fw-light)",
+      color: "var(--c-wood)",
+      letterSpacing: ".02em",
+      marginBottom: 8
+    }
+  }, index), tag && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: "var(--fs-label)",
+      fontWeight: "var(--fw-medium)",
+      letterSpacing: "var(--ls-label)",
+      textTransform: "uppercase",
+      color: "var(--text-accent)",
+      marginBottom: 10
+    }
+  }, tag), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: "var(--font-gothic)",
+      fontWeight: "var(--fw-bold)",
+      fontSize: "var(--fs-h3)",
+      lineHeight: "var(--lh-heading)",
+      color: "var(--text-primary)",
+      margin: 0
+    }
+  }, title), body && /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--type-body)",
+      letterSpacing: "var(--ls-normal)",
+      color: "var(--text-secondary)",
+      marginTop: 12,
+      textWrap: "pretty"
+    }
+  }, body)));
+}
+Object.assign(__ds_scope, { FeatureCard });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/content/FeatureCard.jsx", error: String((e && e.message) || e) }); }
+
+// components/content/StaffCard.jsx
+try { (() => {
+/**
+ * StaffCard — 結 YUI
+ * スタッフ紹介。自然な表情の人物写真＋肩書（英字ラベル）＋名前＋ひとこと。
+ * 相談の心理的ハードルを下げる、人柄が伝わる見せ方。
+ */
+
+function StaffCard({
+  image,
+  imageLabel,
+  roleEn,
+  // "CARPENTER" 等の英字ラベル
+  role,
+  // "大工 / 棟梁"
+  name,
+  // "山田 太郎"
+  comment,
+  // ひとこと
+  style
+}) {
+  const [hover, setHover] = React.useState(false);
+  return /*#__PURE__*/React.createElement("div", {
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+    style: {
+      ...style
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      overflow: "hidden",
+      borderRadius: "var(--radius-md)",
+      boxShadow: "var(--shadow-xs)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      aspectRatio: "3 / 4",
+      background: image ? `center/cover no-repeat url(${image})` : "var(--c-soil)",
+      transform: hover ? "scale(var(--image-zoom))" : "none",
+      transition: "var(--transition-base)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }
+  }, !image && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 11,
+      letterSpacing: ".2em",
+      textTransform: "uppercase",
+      color: "rgba(255,255,255,.85)"
+    }
+  }, imageLabel || "Staff"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      paddingTop: 16
+    }
+  }, roleEn && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: "var(--fs-label)",
+      fontWeight: "var(--fw-medium)",
+      letterSpacing: "var(--ls-label)",
+      textTransform: "uppercase",
+      color: "var(--text-accent)",
+      marginBottom: 6
+    }
+  }, roleEn), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "baseline",
+      gap: "4px 10px",
+      flexWrap: "wrap"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      font: "var(--fw-bold) var(--fs-h4)/1.4 var(--font-gothic)",
+      color: "var(--text-primary)",
+      whiteSpace: "nowrap"
+    }
+  }, name), role && /*#__PURE__*/React.createElement("span", {
+    style: {
+      font: "var(--type-caption)",
+      color: "var(--text-secondary)",
+      whiteSpace: "nowrap"
+    }
+  }, role)), comment && /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--type-caption)",
+      lineHeight: "var(--lh-snug)",
+      color: "var(--text-secondary)",
+      marginTop: 8,
+      textWrap: "pretty"
+    }
+  }, "\u300C", comment, "\u300D")));
+}
+Object.assign(__ds_scope, { StaffCard });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/content/StaffCard.jsx", error: String((e && e.message) || e) }); }
+
+// components/content/VoiceCard.jsx
+try { (() => {
+/**
+ * VoiceCard — 結 YUI
+ * お客様の声。具体的なエピソード引用＋家族写真＋属性（地域/家族構成/家のタイプ）。
+ * 演出された絶賛より、暮らしの実感を主役に。
+ */
+
+function VoiceCard({
+  image,
+  imageLabel,
+  quote,
+  // 口語の一節「〜でした。」
+  name,
+  // "○○市 N様"
+  meta,
+  // "ご夫婦＋お子さま2人／平屋28坪"
+  style
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      background: "var(--color-surface)",
+      border: "1px solid var(--border)",
+      borderRadius: "var(--radius-md)",
+      overflow: "hidden",
+      boxShadow: "var(--shadow-xs)",
+      height: "100%",
+      ...style
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      aspectRatio: "16 / 10",
+      background: image ? `center/cover no-repeat url(${image})` : "var(--c-moss)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }
+  }, !image && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 11,
+      letterSpacing: ".2em",
+      textTransform: "uppercase",
+      color: "rgba(255,255,255,.85)"
+    }
+  }, imageLabel || "Family")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "24px 24px 26px",
+      display: "flex",
+      flexDirection: "column",
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontSize: 34,
+      lineHeight: 1,
+      height: 18,
+      color: "var(--c-wood)",
+      marginBottom: 6
+    }
+  }, "\u201C"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontWeight: "var(--fw-regular)",
+      fontSize: "var(--fs-body-lg)",
+      lineHeight: "var(--lh-snug)",
+      letterSpacing: "var(--ls-normal)",
+      color: "var(--text-primary)",
+      margin: 0,
+      flex: 1,
+      textWrap: "pretty"
+    }
+  }, quote), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 18,
+      paddingTop: 16,
+      borderTop: "1px solid var(--border-faint)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      font: "var(--fw-bold) var(--fs-sm)/1.4 var(--font-gothic)",
+      color: "var(--text-primary)"
+    }
+  }, name), meta && /*#__PURE__*/React.createElement("div", {
+    style: {
+      font: "var(--type-caption)",
+      color: "var(--text-muted)",
+      marginTop: 3
+    }
+  }, meta))));
+}
+Object.assign(__ds_scope, { VoiceCard });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/content/VoiceCard.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/Button.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/**
+ * Button — 結 YUI 工務店デザインシステム
+ *
+ * CTA・主要操作のボタン。押し売り感を出さないため、主CTA（瓦のテラコッタ）は
+ * 面積を絞って一点豪華に。副次操作は墨の枠線、補助はゴースト。
+ */
+
+// Lucide "arrow-right"（線画アイコンを内蔵）
+function ArrowRight({
+  size = 18
+}) {
+  return /*#__PURE__*/React.createElement("svg", {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.75",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": "true",
+    style: {
+      flex: "none"
+    }
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M5 12h14"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "m12 5 7 7-7 7"
+  }));
+}
+const SIZES = {
+  sm: {
+    padding: "10px 18px",
+    font: "14px"
+  },
+  md: {
+    padding: "14px 28px",
+    font: "16px"
+  },
+  lg: {
+    padding: "18px 38px",
+    font: "17px"
+  }
+};
+function Button({
+  children,
+  variant = "primary",
+  // "primary" | "secondary" | "ghost"
+  size = "md",
+  // "sm" | "md" | "lg"
+  withArrow = false,
+  disabled = false,
+  href,
+  onClick,
+  style,
+  ...rest
+}) {
+  const [hover, setHover] = React.useState(false);
+  const [press, setPress] = React.useState(false);
+  const s = SIZES[size] || SIZES.md;
+  const base = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "10px",
+    fontFamily: "var(--font-gothic)",
+    fontWeight: "var(--fw-bold)",
+    fontSize: s.font,
+    letterSpacing: "0.06em",
+    lineHeight: 1,
+    padding: s.padding,
+    borderRadius: "var(--radius-sm)",
+    border: "1px solid transparent",
+    cursor: disabled ? "not-allowed" : "pointer",
+    textDecoration: "none",
+    transition: "var(--transition-base)",
+    transform: press && !disabled ? "translateY(1px)" : "none",
+    opacity: disabled ? 0.45 : 1,
+    whiteSpace: "nowrap"
+  };
+  const variants = {
+    primary: {
+      background: hover && !disabled ? "var(--cta-primary-bg-hover)" : "var(--cta-primary-bg)",
+      color: "var(--cta-primary-text)",
+      boxShadow: press || disabled ? "none" : "var(--shadow-sm)"
+    },
+    secondary: {
+      background: hover && !disabled ? "var(--c-sumi)" : "transparent",
+      color: hover && !disabled ? "var(--text-on-dark)" : "var(--cta-secondary-text)",
+      borderColor: "var(--cta-secondary-border)"
+    },
+    ghost: {
+      background: hover && !disabled ? "var(--c-shikkui-sunken)" : "transparent",
+      color: "var(--text-primary)",
+      borderColor: "transparent"
+    }
+  };
+  const props = {
+    style: {
+      ...base,
+      ...variants[variant],
+      ...style
+    },
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => {
+      setHover(false);
+      setPress(false);
+    },
+    onMouseDown: () => setPress(true),
+    onMouseUp: () => setPress(false),
+    "aria-disabled": disabled || undefined,
+    ...rest
+  };
+  const inner = /*#__PURE__*/React.createElement(React.Fragment, null, children, withArrow && /*#__PURE__*/React.createElement(ArrowRight, {
+    size: size === "sm" ? 16 : 18
+  }));
+  if (href && !disabled) {
+    return /*#__PURE__*/React.createElement("a", _extends({
+      href: href,
+      onClick: onClick
+    }, props), inner);
+  }
+  return /*#__PURE__*/React.createElement("button", _extends({
+    type: "button",
+    disabled: disabled,
+    onClick: disabled ? undefined : onClick
+  }, props), inner);
+}
+Object.assign(__ds_scope, { Button });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Button.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/SectionHeading.jsx
+try { (() => {
+/**
+ * SectionHeading — 結 YUI
+ * 英字ラベル → 明朝の和文見出し → リード文 の「型」。全セクション共通の入り口。
+ */
+
+function SectionHeading({
+  label,
+  // 英字ラベル "CONCEPT" 等
+  title,
+  // 和文見出し（明朝）
+  lead,
+  // リード文（任意）
+  align = "left",
+  // "left" | "center"
+  onDark = false,
+  // 濃色面の上に置く場合
+  style
+}) {
+  const isCenter = align === "center";
+  const titleColor = onDark ? "var(--text-on-dark)" : "var(--text-primary)";
+  const leadColor = onDark ? "rgba(245,241,234,0.78)" : "var(--text-secondary)";
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: align,
+      ...style
+    }
+  }, label && /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "12px",
+      fontFamily: "var(--font-en)",
+      fontWeight: "var(--fw-medium)",
+      fontSize: "var(--fs-label)",
+      letterSpacing: "var(--ls-label)",
+      textTransform: "uppercase",
+      color: onDark ? "var(--c-wood)" : "var(--text-accent)"
+    }
+  }, !isCenter && /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 26,
+      height: 1,
+      background: "var(--c-wood)"
+    }
+  }), label, isCenter && /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 26,
+      height: 1,
+      background: "var(--c-wood)"
+    }
+  })), title && /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontWeight: "var(--fw-medium)",
+      fontSize: "var(--fs-h2)",
+      lineHeight: "var(--lh-heading)",
+      letterSpacing: "var(--ls-normal)",
+      color: titleColor,
+      margin: label ? "16px 0 0" : 0,
+      textWrap: "pretty"
+    }
+  }, title), lead && /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--type-body)",
+      letterSpacing: "var(--ls-normal)",
+      color: leadColor,
+      marginTop: "16px",
+      maxWidth: isCenter ? "620px" : "560px",
+      marginLeft: isCenter ? "auto" : 0,
+      marginRight: isCenter ? "auto" : 0,
+      textWrap: "pretty"
+    }
+  }, lead));
+}
+Object.assign(__ds_scope, { SectionHeading });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/SectionHeading.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/Tag.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/**
+ * Tag — 結 YUI
+ * 施工事例のテイスト/種別、イベント種別、絞り込みチップなど。
+ * tone で自然色を出し分け。filter モードは選択状態を持つ。
+ */
+
+const TONES = {
+  neutral: {
+    bg: "var(--c-shikkui-sunken)",
+    fg: "var(--text-secondary)",
+    bd: "var(--border)"
+  },
+  wood: {
+    bg: "var(--c-clay-tint)",
+    fg: "var(--c-wood-deep)",
+    bd: "transparent"
+  },
+  moss: {
+    bg: "var(--c-moss-tint)",
+    fg: "var(--c-moss-deep)",
+    bd: "transparent"
+  },
+  notice: {
+    bg: "var(--c-notice-tint)",
+    fg: "var(--c-notice)",
+    bd: "transparent"
+  },
+  warning: {
+    bg: "var(--c-warning-tint)",
+    fg: "#9A6E1F",
+    bd: "transparent"
+  }
+};
+function Tag({
+  children,
+  tone = "neutral",
+  // neutral | wood | moss | notice | warning
+  variant = "soft",
+  // "soft"(色面) | "filter"(チップ)
+  active = false,
+  // filter時の選択状態
+  onClick,
+  style,
+  ...rest
+}) {
+  const t = TONES[tone] || TONES.neutral;
+  const isFilter = variant === "filter";
+  const styles = isFilter ? {
+    background: active ? "var(--c-sumi)" : "var(--color-surface)",
+    color: active ? "var(--text-on-dark)" : "var(--text-secondary)",
+    border: `1px solid ${active ? "var(--c-sumi)" : "var(--border-strong)"}`,
+    borderRadius: "var(--radius-pill)",
+    padding: "8px 18px",
+    cursor: "pointer"
+  } : {
+    background: t.bg,
+    color: t.fg,
+    border: `1px solid ${t.bd}`,
+    borderRadius: "var(--radius-sm)",
+    padding: "4px 11px"
+  };
+  return /*#__PURE__*/React.createElement("span", _extends({
+    onClick: onClick,
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "6px",
+      fontFamily: "var(--font-gothic)",
+      fontWeight: "var(--fw-medium)",
+      fontSize: "var(--fs-caption)",
+      letterSpacing: "0.04em",
+      lineHeight: 1,
+      whiteSpace: "nowrap",
+      transition: "var(--transition-fast)",
+      ...styles,
+      ...style
+    }
+  }, rest), children);
+}
+Object.assign(__ds_scope, { Tag });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Tag.jsx", error: String((e && e.message) || e) }); }
+
+// components/content/EventCard.jsx
+try { (() => {
+/**
+ * EventCard — 結 YUI
+ * 見学会・相談会・完成見学会の告知。日付ブロック（Jost大）＋種別タグ＋会場＋残席。
+ * 横並び（写真＋情報）。来場予約CTAへ。
+ */
+
+function EventCard({
+  image,
+  imageLabel,
+  month,
+  // "06"
+  day,
+  // "21"
+  weekday,
+  // "土"
+  typeLabel = "見学会",
+  typeTone = "moss",
+  title,
+  place,
+  // 会場・エリア
+  status,
+  // "残席わずか" 等（任意）
+  statusTone = "warning",
+  href,
+  style
+}) {
+  const [hover, setHover] = React.useState(false);
+  return /*#__PURE__*/React.createElement("a", {
+    href: href,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+    style: {
+      display: "flex",
+      gap: 0,
+      textDecoration: "none",
+      background: "var(--color-surface)",
+      border: "1px solid var(--border)",
+      borderRadius: "var(--radius-md)",
+      overflow: "hidden",
+      boxShadow: hover ? "var(--shadow-md)" : "var(--shadow-xs)",
+      transition: "var(--transition-base)",
+      ...style
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: "none",
+      width: 150,
+      alignSelf: "stretch",
+      overflow: "hidden",
+      background: image ? `center/cover no-repeat url(${image})` : "var(--c-soil)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }
+  }, !image && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 10,
+      letterSpacing: ".18em",
+      textTransform: "uppercase",
+      color: "rgba(255,255,255,.85)"
+    }
+  }, imageLabel || "Event")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 22px",
+      flex: 1,
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+      marginBottom: 12
+    }
+  }, /*#__PURE__*/React.createElement(__ds_scope.Tag, {
+    tone: typeTone
+  }, typeLabel), status && /*#__PURE__*/React.createElement(__ds_scope.Tag, {
+    tone: statusTone
+  }, status)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "baseline",
+      gap: 14
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "baseline",
+      gap: 4,
+      color: "var(--text-primary)"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontWeight: "var(--fw-medium)",
+      fontSize: 30,
+      lineHeight: 1
+    }
+  }, month), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      color: "var(--text-muted)",
+      fontSize: 16
+    }
+  }, "/"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontWeight: "var(--fw-medium)",
+      fontSize: 30,
+      lineHeight: 1
+    }
+  }, day), weekday && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-body)",
+      color: "var(--text-secondary)",
+      fontSize: 13,
+      marginLeft: 2
+    }
+  }, "\uFF08", weekday, "\uFF09"))), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: "var(--font-gothic)",
+      fontWeight: "var(--fw-bold)",
+      fontSize: "var(--fs-h4)",
+      lineHeight: "var(--lh-heading)",
+      color: "var(--text-primary)",
+      margin: "12px 0 0"
+    }
+  }, title), place && /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--type-caption)",
+      color: "var(--text-secondary)",
+      marginTop: 6
+    }
+  }, place)));
+}
+Object.assign(__ds_scope, { EventCard });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/content/EventCard.jsx", error: String((e && e.message) || e) }); }
+
+// components/content/WorksCard.jsx
+try { (() => {
+/**
+ * WorksCard — 結 YUI
+ * 施工事例カード。写真主役・情緒的タイトル（明朝）・テイスト/種別タグ・メタ行。
+ * hover: 画像ズーム＋影が一段持ち上がる。
+ */
+
+function WorksCard({
+  image,
+  imageLabel,
+  title,
+  // 情緒的タイトル
+  tags = [],
+  // [{label, tone}]
+  meta,
+  // "○○市 N様邸｜28坪｜平屋"
+  href,
+  style
+}) {
+  const [hover, setHover] = React.useState(false);
+  return /*#__PURE__*/React.createElement("a", {
+    href: href,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+    style: {
+      display: "block",
+      textDecoration: "none",
+      ...style
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      overflow: "hidden",
+      borderRadius: "var(--radius-md)",
+      boxShadow: hover ? "var(--shadow-md)" : "var(--shadow-xs)",
+      transition: "var(--transition-base)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      aspectRatio: "4 / 3",
+      background: image ? `center/cover no-repeat url(${image})` : "var(--c-wood-deep)",
+      transform: hover ? "scale(var(--image-zoom))" : "none",
+      transition: "var(--transition-base)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }
+  }, !image && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 11,
+      letterSpacing: ".2em",
+      textTransform: "uppercase",
+      color: "rgba(255,255,255,.85)"
+    }
+  }, imageLabel || "Works"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      paddingTop: 16
+    }
+  }, tags.length > 0 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexWrap: "wrap",
+      gap: 6,
+      marginBottom: 10
+    }
+  }, tags.map((t, i) => /*#__PURE__*/React.createElement(__ds_scope.Tag, {
+    key: i,
+    tone: t.tone || "neutral"
+  }, t.label))), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontWeight: "var(--fw-medium)",
+      fontSize: "var(--fs-h3)",
+      lineHeight: "var(--lh-heading)",
+      letterSpacing: "var(--ls-normal)",
+      color: hover ? "var(--c-kawara)" : "var(--text-primary)",
+      margin: 0,
+      transition: "var(--transition-fast)",
+      textWrap: "pretty"
+    }
+  }, title), meta && /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--type-caption)",
+      color: "var(--text-muted)",
+      marginTop: 8,
+      letterSpacing: "var(--ls-normal)"
+    }
+  }, meta)));
+}
+Object.assign(__ds_scope, { WorksCard });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/content/WorksCard.jsx", error: String((e && e.message) || e) }); }
+
+// components/cta/ContactCTABand.jsx
+try { (() => {
+/**
+ * ContactCTABand — 結 YUI
+ * 全ページのフッター直前に置く、相談・資料・見学の3導線バンド（墨の濃色面）。
+ * 圧をかけず「一緒に考える」姿勢で受け止める。
+ */
+
+function ContactCTABand({
+  label = "Contact",
+  title = "まずは、気軽に話を聞かせてください。",
+  lead = "家づくりはまだ先でも大丈夫。私たちは、ご家族の「これからの暮らし」をご一緒に考えるところから始めます。",
+  primaryText = "家づくりの相談をする",
+  primaryHref = "#",
+  actions,
+  // [{text, href}] 追加の副CTA。省略時は資料・見学
+  tel,
+  // "0120-000-000"（任意）
+  style
+}) {
+  const subActions = actions || [{
+    text: "資料を請求する",
+    href: "#"
+  }, {
+    text: "見学会を予約する",
+    href: "#"
+  }];
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      background: "var(--color-ink-surface)",
+      color: "var(--text-on-dark)",
+      padding: "72px 40px",
+      textAlign: "center",
+      ...style
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: 720,
+      margin: "0 auto"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: "var(--fs-label)",
+      fontWeight: "var(--fw-medium)",
+      letterSpacing: "var(--ls-label)",
+      textTransform: "uppercase",
+      color: "var(--c-wood)",
+      marginBottom: 18
+    }
+  }, label), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontWeight: "var(--fw-medium)",
+      fontSize: "var(--fs-h1)",
+      lineHeight: "var(--lh-heading)",
+      color: "var(--text-on-dark)",
+      margin: 0,
+      textWrap: "pretty"
+    }
+  }, title), lead && /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--type-body)",
+      letterSpacing: "var(--ls-normal)",
+      color: "rgba(245,241,234,0.80)",
+      margin: "20px auto 0",
+      maxWidth: 600,
+      textWrap: "pretty"
+    }
+  }, lead), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexWrap: "wrap",
+      gap: 14,
+      justifyContent: "center",
+      marginTop: 36
+    }
+  }, /*#__PURE__*/React.createElement(__ds_scope.Button, {
+    variant: "primary",
+    size: "lg",
+    withArrow: true,
+    href: primaryHref
+  }, primaryText), subActions.map((a, i) => /*#__PURE__*/React.createElement("a", {
+    key: i,
+    href: a.href,
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 8,
+      padding: "18px 30px",
+      borderRadius: "var(--radius-sm)",
+      border: "1px solid rgba(245,241,234,0.5)",
+      color: "var(--text-on-dark)",
+      fontFamily: "var(--font-gothic)",
+      fontWeight: "var(--fw-bold)",
+      fontSize: 16,
+      letterSpacing: "0.06em",
+      textDecoration: "none",
+      transition: "var(--transition-base)"
+    },
+    onMouseEnter: e => {
+      e.currentTarget.style.background = "rgba(245,241,234,0.10)";
+    },
+    onMouseLeave: e => {
+      e.currentTarget.style.background = "transparent";
+    }
+  }, a.text))), tel && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 28,
+      color: "rgba(245,241,234,0.72)",
+      font: "var(--type-caption)"
+    }
+  }, "\u304A\u96FB\u8A71\u3067\u3082\uFF1A", /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 22,
+      color: "var(--text-on-dark)",
+      letterSpacing: ".02em",
+      margin: "0 6px"
+    }
+  }, tel), "\uFF08\u5E73\u65E5 9:00\u201318:00\uFF09")));
+}
+Object.assign(__ds_scope, { ContactCTABand });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/cta/ContactCTABand.jsx", error: String((e && e.message) || e) }); }
+
+// components/structure/FAQAccordion.jsx
+try { (() => {
+/**
+ * FAQAccordion — 結 YUI
+ * よくある質問。やさしい問いと、断定しすぎない誠実な答え。chevronで開閉。
+ */
+
+function Chevron({
+  open
+}) {
+  return /*#__PURE__*/React.createElement("svg", {
+    width: "20",
+    height: "20",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.75",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": "true",
+    style: {
+      flex: "none",
+      transform: open ? "rotate(180deg)" : "none",
+      transition: "var(--transition-base)"
+    }
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "m6 9 6 6 6-6"
+  }));
+}
+function Item({
+  q,
+  a,
+  defaultOpen
+}) {
+  const [open, setOpen] = React.useState(!!defaultOpen);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      borderBottom: "1px solid var(--border)"
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: () => setOpen(o => !o),
+    style: {
+      width: "100%",
+      display: "flex",
+      alignItems: "center",
+      gap: 16,
+      padding: "22px 4px",
+      background: "none",
+      border: "none",
+      cursor: "pointer",
+      textAlign: "left",
+      color: open ? "var(--c-kawara)" : "var(--text-primary)",
+      transition: "var(--transition-fast)"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontSize: 20,
+      color: "var(--c-wood)",
+      flex: "none",
+      lineHeight: 1
+    }
+  }, "Q"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      flex: 1,
+      font: "var(--fw-medium) var(--fs-body-lg)/1.6 var(--font-gothic)",
+      letterSpacing: "var(--ls-normal)"
+    }
+  }, q), /*#__PURE__*/React.createElement(Chevron, {
+    open: open
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateRows: open ? "1fr" : "0fr",
+      transition: "grid-template-rows var(--dur-base) var(--ease-out)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 16,
+      padding: "0 4px 24px"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontSize: 20,
+      color: "var(--c-moss)",
+      flex: "none",
+      lineHeight: 1
+    }
+  }, "A"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--type-body)",
+      letterSpacing: "var(--ls-normal)",
+      color: "var(--text-secondary)",
+      margin: 0,
+      textWrap: "pretty"
+    }
+  }, a)))));
+}
+function FAQAccordion({
+  items = [],
+  style
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      borderTop: "1px solid var(--border)",
+      ...style
+    }
+  }, items.map((it, i) => /*#__PURE__*/React.createElement(Item, {
+    key: i,
+    q: it.q,
+    a: it.a,
+    defaultOpen: it.defaultOpen
+  })));
+}
+Object.assign(__ds_scope, { FAQAccordion });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/structure/FAQAccordion.jsx", error: String((e && e.message) || e) }); }
+
+// components/structure/FlowStep.jsx
+try { (() => {
+/**
+ * FlowStep — 結 YUI
+ * 家づくりの流れの1ステップ。番号＋縦のコネクタ＋見出し＋本文＋所要目安。
+ * 1ステップ＝1メッセージ。透明性（見通し）で初心者の不安を解消。
+ */
+
+function FlowStep({
+  step,
+  // "01" 等
+  title,
+  body,
+  meta,
+  // 所要目安・準備物（任意）
+  isLast = false,
+  style
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 24,
+      ...style
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      flex: "none"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 52,
+      height: 52,
+      borderRadius: "var(--radius-pill)",
+      background: "var(--color-surface)",
+      border: "1.5px solid var(--c-wood)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "var(--font-en)",
+      fontWeight: "var(--fw-medium)",
+      fontSize: 20,
+      color: "var(--c-wood-deep)",
+      letterSpacing: ".02em"
+    }
+  }, step), !isLast && /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 1.5,
+      flex: 1,
+      minHeight: 28,
+      background: "var(--border-strong)",
+      marginTop: 6
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      paddingBottom: isLast ? 0 : 36,
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: "var(--font-gothic)",
+      fontWeight: "var(--fw-bold)",
+      fontSize: "var(--fs-h4)",
+      lineHeight: "var(--lh-heading)",
+      color: "var(--text-primary)",
+      margin: "12px 0 0"
+    }
+  }, title), body && /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--type-body)",
+      letterSpacing: "var(--ls-normal)",
+      color: "var(--text-secondary)",
+      marginTop: 10,
+      textWrap: "pretty"
+    }
+  }, body), meta && /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "inline-block",
+      marginTop: 12,
+      padding: "5px 12px",
+      background: "var(--c-shikkui-sunken)",
+      borderRadius: "var(--radius-sm)",
+      font: "var(--type-caption)",
+      color: "var(--text-secondary)"
+    }
+  }, meta)));
+}
+Object.assign(__ds_scope, { FlowStep });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/structure/FlowStep.jsx", error: String((e && e.message) || e) }); }
+
+// components/structure/PerformanceSpec.jsx
+try { (() => {
+/**
+ * PerformanceSpec — 結 YUI
+ * 性能・品質の数値ブロック。Jostの大きな数値＋単位＋ラベル＋「暮らしの利点」1行。
+ * 数字のためでなく、暮らしのやさしさのために性能を語る。
+ */
+
+function PerformanceSpec({
+  items = [],
+  // [{value, unit, label, benefit}]
+  columns,
+  // 列数（省略時は項目数）
+  style
+}) {
+  const cols = columns || Math.min(items.length, 4);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: `repeat(${cols}, 1fr)`,
+      gap: 0,
+      background: "var(--color-surface)",
+      border: "1px solid var(--border)",
+      borderRadius: "var(--radius-md)",
+      overflow: "hidden",
+      ...style
+    }
+  }, items.map((it, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      padding: "30px 26px",
+      borderLeft: i % cols === 0 ? "none" : "1px solid var(--border-faint)",
+      borderTop: i >= cols ? "1px solid var(--border-faint)" : "none"
+    }
+  }, it.label && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: "var(--fs-label)",
+      fontWeight: "var(--fw-medium)",
+      letterSpacing: "var(--ls-label)",
+      textTransform: "uppercase",
+      color: "var(--text-accent)",
+      marginBottom: 12
+    }
+  }, it.label), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "baseline",
+      gap: 5
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontWeight: "var(--fw-medium)",
+      fontSize: 44,
+      lineHeight: 1,
+      color: "var(--text-primary)",
+      letterSpacing: ".01em"
+    }
+  }, it.value), it.unit && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-body)",
+      fontSize: 14,
+      color: "var(--text-secondary)"
+    }
+  }, it.unit)), it.benefit && /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--type-caption)",
+      lineHeight: "var(--lh-snug)",
+      color: "var(--text-secondary)",
+      marginTop: 12,
+      textWrap: "pretty"
+    }
+  }, it.benefit))));
+}
+Object.assign(__ds_scope, { PerformanceSpec });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/structure/PerformanceSpec.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/website/ContactPage.jsx
+try { (() => {
+/* ui_kits/website/ContactPage.jsx — お問い合わせ / 資料請求（結 YUI） */
+const CT = window.YUI_195e4a;
+function Field({
+  label,
+  required,
+  children
+}) {
+  return /*#__PURE__*/React.createElement("label", {
+    style: {
+      display: "block",
+      marginBottom: 22
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      font: "var(--fw-medium) 14px/1 var(--font-gothic)",
+      color: "var(--text-primary)",
+      marginBottom: 9
+    }
+  }, label, required && /*#__PURE__*/React.createElement("span", {
+    style: {
+      font: "10px/1 var(--font-gothic)",
+      color: "var(--cta-primary-bg)",
+      border: "1px solid var(--cta-primary-bg)",
+      borderRadius: 3,
+      padding: "2px 5px"
+    }
+  }, "\u5FC5\u9808")), children);
+}
+const inputStyle = {
+  width: "100%",
+  padding: "13px 14px",
+  borderRadius: "var(--radius-sm)",
+  border: "1px solid var(--border-strong)",
+  background: "var(--color-surface-paper)",
+  font: "15px/1.6 var(--font-body)",
+  color: "var(--text-primary)",
+  outline: "none"
+};
+function ContactPage({
+  onNav
+}) {
+  const {
+    Button
+  } = CT;
+  const [purpose, setPurpose] = React.useState("相談");
+  const purposes = [{
+    id: "相談",
+    t: "家づくりの相談",
+    d: "暮らしのご希望をお聞かせください"
+  }, {
+    id: "資料",
+    t: "資料を請求する",
+    d: "事例集・性能ガイドをお届けします"
+  }, {
+    id: "見学",
+    t: "見学会を予約する",
+    d: "実際の住まいをご覧いただけます"
+  }];
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(window.Container, {
+    width: "var(--container-narrow)",
+    style: {
+      padding: "64px 24px 80px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 12,
+      letterSpacing: ".22em",
+      textTransform: "uppercase",
+      color: "var(--text-accent)",
+      marginBottom: 14
+    }
+  }, "Contact"), /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontWeight: 500,
+      fontSize: 34,
+      lineHeight: 1.5,
+      color: "var(--text-primary)",
+      margin: 0
+    }
+  }, "\u307E\u305A\u306F\u3001\u6C17\u8EFD\u306B\u8A71\u3092\u805E\u304B\u305B\u3066\u304F\u3060\u3055\u3044\u3002"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--type-body)",
+      letterSpacing: ".04em",
+      color: "var(--text-secondary)",
+      marginTop: 16,
+      maxWidth: 520,
+      marginInline: "auto"
+    }
+  }, "\u5BB6\u3065\u304F\u308A\u306F\u307E\u3060\u5148\u3067\u3082\u5927\u4E08\u592B\u3067\u3059\u3002\u3057\u3064\u3053\u3044\u55B6\u696D\u306F\u3044\u305F\u3057\u307E\u305B\u3093\u3002\u3054\u5E0C\u671B\u306E\u65B9\u6CD5\u3092\u304A\u9078\u3073\u304F\u3060\u3055\u3044\u3002")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "repeat(3,1fr)",
+      gap: 14,
+      marginTop: 40
+    }
+  }, purposes.map(p => {
+    const on = purpose === p.id;
+    return /*#__PURE__*/React.createElement("button", {
+      key: p.id,
+      type: "button",
+      onClick: () => setPurpose(p.id),
+      style: {
+        textAlign: "left",
+        cursor: "pointer",
+        padding: "20px 20px",
+        borderRadius: "var(--radius-md)",
+        background: on ? "var(--color-surface)" : "transparent",
+        border: "1.5px solid " + (on ? "var(--c-kawara)" : "var(--border)"),
+        boxShadow: on ? "var(--shadow-sm)" : "none",
+        transition: "var(--transition-base)"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        font: "var(--fw-bold) 16px/1.4 var(--font-gothic)",
+        color: on ? "var(--c-kawara)" : "var(--text-primary)"
+      }
+    }, p.t), /*#__PURE__*/React.createElement("div", {
+      style: {
+        font: "var(--type-caption)",
+        color: "var(--text-secondary)",
+        marginTop: 6
+      }
+    }, p.d));
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "var(--color-surface)",
+      border: "1px solid var(--border)",
+      borderRadius: "var(--radius-lg)",
+      padding: "40px 40px 36px",
+      marginTop: 28
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      gap: "0 24px"
+    }
+  }, /*#__PURE__*/React.createElement(Field, {
+    label: "\u304A\u540D\u524D",
+    required: true
+  }, /*#__PURE__*/React.createElement("input", {
+    style: inputStyle,
+    placeholder: "\u5C71\u7530 \u592A\u90CE"
+  })), /*#__PURE__*/React.createElement(Field, {
+    label: "\u3075\u308A\u304C\u306A"
+  }, /*#__PURE__*/React.createElement("input", {
+    style: inputStyle,
+    placeholder: "\u3084\u307E\u3060 \u305F\u308D\u3046"
+  })), /*#__PURE__*/React.createElement(Field, {
+    label: "\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9",
+    required: true
+  }, /*#__PURE__*/React.createElement("input", {
+    style: inputStyle,
+    placeholder: "example@mail.com"
+  })), /*#__PURE__*/React.createElement(Field, {
+    label: "\u96FB\u8A71\u756A\u53F7"
+  }, /*#__PURE__*/React.createElement("input", {
+    style: inputStyle,
+    placeholder: "090-0000-0000"
+  }))), /*#__PURE__*/React.createElement(Field, {
+    label: "\u304A\u4F4F\u307E\u3044\u306E\u5730\u57DF"
+  }, /*#__PURE__*/React.createElement("input", {
+    style: inputStyle,
+    placeholder: "\u25CB\u25CB\u5E02 / \u25B3\u25B3\u753A \u306A\u3069"
+  })), /*#__PURE__*/React.createElement(Field, {
+    label: "\u3054\u76F8\u8AC7\u5185\u5BB9\u30FB\u3054\u5E0C\u671B"
+  }, /*#__PURE__*/React.createElement("textarea", {
+    style: {
+      ...inputStyle,
+      minHeight: 120,
+      resize: "vertical"
+    },
+    placeholder: "\u571F\u5730\u63A2\u3057\u304B\u3089 / \u5E73\u5C4B\u3092\u691C\u8A0E\u4E2D / \u4E88\u7B97\u306E\u76F8\u8AC7 \u306A\u3069\u3001\u3069\u3093\u306A\u3053\u3068\u3067\u3082\u304A\u6C17\u8EFD\u306B\u3002"
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+      marginTop: 4
+    }
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    id: "pp",
+    style: {
+      width: 16,
+      height: 16,
+      accentColor: "var(--c-moss)"
+    }
+  }), /*#__PURE__*/React.createElement("label", {
+    htmlFor: "pp",
+    style: {
+      font: "var(--type-caption)",
+      color: "var(--text-secondary)"
+    }
+  }, "\u30D7\u30E9\u30A4\u30D0\u30B7\u30FC\u30DD\u30EA\u30B7\u30FC\u306B\u540C\u610F\u3057\u307E\u3059")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: "center",
+      marginTop: 28
+    }
+  }, /*#__PURE__*/React.createElement(Button, {
+    variant: "primary",
+    size: "lg",
+    withArrow: true,
+    onClick: e => e.preventDefault()
+  }, "\u3053\u306E\u5185\u5BB9\u3067", purpose === "資料" ? "資料を請求する" : purpose === "見学" ? "見学を予約する" : "相談する"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--type-caption)",
+      color: "var(--text-muted)",
+      marginTop: 16
+    }
+  }, "\u304A\u96FB\u8A71\u3067\u3082\uFF1A", /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 18,
+      color: "var(--text-primary)"
+    }
+  }, "0120-000-000"), "\uFF08\u5E73\u65E5 9:00\u201318:00\uFF09")))));
+}
+window.ContactPage = ContactPage;
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/ContactPage.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/website/FlowPage.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/* ui_kits/website/FlowPage.jsx — 家づくりの流れ（結 YUI） */
+const FL = window.YUI_195e4a;
+function FlowPage({
+  onNav
+}) {
+  const {
+    SectionHeading,
+    FlowStep,
+    FAQAccordion,
+    ContactCTABand
+  } = FL;
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "var(--color-surface)",
+      borderBottom: "1px solid var(--border)"
+    }
+  }, /*#__PURE__*/React.createElement(window.Container, {
+    style: {
+      padding: "56px 24px 48px"
+    }
+  }, /*#__PURE__*/React.createElement(SectionHeading, {
+    label: "Flow",
+    title: "\u5BB6\u3065\u304F\u308A\u306E\u6D41\u308C",
+    lead: "\u306F\u3058\u3081\u3066\u306E\u5BB6\u3065\u304F\u308A\u306F\u3001\u308F\u304B\u3089\u306A\u3044\u3053\u3068\u3060\u3089\u3051\u3067\u5F53\u7136\u3067\u3059\u3002\u3054\u76F8\u8AC7\u304B\u3089\u66AE\u3089\u3057\u306E\u3042\u3068\u307E\u3067\u3001\u79C1\u305F\u3061\u304C\u3054\u4E00\u7DD2\u306B\u6B69\u307F\u307E\u3059\u3002\u6D41\u308C\u304C\u898B\u3048\u308C\u3070\u3001\u304D\u3063\u3068\u5B89\u5FC3\u3057\u3066\u3044\u305F\u3060\u3051\u307E\u3059\u3002"
+  }))), /*#__PURE__*/React.createElement(window.Container, {
+    style: {
+      padding: "64px 24px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "1.2fr 0.8fr",
+      gap: 64,
+      alignItems: "start"
+    }
+  }, /*#__PURE__*/React.createElement("div", null, window.STEPS.map((s, i) => /*#__PURE__*/React.createElement(FlowStep, _extends({
+    key: s.step
+  }, s, {
+    isLast: i === window.STEPS.length - 1
+  })))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "sticky",
+      top: 100
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "var(--c-shikkui-sunken)",
+      borderRadius: "var(--radius-lg)",
+      padding: "32px 30px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 11,
+      letterSpacing: ".2em",
+      textTransform: "uppercase",
+      color: "var(--text-accent)",
+      marginBottom: 14
+    }
+  }, "Point"), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontWeight: 500,
+      fontSize: 22,
+      lineHeight: 1.6,
+      color: "var(--text-primary)",
+      margin: 0
+    }
+  }, "\u6025\u304C\u305A\u3001\u7D0D\u5F97\u3057\u306A\u304C\u3089\u3002"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--type-body)",
+      letterSpacing: ".04em",
+      color: "var(--text-secondary)",
+      marginTop: 14
+    }
+  }, "\u3054\u5951\u7D04\u3092\u6025\u304B\u3059\u3053\u3068\u306F\u3042\u308A\u307E\u305B\u3093\u3002\u3072\u3068\u3064\u305A\u3064\u78BA\u304B\u3081\u306A\u304C\u3089\u3001\u3054\u5BB6\u65CF\u306E\u30DA\u30FC\u30B9\u3067\u9032\u3081\u3066\u3044\u305F\u3060\u3051\u307E\u3059\u3002"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 22,
+      paddingTop: 20,
+      borderTop: "1px solid var(--border)"
+    }
+  }, [["ご相談から着工まで", "約 6〜10か月"], ["保証", "最長 60年"], ["定期点検", "引渡し後 10回"]].map((x, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      padding: "8px 0"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      font: "var(--type-caption)",
+      color: "var(--text-muted)"
+    }
+  }, x[0]), /*#__PURE__*/React.createElement("span", {
+    style: {
+      font: "var(--fw-medium) 14px/1.4 var(--font-gothic)",
+      color: "var(--text-primary)"
+    }
+  }, x[1])))))))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "var(--color-surface)"
+    }
+  }, /*#__PURE__*/React.createElement(window.Container, {
+    width: "var(--container-narrow)",
+    style: {
+      padding: "72px 24px"
+    }
+  }, /*#__PURE__*/React.createElement(SectionHeading, {
+    align: "center",
+    label: "FAQ",
+    title: "\u3088\u304F\u3042\u308B\u3054\u8CEA\u554F"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 36
+    }
+  }, /*#__PURE__*/React.createElement(FAQAccordion, {
+    items: window.FAQS
+  })))), /*#__PURE__*/React.createElement(ContactCTABand, {
+    tel: "0120-000-000"
+  }));
+}
+window.FlowPage = FlowPage;
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/FlowPage.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/website/Footer.jsx
+try { (() => {
+/* ui_kits/website/Footer.jsx — フッター（結 YUI） */
+function Footer({
+  onNav
+}) {
+  const cols = [{
+    h: "施工・暮らし",
+    items: ["施工事例", "家づくりのこだわり", "性能・品質", "お客様の声"]
+  }, {
+    h: "はじめての方へ",
+    items: ["家づくりの流れ", "資金・費用のこと", "土地探し", "保証・アフター"]
+  }, {
+    h: "会社・イベント",
+    items: ["会社案内", "スタッフ紹介", "イベント・見学会", "採用情報"]
+  }];
+  return /*#__PURE__*/React.createElement("footer", {
+    style: {
+      background: "var(--color-ink-surface)",
+      color: "var(--text-on-dark)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: "var(--container-wide)",
+      margin: "0 auto",
+      padding: "64px 24px 0",
+      display: "flex",
+      gap: 56,
+      flexWrap: "wrap"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: "1 1 280px",
+      minWidth: 240
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "baseline",
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontWeight: 600,
+      fontSize: 26,
+      letterSpacing: ".06em"
+    }
+  }, window.BRAND.jp), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 10,
+      letterSpacing: ".26em",
+      color: "rgba(245,241,234,.55)",
+      textTransform: "uppercase"
+    }
+  }, window.BRAND.en)), /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "13px/1.9 var(--font-body)",
+      color: "rgba(245,241,234,.66)",
+      marginTop: 18,
+      maxWidth: 300
+    }
+  }, window.BRAND.tag, "\u3002", /*#__PURE__*/React.createElement("br", null), "\u5730\u57DF\u306E\u6C17\u5019\u3068\u6577\u5730\u3092\u3066\u3044\u306D\u3044\u306B\u8AAD\u307F\u89E3\u304D\u3001\u4F4F\u3093\u3060\u3042\u3068\u306E\u66AE\u3089\u3057\u307E\u3067\u3054\u4E00\u7DD2\u306B\u8003\u3048\u308B\u3001\u793E\u54E1\u5927\u5DE5\u306E\u5DE5\u52D9\u5E97\u3067\u3059\u3002"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      font: "12px/1.9 var(--font-body)",
+      color: "rgba(245,241,234,.55)",
+      marginTop: 20
+    }
+  }, "\u3012000-0000 \u25CB\u25CB\u770C\u25CB\u25CB\u5E02\u25B3\u25B3\u753A0-0-0", /*#__PURE__*/React.createElement("br", null), "TEL 0120-000-000 \uFF0F \u5B9A\u4F11\u65E5 \u6C34\u66DC")), cols.map((c, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      flex: "0 1 180px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 11,
+      letterSpacing: ".18em",
+      textTransform: "uppercase",
+      color: "var(--c-wood)",
+      marginBottom: 18
+    }
+  }, c.h === "施工・暮らし" ? "Works & Living" : c.h === "はじめての方へ" ? "For Beginners" : "Company"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 12
+    }
+  }, c.items.map((it, j) => /*#__PURE__*/React.createElement("a", {
+    key: j,
+    onClick: () => onNav && onNav("works"),
+    style: {
+      cursor: "pointer",
+      font: "14px/1 var(--font-gothic)",
+      color: "rgba(245,241,234,.82)",
+      transition: "var(--transition-fast)"
+    },
+    onMouseEnter: e => e.currentTarget.style.color = "#fff",
+    onMouseLeave: e => e.currentTarget.style.color = "rgba(245,241,234,.82)"
+  }, it)))))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: "var(--container-wide)",
+      margin: "48px auto 0",
+      padding: "20px 24px",
+      borderTop: "1px solid rgba(245,241,234,.14)",
+      display: "flex",
+      justifyContent: "space-between",
+      flexWrap: "wrap",
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      font: "12px/1 var(--font-body)",
+      color: "rgba(245,241,234,.5)"
+    }
+  }, "\xA9 ", new Date().getFullYear(), " ", window.BRAND.jp, "\uFF08\u30C7\u30E2\uFF09"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 11,
+      letterSpacing: ".14em",
+      color: "rgba(245,241,234,.42)"
+    }
+  }, "BUILT WITH \u7D50 YUI DESIGN SYSTEM")));
+}
+window.Footer = Footer;
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/Footer.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/website/Header.jsx
+try { (() => {
+/* ui_kits/website/Header.jsx — グローバルヘッダー（結 YUI） */
+const {
+  Button: HdrButton
+} = window.YUI_195e4a;
+function Header({
+  current,
+  onNav,
+  scrolled
+}) {
+  return /*#__PURE__*/React.createElement("header", {
+    style: {
+      position: "sticky",
+      top: 0,
+      zIndex: 200,
+      background: scrolled ? "rgba(245,241,234,0.86)" : "var(--color-bg)",
+      backdropFilter: scrolled ? "saturate(140%) blur(10px)" : "none",
+      borderBottom: `1px solid ${scrolled ? "var(--border)" : "transparent"}`,
+      transition: "var(--transition-base)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: "var(--container-wide)",
+      margin: "0 auto",
+      padding: scrolled ? "12px 24px" : "20px 24px",
+      display: "flex",
+      alignItems: "center",
+      gap: 28,
+      transition: "var(--transition-base)"
+    }
+  }, /*#__PURE__*/React.createElement("a", {
+    onClick: () => onNav("top"),
+    style: {
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "baseline",
+      gap: 12,
+      flex: "none"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontWeight: 600,
+      fontSize: 24,
+      letterSpacing: ".06em",
+      color: "var(--text-primary)"
+    }
+  }, window.BRAND.jp), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 10,
+      letterSpacing: ".26em",
+      color: "var(--text-muted)",
+      textTransform: "uppercase"
+    }
+  }, window.BRAND.en)), /*#__PURE__*/React.createElement("nav", {
+    style: {
+      display: "flex",
+      gap: 4,
+      marginLeft: "auto",
+      flex: "none"
+    }
+  }, window.NAV.map(n => {
+    const active = current === n.id;
+    return /*#__PURE__*/React.createElement("a", {
+      key: n.id,
+      onClick: () => onNav(n.id),
+      style: {
+        cursor: "pointer",
+        padding: "10px 16px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 3,
+        color: active ? "var(--text-primary)" : "var(--text-secondary)",
+        transition: "var(--transition-fast)"
+      },
+      onMouseEnter: e => e.currentTarget.style.color = "var(--text-primary)",
+      onMouseLeave: e => e.currentTarget.style.color = active ? "var(--text-primary)" : "var(--text-secondary)"
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        font: "var(--fw-medium) 15px/1 var(--font-gothic)",
+        letterSpacing: ".04em",
+        whiteSpace: "nowrap"
+      }
+    }, n.label), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: "var(--font-en)",
+        fontSize: 9,
+        letterSpacing: ".18em",
+        textTransform: "uppercase",
+        color: active ? "var(--c-wood)" : "var(--text-muted)"
+      }
+    }, n.en));
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 14,
+      flex: "none"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: "right",
+      lineHeight: 1.3,
+      whiteSpace: "nowrap"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 18,
+      color: "var(--text-primary)",
+      letterSpacing: ".02em"
+    }
+  }, "0120-000-000"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      font: "11px/1 var(--font-body)",
+      color: "var(--text-muted)"
+    }
+  }, "\u5E73\u65E5 9:00\u201318:00")), /*#__PURE__*/React.createElement(HdrButton, {
+    variant: "primary",
+    size: "sm",
+    onClick: () => onNav("contact")
+  }, "\u8CC7\u6599\u8ACB\u6C42\u30FB\u76F8\u8AC7"))));
+}
+window.Header = Header;
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/Header.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/website/TopPage.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/* ui_kits/website/TopPage.jsx — 工務店ホームページ トップページ（結 YUI）
+   地域密着型工務店のHPトップに必要な構成を一枚に：
+   Hero → 実績 → News → 暮らしの提案 → 3つの約束 → 施工事例 → 性能 →
+   家づくりの流れ → お客様の声 → つくる人 → イベント → 施工エリア → Contact */
+const TP = window.YUI_195e4a;
+function Section({
+  bg,
+  pad = "var(--section-y)",
+  children,
+  style
+}) {
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      background: bg || "transparent",
+      padding: `${typeof pad === "number" ? pad + "px" : pad} 0`,
+      ...style
+    }
+  }, children);
+}
+
+/* ---------- Hero ---------- */
+function Hero({
+  onNav
+}) {
+  const {
+    Photo,
+    Container
+  } = window;
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "relative"
+    }
+  }, /*#__PURE__*/React.createElement(Photo, {
+    tone: "wood",
+    style: {
+      minHeight: 660
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "absolute",
+      inset: 0,
+      background: "linear-gradient(105deg, rgba(42,37,33,.64) 0%, rgba(42,37,33,.3) 46%, rgba(42,37,33,.05) 74%)"
+    }
+  }), /*#__PURE__*/React.createElement(Container, {
+    style: {
+      position: "relative",
+      height: "100%",
+      display: "flex",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: 640,
+      paddingTop: 48,
+      paddingBottom: 48
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 12,
+      letterSpacing: ".24em",
+      textTransform: "uppercase",
+      color: "rgba(245,241,234,.9)",
+      display: "flex",
+      alignItems: "center",
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 28,
+      height: 1,
+      background: "rgba(245,241,234,.7)"
+    }
+  }), "Natural House Building"), /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontWeight: 500,
+      fontSize: 54,
+      lineHeight: 1.42,
+      letterSpacing: ".04em",
+      color: "#fff",
+      margin: "22px 0 0",
+      textWrap: "balance"
+    }
+  }, "\u3053\u308C\u304B\u3089\u306E\u66AE\u3089\u3057\u3092\u3001", /*#__PURE__*/React.createElement("br", null), "\u4E00\u7DD2\u306B\u8003\u3048\u308B\u3002"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--fw-regular) 17px/1.95 var(--font-body)",
+      letterSpacing: ".04em",
+      color: "rgba(245,241,234,.9)",
+      marginTop: 22,
+      maxWidth: 470
+    }
+  }, "\u6728\u3068\u81EA\u7136\u7D20\u6750\u306B\u5305\u307E\u308C\u305F\u3001\u4F4F\u307F\u5FC3\u5730\u306E\u3044\u3044\u5BB6\u3092\u3002\u5730\u57DF\u306E\u6C17\u5019\u3092\u8AAD\u307F\u89E3\u304D\u3001\u793E\u54E1\u5927\u5DE5\u304C\u4E00\u68DF\u305A\u3064\u3001\u3066\u3044\u306D\u3044\u306B\u3002"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 14,
+      marginTop: 36,
+      flexWrap: "wrap"
+    }
+  }, /*#__PURE__*/React.createElement(TP.Button, {
+    variant: "primary",
+    size: "lg",
+    withArrow: true,
+    onClick: () => onNav("contact")
+  }, "\u5BB6\u3065\u304F\u308A\u306E\u76F8\u8AC7\u3092\u3059\u308B"), /*#__PURE__*/React.createElement("a", {
+    onClick: () => onNav("works"),
+    style: {
+      cursor: "pointer",
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 8,
+      padding: "18px 30px",
+      borderRadius: "var(--radius-sm)",
+      border: "1px solid rgba(245,241,234,.6)",
+      color: "#fff",
+      font: "var(--fw-bold) 16px/1 var(--font-gothic)",
+      letterSpacing: ".06em"
+    }
+  }, "\u65BD\u5DE5\u4E8B\u4F8B\u3092\u898B\u308B")))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "absolute",
+      left: "50%",
+      bottom: 20,
+      transform: "translateX(-50%)",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 10,
+      letterSpacing: ".24em",
+      color: "rgba(245,241,234,.75)"
+    }
+  }, "SCROLL"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 1,
+      height: 28,
+      background: "linear-gradient(to bottom, rgba(245,241,234,.75), transparent)"
+    }
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "var(--color-ink-surface)",
+      color: "var(--text-on-dark)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: "var(--container)",
+      margin: "0 auto",
+      padding: "24px 24px",
+      display: "flex",
+      gap: 48,
+      flexWrap: "wrap",
+      justifyContent: "center"
+    }
+  }, [["創業", "38", "年"], ["施工棟数", "1,200", "棟＋"], ["地域密着", "半径30", "km"], ["長期保証", "最長60", "年"]].map((s, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      display: "flex",
+      alignItems: "baseline",
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      font: "12px/1 var(--font-body)",
+      color: "rgba(245,241,234,.66)"
+    }
+  }, s[0]), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontWeight: 500,
+      fontSize: 26,
+      letterSpacing: ".02em"
+    }
+  }, s[1]), /*#__PURE__*/React.createElement("span", {
+    style: {
+      font: "12px/1 var(--font-body)",
+      color: "rgba(245,241,234,.66)"
+    }
+  }, s[2]))))));
+}
+
+/* ---------- News ---------- */
+function NewsBand({
+  onNav
+}) {
+  const {
+    Tag
+  } = TP;
+  return /*#__PURE__*/React.createElement(Section, {
+    pad: 56
+  }, /*#__PURE__*/React.createElement(window.Container, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "200px 1fr",
+      gap: 40,
+      alignItems: "start"
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 12,
+      letterSpacing: ".22em",
+      textTransform: "uppercase",
+      color: "var(--text-accent)"
+    }
+  }, "News"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontSize: 20,
+      color: "var(--text-primary)",
+      marginTop: 8
+    }
+  }, "\u304A\u77E5\u3089\u305B")), /*#__PURE__*/React.createElement("div", null, window.NEWS.map((n, i) => /*#__PURE__*/React.createElement("a", {
+    key: i,
+    onClick: () => onNav("works"),
+    style: {
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      gap: 18,
+      padding: "16px 4px",
+      borderBottom: "1px solid var(--border-faint)",
+      transition: "var(--transition-fast)"
+    },
+    onMouseEnter: e => e.currentTarget.style.background = "var(--c-shikkui-light)",
+    onMouseLeave: e => e.currentTarget.style.background = "transparent"
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 13,
+      letterSpacing: ".06em",
+      color: "var(--text-muted)",
+      flex: "none",
+      width: 84
+    }
+  }, n.date), /*#__PURE__*/React.createElement("span", {
+    style: {
+      flex: "none"
+    }
+  }, /*#__PURE__*/React.createElement(Tag, {
+    tone: n.catTone
+  }, n.cat)), /*#__PURE__*/React.createElement("span", {
+    style: {
+      font: "var(--fw-regular) 15px/1.7 var(--font-body)",
+      color: "var(--text-primary)"
+    }
+  }, n.text)))))));
+}
+
+/* ---------- 暮らしの提案（editorial full-bleed） ---------- */
+function LivingProposal({
+  onNav
+}) {
+  const {
+    Photo
+  } = window;
+  const {
+    Button
+  } = TP;
+  return /*#__PURE__*/React.createElement(Section, {
+    bg: "var(--color-surface)"
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: "var(--container-wide)",
+      margin: "0 auto",
+      padding: "0 24px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "1.15fr 0.85fr",
+      gap: 0,
+      alignItems: "stretch",
+      borderRadius: "var(--radius-lg)",
+      overflow: "hidden",
+      boxShadow: "var(--shadow-sm)"
+    }
+  }, /*#__PURE__*/React.createElement(Photo, {
+    tone: "clay",
+    label: "\u66AE\u3089\u3057\u306E\u60C5\u666F",
+    style: {
+      minHeight: 460
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "var(--color-ink-surface)",
+      color: "var(--text-on-dark)",
+      padding: "56px 52px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 12,
+      letterSpacing: ".22em",
+      textTransform: "uppercase",
+      color: "var(--c-wood)"
+    }
+  }, "Our Living"), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontWeight: 500,
+      fontSize: 32,
+      lineHeight: 1.55,
+      letterSpacing: ".04em",
+      color: "#fff",
+      margin: "18px 0 0",
+      textWrap: "pretty"
+    }
+  }, "\u5EFA\u3066\u308B\u3053\u3068\u3088\u308A\u3001", /*#__PURE__*/React.createElement("br", null), "\u4F4F\u3093\u3060\u3042\u3068\u306E\u6BCE\u65E5\u3092\u3002"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--fw-regular) 16px/1.95 var(--font-body)",
+      letterSpacing: ".04em",
+      color: "rgba(245,241,234,.82)",
+      marginTop: 20,
+      textWrap: "pretty"
+    }
+  }, "\u671D\u306E\u5149\u304C\u5E8A\u306B\u4F38\u3073\u308B\u6642\u9593\u3002\u5BB6\u65CF\u304C\u81EA\u7136\u3068\u96C6\u307E\u308B\u5834\u6240\u3002\u79C1\u305F\u3061\u306F\u9593\u53D6\u308A\u3084\u30B9\u30DA\u30C3\u30AF\u306E\u524D\u306B\u3001\u3054\u5BB6\u65CF\u306E\u300C\u3053\u3093\u306A\u3075\u3046\u306B\u66AE\u3089\u3057\u305F\u3044\u300D\u3092\u3001\u3066\u3044\u306D\u3044\u306B\u304A\u805E\u304D\u3057\u307E\u3059\u3002\u5BB6\u306F\u3001\u66AE\u3089\u3057\u306E\u5668\u3067\u3059\u3002"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 32
+    }
+  }, /*#__PURE__*/React.createElement("a", {
+    onClick: () => onNav("concept"),
+    style: {
+      cursor: "pointer",
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 8,
+      color: "#fff",
+      font: "var(--fw-bold) 15px/1 var(--font-gothic)",
+      letterSpacing: ".06em",
+      borderBottom: "1px solid rgba(245,241,234,.5)",
+      paddingBottom: 6
+    }
+  }, "\u79C1\u305F\u3061\u306E\u3053\u3060\u308F\u308A\u3092\u898B\u308B \u2192"))))));
+}
+
+/* ---------- 家づくりの流れ preview（横並び） ---------- */
+function FlowPreview({
+  onNav
+}) {
+  const {
+    SectionHeading,
+    Button
+  } = TP;
+  return /*#__PURE__*/React.createElement(Section, {
+    bg: "var(--c-shikkui-sunken)"
+  }, /*#__PURE__*/React.createElement(window.Container, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "flex-end",
+      justifyContent: "space-between",
+      gap: 20,
+      flexWrap: "wrap"
+    }
+  }, /*#__PURE__*/React.createElement(SectionHeading, {
+    label: "Flow",
+    title: "\u5BB6\u3065\u304F\u308A\u306E\u6D41\u308C",
+    lead: "\u306F\u3058\u3081\u3066\u306E\u5BB6\u3065\u304F\u308A\u3082\u3001\u898B\u901A\u3057\u304C\u3042\u308C\u3070\u5B89\u5FC3\u3067\u3059\u3002\u3054\u76F8\u8AC7\u304B\u3089\u66AE\u3089\u3057\u306E\u3042\u3068\u307E\u3067\u3001\u3054\u4E00\u7DD2\u306B\u3002"
+  }), /*#__PURE__*/React.createElement(Button, {
+    variant: "secondary",
+    withArrow: true,
+    onClick: () => onNav("flow")
+  }, "\u6D41\u308C\u3092\u304F\u308F\u3057\u304F\u898B\u308B")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "repeat(6, 1fr)",
+      gap: 0,
+      marginTop: 44,
+      position: "relative"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "absolute",
+      top: 26,
+      left: "8%",
+      right: "8%",
+      height: 1.5,
+      background: "var(--border-strong)"
+    }
+  }), window.FLOW_SHORT.map(s => /*#__PURE__*/React.createElement("div", {
+    key: s.step,
+    style: {
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      textAlign: "center",
+      padding: "0 6px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 52,
+      height: 52,
+      borderRadius: "var(--radius-pill)",
+      background: "var(--color-surface)",
+      border: "1.5px solid var(--c-wood)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "var(--font-en)",
+      fontWeight: 500,
+      fontSize: 19,
+      color: "var(--c-wood-deep)",
+      position: "relative",
+      zIndex: 1
+    }
+  }, s.step), /*#__PURE__*/React.createElement("div", {
+    style: {
+      font: "var(--fw-medium) 15px/1.5 var(--font-gothic)",
+      color: "var(--text-primary)",
+      marginTop: 14,
+      letterSpacing: ".02em"
+    }
+  }, s.label))))));
+}
+
+/* ---------- つくる人たち（Staff glimpse） ---------- */
+function StaffGlimpse({
+  onNav
+}) {
+  const {
+    SectionHeading,
+    StaffCard
+  } = TP;
+  return /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(window.Container, {
+    width: "var(--container-wide)"
+  }, /*#__PURE__*/React.createElement(SectionHeading, {
+    align: "center",
+    label: "Member",
+    title: "\u5BB6\u3092\u3001\u4EBA\u304C\u3064\u304F\u308B\u3002",
+    lead: "\u8A2D\u8A08\u58EB\u3082\u3001\u5927\u5DE5\u3082\u3001\u30B3\u30FC\u30C7\u30A3\u30CD\u30FC\u30BF\u30FC\u3082\u3002\u9854\u306E\u898B\u3048\u308B\u8DDD\u96E2\u3067\u3001\u3054\u5BB6\u65CF\u306E\u5BB6\u3065\u304F\u308A\u306B\u4F34\u8D70\u3057\u307E\u3059\u3002"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "repeat(4,1fr)",
+      gap: 24,
+      marginTop: 44
+    }
+  }, window.STAFF.map((s, i) => /*#__PURE__*/React.createElement(StaffCard, {
+    key: i,
+    roleEn: s.roleEn,
+    role: s.role,
+    name: s.name,
+    comment: s.comment,
+    imageLabel: "Staff"
+  })))));
+}
+
+/* ---------- 施工エリア（地域性） ---------- */
+function AreaBlock({
+  onNav
+}) {
+  const {
+    Photo
+  } = window;
+  const {
+    SectionHeading,
+    Tag
+  } = TP;
+  return /*#__PURE__*/React.createElement(Section, {
+    bg: "var(--color-surface)"
+  }, /*#__PURE__*/React.createElement(window.Container, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "0.9fr 1.1fr",
+      gap: 56,
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(SectionHeading, {
+    label: "Area",
+    title: "\u5730\u5143\u3067\u3001\u9577\u304F\u3002",
+    lead: "\u8ECA\u306730\u5206\u306E\u8DDD\u96E2\u3092\u3001\u79C1\u305F\u3061\u306E\u4ED5\u4E8B\u306E\u7BC4\u56F2\u306B\u3057\u3066\u3044\u307E\u3059\u3002\u4F55\u304B\u3042\u308C\u3070\u3059\u3050\u306B\u99C6\u3051\u3064\u3051\u3089\u308C\u308B\u2014\u2014\u305D\u306E\u5B89\u5FC3\u3082\u3001\u5730\u57DF\u306E\u5DE5\u52D9\u5E97\u306E\u4FA1\u5024\u3060\u3068\u8003\u3048\u3066\u3044\u307E\u3059\u3002"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexWrap: "wrap",
+      gap: 8,
+      marginTop: 26
+    }
+  }, window.AREAS.map((a, i) => /*#__PURE__*/React.createElement(Tag, {
+    key: i,
+    tone: "neutral"
+  }, a)))), /*#__PURE__*/React.createElement(Photo, {
+    tone: "moss",
+    label: "\u65BD\u5DE5\u30A8\u30EA\u30A2\u30DE\u30C3\u30D7",
+    ratio: "16/10",
+    radius: "var(--radius-md)",
+    style: {
+      boxShadow: "var(--shadow-sm)"
+    }
+  }))));
+}
+
+/* ---------- Page ---------- */
+function TopPage({
+  onNav
+}) {
+  const {
+    SectionHeading,
+    FeatureCard,
+    WorksCard,
+    PerformanceSpec,
+    VoiceCard,
+    EventCard,
+    ContactCTABand,
+    Button
+  } = TP;
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Hero, {
+    onNav: onNav
+  }), /*#__PURE__*/React.createElement(NewsBand, {
+    onNav: onNav
+  }), /*#__PURE__*/React.createElement(LivingProposal, {
+    onNav: onNav
+  }), /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(window.Container, null, /*#__PURE__*/React.createElement(SectionHeading, {
+    align: "center",
+    label: "Promise",
+    title: "\u79C1\u305F\u3061\u304C\u3001\u5927\u5207\u306B\u3057\u3066\u3044\u308B\u3053\u3068\u3002",
+    lead: "\u5730\u57DF\u306B\u6839\u3056\u3057\u305F\u5DE5\u52D9\u5E97\u3068\u3057\u3066\u3001\u3076\u308C\u305A\u306B\u5B88\u308A\u3064\u3065\u3051\u3066\u3044\u308B3\u3064\u306E\u3053\u3068\u3002"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "repeat(3,1fr)",
+      gap: 24,
+      marginTop: 48
+    }
+  }, /*#__PURE__*/React.createElement(FeatureCard, {
+    index: "01",
+    title: "\u793E\u54E1\u5927\u5DE5\u306B\u3088\u308B\u81EA\u793E\u65BD\u5DE5",
+    body: "\u73FE\u5834\u3092\u77E5\u308B\u5927\u5DE5\u304C\u3001\u6700\u5F8C\u307E\u3067\u8CAC\u4EFB\u3092\u6301\u3063\u3066\u4ED5\u4E0A\u3052\u307E\u3059\u3002\u4E0B\u8ACB\u3051\u4EFB\u305B\u306B\u3057\u307E\u305B\u3093\u3002"
+  }), /*#__PURE__*/React.createElement(FeatureCard, {
+    index: "02",
+    title: "\u6A19\u6E96\u3067\u3001\u81EA\u7136\u7D20\u6750",
+    body: "\u7121\u57A2\u306E\u5E8A\u3068\u6F06\u55B0\u306E\u58C1\u3002\u8ABF\u6E7F\u3057\u3001\u5E74\u6708\u3068\u3068\u3082\u306B\u5473\u308F\u3044\u304C\u80B2\u3064\u4F4F\u307E\u3044\u3092\u3001\u5F53\u305F\u308A\u524D\u306B\u3002"
+  }), /*#__PURE__*/React.createElement(FeatureCard, {
+    index: "03",
+    title: "\u6027\u80FD\u306F\u3001\u66AE\u3089\u3057\u306E\u305F\u3081\u306B",
+    body: "\u590F\u306F\u6DBC\u3057\u304F\u3001\u51AC\u3042\u305F\u305F\u304B\u3002\u5BB6\u3058\u3085\u3046\u306E\u6E29\u5EA6\u5DEE\u3092\u5C0F\u3055\u304F\u3001\u5BB6\u8A08\u306B\u3082\u3084\u3055\u3057\u304F\u3002"
+  })))), /*#__PURE__*/React.createElement(Section, {
+    bg: "var(--color-surface)"
+  }, /*#__PURE__*/React.createElement(window.Container, {
+    width: "var(--container-wide)"
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "flex-end",
+      justifyContent: "space-between",
+      gap: 20,
+      flexWrap: "wrap"
+    }
+  }, /*#__PURE__*/React.createElement(SectionHeading, {
+    label: "Works",
+    title: "\u65BD\u5DE5\u4E8B\u4F8B",
+    lead: "\u3072\u3068\u3064\u3068\u3057\u3066\u540C\u3058\u5BB6\u306F\u3042\u308A\u307E\u305B\u3093\u3002\u66AE\u3089\u3057\u306E\u6570\u3060\u3051\u3001\u4F4F\u307E\u3044\u306E\u304B\u305F\u3061\u304C\u3042\u308A\u307E\u3059\u3002"
+  }), /*#__PURE__*/React.createElement(Button, {
+    variant: "secondary",
+    withArrow: true,
+    onClick: () => onNav("works")
+  }, "\u4E8B\u4F8B\u3092\u3082\u3063\u3068\u898B\u308B")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "repeat(3,1fr)",
+      gap: 28,
+      marginTop: 44
+    }
+  }, window.WORKS.slice(0, 3).map(w => /*#__PURE__*/React.createElement(WorksCard, {
+    key: w.id,
+    title: w.title,
+    meta: w.meta,
+    tags: w.tags,
+    imageLabel: "Works",
+    href: "#",
+    style: {
+      cursor: "pointer"
+    }
+  }))))), /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(window.Container, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "0.9fr 1.1fr",
+      gap: 56,
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(SectionHeading, {
+    label: "Performance",
+    title: "\u6027\u80FD\u306F\u3001\u6570\u5B57\u306E\u305F\u3081\u3067\u306F\u306A\u304F\u3001\u66AE\u3089\u3057\u306E\u3084\u3055\u3057\u3055\u306E\u305F\u3081\u306B\u3002",
+    lead: "\u9AD8\u6C17\u5BC6\u30FB\u9AD8\u65AD\u71B1\u30FB\u8010\u9707\u3002\u3080\u305A\u304B\u3057\u3044\u8A00\u8449\u306E\u3055\u304D\u306B\u3042\u308B\u306E\u306F\u3001\u4E00\u5E74\u3058\u3085\u3046\u5FC3\u5730\u3088\u304F\u3001\u5B89\u5FC3\u3057\u3066\u66AE\u3089\u305B\u308B\u6BCE\u65E5\u3067\u3059\u3002"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 28
+    }
+  }, /*#__PURE__*/React.createElement(Button, {
+    variant: "ghost",
+    withArrow: true,
+    onClick: () => onNav("flow")
+  }, "\u6027\u80FD\u30FB\u54C1\u8CEA\u306B\u3064\u3044\u3066"))), /*#__PURE__*/React.createElement(PerformanceSpec, {
+    columns: 2,
+    items: [{
+      value: "0.46",
+      unit: "W/㎡K",
+      label: "UA値 / 断熱",
+      benefit: "家じゅうの温度差が小さく、冬も素足で過ごせます。"
+    }, {
+      value: "0.4",
+      unit: "c㎡/㎡",
+      label: "C値 / 気密",
+      benefit: "すき間風が少なく、冷暖房がよく効きます。"
+    }, {
+      value: "3",
+      unit: "等級",
+      label: "耐震等級",
+      benefit: "地震に備える、最高等級の構造計算。"
+    }, {
+      value: "60",
+      unit: "年",
+      label: "長期保証",
+      benefit: "住んだあとも、定期点検でずっとそばに。"
+    }]
+  })))), /*#__PURE__*/React.createElement(FlowPreview, {
+    onNav: onNav
+  }), /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(window.Container, null, /*#__PURE__*/React.createElement(SectionHeading, {
+    align: "center",
+    label: "Voice",
+    title: "\u304A\u5BA2\u69D8\u306E\u58F0",
+    lead: "\u5BB6\u304C\u5B8C\u6210\u3057\u3066\u304B\u3089\u304C\u3001\u672C\u5F53\u306E\u304A\u4ED8\u304D\u5408\u3044\u306E\u306F\u3058\u307E\u308A\u3067\u3059\u3002"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "repeat(3,1fr)",
+      gap: 24,
+      marginTop: 44
+    }
+  }, window.VOICES.map((v, i) => /*#__PURE__*/React.createElement(VoiceCard, {
+    key: i,
+    quote: v.quote,
+    name: v.name,
+    meta: v.meta,
+    imageLabel: "Family"
+  }))))), /*#__PURE__*/React.createElement(StaffGlimpse, {
+    onNav: onNav
+  }), /*#__PURE__*/React.createElement(Section, {
+    bg: "var(--c-shikkui-sunken)"
+  }, /*#__PURE__*/React.createElement(window.Container, null, /*#__PURE__*/React.createElement(SectionHeading, {
+    label: "Event",
+    title: "\u30A4\u30D9\u30F3\u30C8\u30FB\u898B\u5B66\u4F1A",
+    lead: "\u5B9F\u969B\u306E\u4F4F\u307E\u3044\u3084\u7D20\u6750\u306B\u3001\u305C\u3072\u89E6\u308C\u3066\u307F\u3066\u304F\u3060\u3055\u3044\u3002\u3057\u3064\u3053\u3044\u55B6\u696D\u306F\u3044\u305F\u3057\u307E\u305B\u3093\u3002"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      gap: 24,
+      marginTop: 40
+    }
+  }, window.EVENTS.map((e, i) => /*#__PURE__*/React.createElement(EventCard, _extends({
+    key: i
+  }, e, {
+    imageLabel: "Event",
+    href: "#"
+  })))))), /*#__PURE__*/React.createElement(AreaBlock, {
+    onNav: onNav
+  }), /*#__PURE__*/React.createElement(ContactCTABand, {
+    tel: "0120-000-000"
+  }));
+}
+window.TopPage = TopPage;
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/TopPage.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/website/WorksDetailPage.jsx
+try { (() => {
+/* ui_kits/website/WorksDetailPage.jsx — 施工事例詳細（結 YUI） */
+const WD = window.YUI_195e4a;
+function WorksDetailPage({
+  onNav
+}) {
+  const {
+    Tag,
+    PerformanceSpec,
+    WorksCard,
+    StaffCard,
+    ContactCTABand,
+    Button,
+    SectionHeading
+  } = WD;
+  const {
+    Photo,
+    Container
+  } = window;
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Photo, {
+    tone: "wood",
+    style: {
+      minHeight: 540
+    },
+    overlay: true
+  }, /*#__PURE__*/React.createElement(Container, {
+    style: {
+      position: "relative",
+      height: "100%",
+      display: "flex",
+      alignItems: "flex-end",
+      paddingBottom: 48
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8,
+      marginBottom: 16
+    }
+  }, /*#__PURE__*/React.createElement(Tag, {
+    tone: "moss"
+  }, "\u5E73\u5C4B"), /*#__PURE__*/React.createElement(Tag, {
+    tone: "wood"
+  }, "\u81EA\u7136\u7D20\u6750"), /*#__PURE__*/React.createElement(Tag, {
+    tone: "neutral"
+  }, "\u85AA\u30B9\u30C8\u30FC\u30D6")), /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontFamily: "var(--font-serif)",
+      fontWeight: 500,
+      fontSize: 44,
+      lineHeight: 1.4,
+      letterSpacing: ".04em",
+      color: "#fff",
+      margin: 0,
+      textWrap: "balance"
+    }
+  }, "\u5149\u3068\u98A8\u304C\u3081\u3050\u308B\u3001\u5E73\u5C4B\u306E\u66AE\u3089\u3057"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 13,
+      letterSpacing: ".1em",
+      color: "rgba(245,241,234,.9)",
+      marginTop: 14
+    }
+  }, "\u25CB\u25CB\u5E02 N\u69D8\u90B8 \uFF5C \u5EF6\u5E8A 28\u576A \uFF5C \u3054\u592B\u5A66\uFF0B\u304A\u5B50\u3055\u307E2\u4EBA")))), /*#__PURE__*/React.createElement(Container, {
+    style: {
+      padding: "72px 24px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "1.4fr 0.7fr",
+      gap: 56,
+      alignItems: "start"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "yui-prose",
+    style: {
+      maxWidth: 640
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 12,
+      letterSpacing: ".22em",
+      textTransform: "uppercase",
+      color: "var(--text-accent)",
+      marginBottom: 16
+    }
+  }, "Story"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--fw-regular) 18px/2 var(--font-body)",
+      letterSpacing: ".04em",
+      color: "var(--text-primary)"
+    }
+  }, "\u300C\u6B73\u3092\u3068\u3063\u3066\u3082\u3001\u305A\u3063\u3068\u5FC3\u5730\u3088\u304F\u66AE\u3089\u305B\u308B\u5BB6\u3092\u300D\u3002\u305D\u3093\u306A\u3054\u5E0C\u671B\u304B\u3089\u59CB\u307E\u3063\u305F\u3001\u5E73\u5C4B\u306E\u4F4F\u307E\u3044\u3067\u3059\u3002"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--type-body)",
+      letterSpacing: ".04em",
+      color: "var(--text-secondary)"
+    }
+  }, "\u5357\u306B\u5927\u304D\u304F\u958B\u3044\u305F\u30EA\u30D3\u30F3\u30B0\u306B\u306F\u3001\u51AC\u306E\u3084\u308F\u3089\u304B\u306A\u967D\u5C04\u3057\u304C\u305F\u3063\u3077\u308A\u3068\u5C4A\u304D\u307E\u3059\u3002\u7121\u57A2\u306E\u5E8A\u306F\u3042\u305F\u305F\u304B\u304F\u3001\u6F06\u55B0\u306E\u58C1\u304C\u4E00\u5E74\u3058\u3085\u3046\u7A7A\u6C17\u3092\u3084\u3055\u3057\u304F\u6574\u3048\u307E\u3059\u3002\u56DE\u904A\u3067\u304D\u308B\u5BB6\u4E8B\u52D5\u7DDA\u306F\u3001\u6BCE\u65E5\u306E\u66AE\u3089\u3057\u3092\u3059\u3053\u3057\u8EFD\u3084\u304B\u306B\u3002"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: "var(--type-body)",
+      letterSpacing: ".04em",
+      color: "var(--text-secondary)"
+    }
+  }, "\u85AA\u30B9\u30C8\u30FC\u30D6\u3092\u56F2\u3080\u571F\u9593\u306F\u3001\u3054\u5BB6\u65CF\u306E\u81EA\u7136\u306A\u96C6\u307E\u308A\u5834\u6240\u306B\u3002\u7A93\u306E\u5916\u306E\u5EAD\u3068\u3086\u308B\u3084\u304B\u306B\u3064\u306A\u304C\u308A\u3001\u5B63\u7BC0\u306E\u79FB\u308D\u3044\u3092\u611F\u3058\u306A\u304C\u3089\u904E\u3054\u305B\u307E\u3059\u3002")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "var(--color-surface)",
+      border: "1px solid var(--border)",
+      borderRadius: "var(--radius-md)",
+      padding: "26px 24px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 11,
+      letterSpacing: ".2em",
+      textTransform: "uppercase",
+      color: "var(--text-muted)",
+      marginBottom: 16
+    }
+  }, "Data"), [["所在地", "○○市"], ["延床面積", "28坪 / 92.5㎡"], ["間取り", "2LDK ＋ 土間"], ["構造", "木造軸組 / 平屋"], ["竣工", "2025年 春"]].map((d, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      gap: 12,
+      padding: "11px 0",
+      borderBottom: i < 4 ? "1px solid var(--border-faint)" : "none"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      font: "var(--type-caption)",
+      color: "var(--text-muted)"
+    }
+  }, d[0]), /*#__PURE__*/React.createElement("span", {
+    style: {
+      font: "var(--fw-medium) 14px/1.4 var(--font-gothic)",
+      color: "var(--text-primary)",
+      textAlign: "right"
+    }
+  }, d[1])))))), /*#__PURE__*/React.createElement(Container, {
+    width: "var(--container-wide)",
+    style: {
+      paddingBottom: 72
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "2fr 1fr",
+      gap: 16,
+      gridAutoRows: "1fr"
+    }
+  }, /*#__PURE__*/React.createElement(Photo, {
+    tone: "soil",
+    label: "LDK",
+    ratio: "16/10",
+    radius: "var(--radius-md)"
+  }), /*#__PURE__*/React.createElement(Photo, {
+    tone: "moss",
+    label: "\u571F\u9593\u30FB\u85AA\u30B9\u30C8\u30FC\u30D6",
+    ratio: "16/10",
+    radius: "var(--radius-md)"
+  }), /*#__PURE__*/React.createElement(Photo, {
+    tone: "clay",
+    label: "\u9020\u4F5C\u30AD\u30C3\u30C1\u30F3",
+    ratio: "16/10",
+    radius: "var(--radius-md)"
+  }), /*#__PURE__*/React.createElement(Photo, {
+    tone: "wood",
+    label: "\u7121\u57A2\u306E\u5E8A\u30FB\u7D20\u6750\u30A2\u30C3\u30D7",
+    ratio: "16/10",
+    radius: "var(--radius-md)"
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "var(--color-surface)"
+    }
+  }, /*#__PURE__*/React.createElement(Container, {
+    style: {
+      padding: "72px 24px"
+    }
+  }, /*#__PURE__*/React.createElement(SectionHeading, {
+    align: "center",
+    label: "Performance",
+    title: "\u3053\u306E\u5BB6\u306E\u3001\u6027\u80FD\u306E\u3053\u3068\u3002"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 40
+    }
+  }, /*#__PURE__*/React.createElement(PerformanceSpec, {
+    items: [{
+      value: "0.44",
+      unit: "W/㎡K",
+      label: "UA値 / 断熱",
+      benefit: "冬の朝も、床がひんやりしません。"
+    }, {
+      value: "0.3",
+      unit: "c㎡/㎡",
+      label: "C値 / 気密",
+      benefit: "少ない冷暖房で、家じゅう快適に。"
+    }, {
+      value: "3",
+      unit: "等級",
+      label: "耐震等級",
+      benefit: "平屋ならではの安定した構造。"
+    }]
+  })))), /*#__PURE__*/React.createElement(Container, {
+    style: {
+      padding: "72px 24px"
+    }
+  }, /*#__PURE__*/React.createElement(SectionHeading, {
+    label: "Works",
+    title: "\u307B\u304B\u306E\u65BD\u5DE5\u4E8B\u4F8B"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "repeat(3,1fr)",
+      gap: 28,
+      marginTop: 40
+    }
+  }, window.WORKS.slice(1, 4).map(w => /*#__PURE__*/React.createElement(WorksCard, {
+    key: w.id,
+    title: w.title,
+    meta: w.meta,
+    tags: w.tags,
+    imageLabel: "Works",
+    href: "#",
+    style: {
+      cursor: "pointer"
+    }
+  })))), /*#__PURE__*/React.createElement(ContactCTABand, {
+    title: "\u540C\u3058\u96F0\u56F2\u6C17\u306E\u5BB6\u3092\u3001\u5EFA\u3066\u305F\u304F\u306A\u3063\u305F\u3089\u3002",
+    lead: "\u3053\u306E\u4E8B\u4F8B\u3092\u624B\u304C\u304B\u308A\u306B\u3001\u3042\u306A\u305F\u3068\u3054\u5BB6\u65CF\u306E\u300C\u3053\u308C\u304B\u3089\u306E\u66AE\u3089\u3057\u300D\u3092\u3054\u4E00\u7DD2\u306B\u63CF\u304D\u307E\u3059\u3002",
+    tel: "0120-000-000"
+  }));
+}
+window.WorksDetailPage = WorksDetailPage;
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/WorksDetailPage.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/website/WorksListPage.jsx
+try { (() => {
+/* ui_kits/website/WorksListPage.jsx — 施工事例一覧（結 YUI） */
+const WL = window.YUI_195e4a;
+function WorksListPage({
+  onNav,
+  onOpen
+}) {
+  const {
+    SectionHeading,
+    WorksCard,
+    Tag,
+    ContactCTABand
+  } = WL;
+  const [filter, setFilter] = React.useState("すべて");
+  const filters = ["すべて", "平屋", "2階建て", "リノベ", "自然素材"];
+  const list = filter === "すべて" ? window.WORKS : window.WORKS.filter(w => w.tags.some(t => t.label.includes(filter)) || filter === "平屋" && w.meta.includes("平屋") || filter === "2階建て" && w.meta.includes("2階建て") || filter === "リノベ" && w.meta.includes("リノベ"));
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "var(--color-surface)",
+      borderBottom: "1px solid var(--border)"
+    }
+  }, /*#__PURE__*/React.createElement(window.Container, {
+    style: {
+      padding: "56px 24px 48px"
+    }
+  }, /*#__PURE__*/React.createElement(SectionHeading, {
+    label: "Works",
+    title: "\u65BD\u5DE5\u4E8B\u4F8B",
+    lead: "\u3072\u3068\u3064\u3068\u3057\u3066\u540C\u3058\u5BB6\u306F\u3042\u308A\u307E\u305B\u3093\u3002\u66AE\u3089\u3057\u306E\u6570\u3060\u3051\u3001\u4F4F\u307E\u3044\u306E\u304B\u305F\u3061\u304C\u3042\u308A\u307E\u3059\u3002\u6C17\u306B\u306A\u308B\u4E8B\u4F8B\u304B\u3089\u3001\u5BB6\u3065\u304F\u308A\u306E\u30D2\u30F3\u30C8\u3092\u898B\u3064\u3051\u3066\u304F\u3060\u3055\u3044\u3002"
+  }))), /*#__PURE__*/React.createElement(window.Container, {
+    width: "var(--container-wide)",
+    style: {
+      padding: "40px 24px 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+      flexWrap: "wrap",
+      paddingBottom: 36,
+      borderBottom: "1px solid var(--border)"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "var(--font-en)",
+      fontSize: 11,
+      letterSpacing: ".18em",
+      textTransform: "uppercase",
+      color: "var(--text-muted)",
+      marginRight: 6
+    }
+  }, "Filter"), filters.map(f => /*#__PURE__*/React.createElement(Tag, {
+    key: f,
+    variant: "filter",
+    active: filter === f,
+    onClick: () => setFilter(f)
+  }, f)), /*#__PURE__*/React.createElement("span", {
+    style: {
+      marginLeft: "auto",
+      font: "var(--type-caption)",
+      color: "var(--text-muted)"
+    }
+  }, list.length, " \u4EF6\u306E\u4E8B\u4F8B")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "repeat(3,1fr)",
+      gap: 28,
+      padding: "44px 0"
+    }
+  }, list.map(w => /*#__PURE__*/React.createElement(WorksCard, {
+    key: w.id,
+    title: w.title,
+    meta: w.meta,
+    tags: w.tags,
+    imageLabel: "Works",
+    href: "#",
+    style: {
+      cursor: "pointer"
+    }
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "center",
+      gap: 8,
+      paddingBottom: 64
+    }
+  }, [1, 2, 3].map(n => /*#__PURE__*/React.createElement("span", {
+    key: n,
+    style: {
+      width: 42,
+      height: 42,
+      borderRadius: "var(--radius-sm)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "var(--font-en)",
+      fontSize: 15,
+      cursor: "pointer",
+      background: n === 1 ? "var(--c-sumi)" : "var(--color-surface)",
+      color: n === 1 ? "var(--text-on-dark)" : "var(--text-secondary)",
+      border: "1px solid " + (n === 1 ? "var(--c-sumi)" : "var(--border-strong)")
+    }
+  }, n)), /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 42,
+      height: 42,
+      borderRadius: "var(--radius-sm)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "var(--text-secondary)",
+      border: "1px solid var(--border-strong)",
+      cursor: "pointer"
+    }
+  }, "\u2192"))), /*#__PURE__*/React.createElement(ContactCTABand, {
+    title: "\u6C17\u306B\u306A\u308B\u4E8B\u4F8B\u306F\u3001\u3042\u308A\u307E\u3057\u305F\u304B\uFF1F",
+    lead: "\u300C\u3053\u3093\u306A\u66AE\u3089\u3057\u304C\u3044\u3044\u306A\u300D\u304C\u898B\u3064\u304B\u3063\u305F\u3089\u3001\u305D\u306E\u5148\u3092\u3054\u4E00\u7DD2\u306B\u3002\u307E\u305A\u306F\u304A\u6C17\u8EFD\u306B\u3054\u76F8\u8AC7\u304F\u3060\u3055\u3044\u3002",
+    tel: "0120-000-000"
+  }));
+}
+window.WorksListPage = WorksListPage;
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/WorksListPage.jsx", error: String((e && e.message) || e) }); }
+
+__ds_ns.EventCard = __ds_scope.EventCard;
+
+__ds_ns.FeatureCard = __ds_scope.FeatureCard;
+
+__ds_ns.StaffCard = __ds_scope.StaffCard;
+
+__ds_ns.VoiceCard = __ds_scope.VoiceCard;
+
+__ds_ns.WorksCard = __ds_scope.WorksCard;
+
+__ds_ns.Button = __ds_scope.Button;
+
+__ds_ns.SectionHeading = __ds_scope.SectionHeading;
+
+__ds_ns.Tag = __ds_scope.Tag;
+
+__ds_ns.ContactCTABand = __ds_scope.ContactCTABand;
+
+__ds_ns.FAQAccordion = __ds_scope.FAQAccordion;
+
+__ds_ns.FlowStep = __ds_scope.FlowStep;
+
+__ds_ns.PerformanceSpec = __ds_scope.PerformanceSpec;
+
+})();

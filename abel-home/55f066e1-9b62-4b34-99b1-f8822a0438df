@@ -1,0 +1,129 @@
+/* Contact.jsx — お問い合わせ（導線を短く）
+   ・悩み別カテゴリで選んだ内容がフォームの「相談内容」に反映（picked）
+   ・きっかけ／相談内容のチップは選択状態を持つ
+   ・動きやすいCTA：写真を送って相談／概算費用を聞く／現地調査を相談
+   ・電話番号は確認中表示。フォームは提案ラフのため送信されない旨を小さく注記。 */
+
+const INTENTS = [
+  { key: "photo", label: "写真を送って相談", icon: "upload", desc: "気になる箇所の写真からでもOK" },
+  { key: "estimate", label: "概算費用を聞く", icon: "yen", desc: "まずはおおよその費用感を" },
+  { key: "survey", label: "現地調査を相談", icon: "ruler", desc: "実際に見てもらいたい" },
+  { key: "talk", label: "まずは話を聞きたい", icon: "chat", desc: "何から始めるか相談したい" },
+];
+
+function ContactSection({ tel, companyName, picked, setPicked }) {
+  const { Container, Icon, Provisional, CATEGORIES, ABEL } = window;
+  const { SectionHeading, Button } = window.YUI_195e4a;
+  const [intent, setIntent] = React.useState(null);
+  const [cat, setCat] = React.useState(picked || null);
+  React.useEffect(() => { if (picked) setCat(picked); }, [picked]);
+  const hasTel = !!(tel && tel.trim());
+
+  const field = { width: "100%", padding: "13px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "var(--color-bg)", font: "15px/1.5 var(--font-body)", color: "var(--text-primary)", boxSizing: "border-box" };
+  const labelS = { font: "var(--fw-medium) 13px/1 var(--font-gothic)", color: "var(--text-secondary)", marginBottom: 10, display: "block" };
+
+  const Chip = ({ active, children, onClick }) => (
+    <span onClick={onClick} style={{
+      cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6,
+      font: "var(--fw-medium) 13px/1 var(--font-gothic)",
+      color: active ? "#fff" : "var(--text-secondary)",
+      background: active ? "var(--c-kawara)" : "var(--color-surface)",
+      border: `1px solid ${active ? "var(--c-kawara)" : "var(--border-strong)"}`,
+      borderRadius: "var(--radius-pill)", padding: "9px 15px", transition: "var(--transition-fast)",
+    }}>
+      {active && <Icon name="check" size={14} color="#fff" />}{children}
+    </span>
+  );
+
+  return (
+    <section data-screen-label="お問い合わせ" className="sec" style={{ background: "var(--color-surface)", padding: "var(--section-y) 0" }}>
+      <Container>
+        <SectionHeading align="center" label="Contact" title="まずは、気軽にご相談ください。"
+          lead="相談は無料です。「これってリフォームできる？」という段階で大丈夫。動きやすい方法をお選びいただけます。" />
+
+        {/* 動きやすいCTA（きっかけ） */}
+        <div className="resp-grid-3 intent-row" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14, marginTop: 40 }}>
+          {INTENTS.slice(0, 3).map((it) => {
+            const active = intent === it.key;
+            return (
+              <button key={it.key} onClick={() => setIntent(it.key)} style={{
+                cursor: "pointer", textAlign: "left", display: "flex", alignItems: "center", gap: 14,
+                background: active ? "var(--c-clay-tint)" : "var(--color-bg)",
+                border: `1px solid ${active ? "var(--c-kawara)" : "var(--border)"}`,
+                borderRadius: "var(--radius-md)", padding: "18px 20px", transition: "var(--transition-fast)",
+              }}>
+                <span style={{ width: 44, height: 44, borderRadius: "var(--radius-sm)", background: active ? "var(--c-kawara)" : "var(--c-shikkui-sunken)", display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
+                  <Icon name={it.icon} size={21} color={active ? "#fff" : "var(--c-wood-deep)"} />
+                </span>
+                <span>
+                  <span style={{ display: "block", font: "var(--fw-bold) 15px/1.3 var(--font-gothic)", color: "var(--text-primary)" }}>{it.label}</span>
+                  <span style={{ display: "block", font: "12px/1.5 var(--font-body)", color: "var(--text-muted)", marginTop: 3 }}>{it.desc}</span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="resp-contact" style={{ display: "grid", gridTemplateColumns: "0.82fr 1.18fr", gap: 28, marginTop: 28, alignItems: "start" }}>
+          {/* 左：連絡方法 */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            <div style={{ background: "var(--color-ink-surface)", color: "var(--text-on-dark)", borderRadius: "var(--radius-md)", padding: "24px 24px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <Icon name="phone" size={18} color="var(--c-wood)" />
+                <span style={{ font: "var(--fw-medium) 13px/1 var(--font-gothic)", letterSpacing: ".06em", color: "rgba(245,241,234,.8)" }}>電話で相談（無料）</span>
+              </div>
+              {hasTel ? (
+                <a href={`tel:${tel.replace(/[^0-9]/g, "")}`} style={{ fontFamily: "var(--font-en)", fontSize: 30, color: "#fff", letterSpacing: ".02em", textDecoration: "none", display: "block", marginTop: 10 }}>{tel}</a>
+              ) : (
+                <div style={{ marginTop: 12, display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+                  <span style={{ font: "var(--fw-medium) 16px/1.4 var(--font-gothic)", color: "#fff" }}>正式番号に差し替え予定</span>
+                  <Provisional>番号確認中</Provisional>
+                </div>
+              )}
+              <div style={{ font: "12px/1.6 var(--font-body)", color: "rgba(245,241,234,.6)", marginTop: 8 }}>受付時間・定休日は確認中です。</div>
+            </div>
+            {[["file", "フォームで相談", "24時間受付・後日ご返信"], ["pin", "来店して相談", "図面や写真を見ながらじっくりと"]].map((m, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 14, background: "var(--color-bg)", border: "1px solid var(--border)", borderRadius: "var(--radius-md)", padding: "16px 18px" }}>
+                <span style={{ width: 42, height: 42, borderRadius: "var(--radius-sm)", background: "var(--c-shikkui-sunken)", display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
+                  <Icon name={m[0]} size={20} color="var(--c-wood-deep)" />
+                </span>
+                <div>
+                  <div style={{ font: "var(--fw-bold) 15px/1.3 var(--font-gothic)", color: "var(--text-primary)" }}>{m[1]}</div>
+                  <div style={{ font: "12px/1.5 var(--font-body)", color: "var(--text-muted)", marginTop: 3 }}>{m[2]}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 右：かんたんフォーム */}
+          <div style={{ background: "var(--color-bg)", border: "1px solid var(--border)", borderRadius: "var(--radius-md)", boxShadow: "var(--shadow-sm)", padding: "30px 32px" }}>
+            <div style={{ font: "var(--fw-bold) 17px/1.4 var(--font-gothic)", color: "var(--text-primary)" }}>かんたん相談フォーム</div>
+            <p style={{ font: "12.5px/1.7 var(--font-body)", color: "var(--text-muted)", marginTop: 6 }}>入力は1分ほど。しつこい営業はいたしません。</p>
+            <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 18 }}>
+              <div>
+                <label style={labelS}>ご相談のきっかけ</label>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {INTENTS.map((it) => <Chip key={it.key} active={intent === it.key} onClick={() => setIntent(it.key)}>{it.label}</Chip>)}
+                </div>
+              </div>
+              <div>
+                <label style={labelS}>ご相談の種類{cat && <span style={{ marginLeft: 8, font: "var(--fw-regular) 12px/1 var(--font-body)", color: "var(--c-kawara)" }}>選択中：{cat}</span>}</label>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {CATEGORIES.map((c) => <Chip key={c.title} active={cat === c.title} onClick={() => { setCat(c.title); setPicked && setPicked(c.title); }}>{c.title}</Chip>)}
+                </div>
+              </div>
+              <div className="form-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                <div><label style={labelS}>お名前</label><input style={field} placeholder="岡山 太郎" /></div>
+                <div><label style={labelS}>電話番号</label><input style={field} placeholder="090-0000-0000" /></div>
+              </div>
+              <div><label style={labelS}>ご相談内容（任意）</label><textarea style={{ ...field, minHeight: 92, resize: "vertical" }} placeholder="例）築20年。お風呂が寒いので相談したいです。" /></div>
+              <Button variant="primary" size="lg" withArrow onClick={(e) => e.preventDefault()} style={{ justifyContent: "center" }}>この内容で無料相談を申し込む</Button>
+              <div style={{ font: "11px/1.6 var(--font-body)", color: "var(--text-muted)", textAlign: "center" }}>※本ページは提案用のレイアウト確認版です。フォームは送信されません。</div>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+window.ContactSection = ContactSection;

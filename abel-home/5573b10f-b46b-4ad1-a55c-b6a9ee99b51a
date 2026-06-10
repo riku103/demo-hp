@@ -1,0 +1,172 @@
+/* shared.jsx — アベルホーム トップページ ラフ案（結 YUI DS）
+   共有ヘルパー（Frame / Container / Icon）と、岡山市の住宅リフォーム会社向けデータ。
+   ★提案ラフ：未確認情報は断定せず「確認中／差し替え予定」と分かる表現にしている。 */
+
+/* ---------- 写真差し替え枠（提案用プレースホルダ） ----------
+   開発者向けの大きな文言は出さず、控えめな画像アイコン＋小さな注記で
+   「ここに実写真が入る」ことが伝わるようにする。 */
+function Frame({ tone = "wood", ratio, radius = "0", minHeight, kicker, note = true, style = {}, children }) {
+  const TONES = {
+    soil: "var(--c-soil)", wood: "var(--c-wood-deep)", moss: "var(--c-moss)",
+    sumi: "var(--c-sumi)", clay: "#A8694A", shikkui: "var(--c-shikkui-sunken)", kawara: "var(--c-kawara)",
+  };
+  const bg = TONES[tone] || tone;
+  return (
+    <div style={{
+      position: "relative", aspectRatio: ratio, minHeight, borderRadius: radius,
+      background: `linear-gradient(135deg, ${bg}, color-mix(in srgb, ${bg} 78%, #2A2521))`,
+      overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", ...style,
+    }}>
+      {!children && (
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, opacity: 0.5 }}>
+          <window.Icon name="image" size={40} color="rgba(255,255,255,.9)" stroke={1.4} />
+        </div>
+      )}
+      {kicker && (
+        <span style={{ position: "absolute", top: 12, left: 12, display: "inline-flex", alignItems: "center", gap: 6,
+          background: "rgba(42,37,33,.55)", color: "#fff", borderRadius: "var(--radius-pill)",
+          padding: "5px 11px", font: "var(--fw-medium) 11px/1 var(--font-gothic)", letterSpacing: ".06em", backdropFilter: "blur(2px)" }}>{kicker}</span>
+      )}
+      {note && !children && (
+        <span style={{ position: "absolute", bottom: 10, right: 12,
+          font: "10.5px/1 var(--font-body)", color: "rgba(255,255,255,.78)", letterSpacing: ".02em" }}>写真差し替え予定</span>
+      )}
+      {children}
+    </div>
+  );
+}
+
+function Container({ width = "var(--container)", style, children }) {
+  return <div style={{ width: "100%", maxWidth: width, margin: "0 auto", padding: "0 24px", ...style }}>{children}</div>;
+}
+
+/* 「確認中」を表す小さなタグ（未確認情報の明示用） */
+function Provisional({ children = "確認中", style }) {
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 5, verticalAlign: "middle",
+      background: "var(--c-warning-tint)", color: "#8A6418", border: "1px solid color-mix(in srgb, #C2913C 40%, transparent)",
+      borderRadius: "var(--radius-sm)", padding: "2px 8px", font: "var(--fw-medium) 11px/1.4 var(--font-gothic)", letterSpacing: ".02em", ...style }}>{children}</span>
+  );
+}
+
+/* ---------- Lucide 線画アイコン（細ストローク） ---------- */
+function Icon({ name, size = 24, stroke = 1.6, color = "currentColor", style }) {
+  const P = {
+    droplets: <><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 4.8 7 3c-.29 1.8-1.14 3.13-2.29 4.06S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z" /><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6 6 0 1 1-12 0c0-1.07.5-2.32 1.25-3.5" /></>,
+    house: <><path d="M3 10.5 12 3l9 7.5" /><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5" /><path d="M9 21v-6h6v6" /></>,
+    sofa: <><path d="M3 11v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5" /><path d="M5 11V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4" /><path d="M5 11a2 2 0 0 0-2 2M21 13a2 2 0 0 0-2-2" /><path d="M5 18v2M19 18v2" /></>,
+    trees: <><path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z" /><path d="M7 16v6M13 19v3M18 4a3 3 0 0 0-2.8 2 3 3 0 0 0 0 4 3 3 0 0 0 2.8 2 3 3 0 0 0 2.8-2 3 3 0 0 0 0-4A3 3 0 0 0 18 4Z" /></>,
+    accessibility: <><circle cx="16" cy="4" r="1" /><path d="m18 19 1-7-5.87.94" /><path d="m5 8 3-3 5.5 3-2.21 3.1" /><path d="M4.24 14.48a5 5 0 0 0 6.88 6" /></>,
+    hammer: <><path d="m15 12-8.5 8.5a2.12 2.12 0 1 1-3-3L12 9" /><path d="M17.64 15 22 10.64" /><path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h.86c.85 0 1.65.33 2.25.93l1.25 1.25" /></>,
+    phone: <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />,
+    file: <><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="M10 9H8M16 13H8M16 17H8" /></>,
+    chat: <><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2Z" /><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" /></>,
+    arrow: <><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></>,
+    check: <><path d="M20 6 9 17l-5-5" /></>,
+    pin: <><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></>,
+    clock: <><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></>,
+    shield: <><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1Z" /></>,
+    yen: <><path d="M12 9.5 7 4M12 9.5 17 4M12 9.5V20M8 12h8M8 15.5h8" /></>,
+    image: <><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="9" cy="9" r="2" /><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21" /></>,
+    camera: <><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" /></>,
+    upload: <><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="M17 8l-5-5-5 5" /><path d="M12 3v12" /></>,
+    ruler: <><path d="M21.3 8.7 8.7 21.3a1 1 0 0 1-1.4 0l-4.6-4.6a1 1 0 0 1 0-1.4L15.3 2.7a1 1 0 0 1 1.4 0l4.6 4.6a1 1 0 0 1 0 1.4Z" /><path d="m7.5 10.5 2 2M10.5 7.5l2 2M13.5 4.5l2 2" /></>,
+    handshake: <><path d="m11 17 2 2a1 1 0 1 0 3-3" /><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /><path d="m21 3 1 11h-2M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3M3 4h8" /></>,
+  };
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color}
+      strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flex: "none", ...style }}>
+      {P[name] || null}
+    </svg>
+  );
+}
+
+/* ====================== データ ======================
+   ※提案ラフ。社名以外の数値・固有情報は確認前提（safe表現／確認中表示）。 */
+
+const ABEL = {
+  jp: "株式会社アベルホーム",
+  short: "アベルホーム",
+  en: "ABEL HOME",
+  tag: "岡山の住まいの、相談しやすいリフォーム会社",
+  areaSafe: "岡山市を中心に対応（エリア詳細は確認中）",
+};
+
+const NAV = [
+  { label: "悩み別に探す", target: "categories" },
+  { label: "施工事例", target: "works" },
+  { label: "お客様の声", target: "voice" },
+  { label: "選ばれる理由", target: "reasons" },
+  { label: "相談の流れ", target: "flow" },
+  { label: "会社案内", target: "company" },
+];
+
+/* 実績ストリップ：未確認の件数は断定しない安全表現 */
+const STATS = [
+  ["地域密着", "岡山", "のリフォーム会社"],
+  ["ご相談", "無料", "でお気軽に"],
+  ["施工実績", "多数", "※件数は確認中"],
+  ["対応", "県内中心", "※エリア確認中"],
+];
+
+/* よくある悩み別カテゴリ導線（このサイト改善の主役） */
+const CATEGORIES = [
+  { icon: "droplets", en: "Water", title: "水回り", sub: "キッチン・浴室・洗面・トイレ", price: "費用目安 50万円〜", term: "工期目安 3日〜", tone: "wood",
+    examples: ["古いお風呂を、暖かく安全に", "対面キッチンで家族と一緒に"] },
+  { icon: "house", en: "Roof & Wall", title: "屋根・外壁", sub: "塗装・葺き替え・雨漏り対策", price: "費用目安 80万円〜", term: "工期目安 1〜3週", tone: "clay",
+    examples: ["雨漏りの不安を解消したい", "色あせた外観をきれいに"] },
+  { icon: "sofa", en: "Interior", title: "内装・間取り", sub: "クロス・床・間取り変更", price: "費用目安 30万円〜", term: "工期目安 2日〜", tone: "moss",
+    examples: ["暗いリビングを明るく", "壁を抜いて広い空間に"] },
+  { icon: "trees", en: "Exterior", title: "外構・エクステリア", sub: "駐車場・門まわり・庭", price: "費用目安 40万円〜", term: "工期目安 1〜2週", tone: "soil",
+    examples: ["駐車場を停めやすく", "手入れしやすい庭に"] },
+  { icon: "accessibility", en: "Barrier-free", title: "バリアフリー・介護", sub: "手すり・段差解消・浴室", price: "補助金の対象になる場合も", term: "工期目安 1日〜", tone: "moss",
+    examples: ["親の介護に備えたい", "段差をなくして安全に"] },
+  { icon: "hammer", en: "Full Renovation", title: "全面改装・増改築", sub: "戸建まるごと・二世帯化", price: "費用目安 500万円〜", term: "工期目安 2〜4か月", tone: "sumi",
+    examples: ["中古住宅をまるごと一新", "二世帯で暮らせる家に"] },
+];
+
+/* 施工事例（※掲載イメージ。実例に差し替え予定）— 課題→工事→結果が一目で分かる短文付き */
+const WORKS = [
+  { title: "キッチンを、家族の真ん中に。", type: "水回り", summary: "使いづらかった独立キッチンを対面式へ。家族と話しながら料理できる住まいに。", tone: "wood", tags: [{ label: "水回り", tone: "wood" }, { label: "対面キッチン", tone: "neutral" }] },
+  { title: "雨漏りの不安から、解放された家。", type: "屋根・外壁", summary: "経年劣化した屋根・外壁を調査のうえ補修と塗装。雨の日の不安をなくす。", tone: "clay", tags: [{ label: "屋根・外壁", tone: "wood" }, { label: "雨漏り対策", tone: "notice" }] },
+  { title: "光が差し込む、明るいリビングへ。", type: "内装・間取り", summary: "暗かったLDKの間仕切りを見直し、開放的で光の入る空間に一新。", tone: "moss", tags: [{ label: "内装", tone: "moss" }, { label: "間取り変更", tone: "neutral" }] },
+  { title: "段差のない、安心して暮らせる住まい。", type: "バリアフリー", summary: "玄関・廊下・浴室の段差を解消し手すりを設置。日々の移動を安全に。", tone: "soil", tags: [{ label: "バリアフリー", tone: "moss" }, { label: "手すり設置", tone: "notice" }] },
+  { title: "中古住宅を、まるごと新しく。", type: "全面改装", summary: "間取り・水回り・内外装を一新。住み継げる住まいへフルリノベーション。", tone: "sumi", tags: [{ label: "全面改装", tone: "notice" }, { label: "二世帯", tone: "wood" }] },
+  { title: "家事がラクになる、回遊する水回り。", type: "水回り", summary: "洗面・浴室・洗濯動線を見直し、家事がスムーズに回る間取りへ。", tone: "wood", tags: [{ label: "水回り", tone: "wood" }, { label: "家事動線", tone: "neutral" }] },
+];
+
+/* お客様の声（※表現サンプル。実際の声に差し替え予定） */
+const VOICES = [
+  { quote: "相談したら、まず話をよく聞いてくれて。予算の中で一番いい方法を、一緒に考えてくれました。", name: "お客様A", meta: "60代ご夫婦／水回りの改装（掲載イメージ）", tone: "moss" },
+  { quote: "雨漏りでとても不安でしたが、調査から説明まで丁寧で。今は雨の日も気になりません。", name: "お客様B", meta: "ご家族4人／屋根・外壁（掲載イメージ）", tone: "clay" },
+  { quote: "段差をなくす工事で、毎日の移動がぐっと楽に。無理のないご提案がうれしかったです。", name: "お客様C", meta: "二世帯／バリアフリー改修（掲載イメージ）", tone: "wood" },
+];
+
+/* 選ばれる理由（断定しすぎない誠実な表現） */
+const REASONS = [
+  { index: "01", icon: "pin", title: "岡山に密着した、地元の会社", body: "地域の住まいに対応してきたスタッフが、お近くの距離感でご相談に応じます。" },
+  { index: "02", icon: "handshake", title: "ていねいな施工と、わかりやすい対応", body: "工事の内容と進め方をかみくだいてご説明。はじめての方にも安心いただけるよう努めます。" },
+  { index: "03", icon: "yen", title: "費用と工事内容を、わかりやすく", body: "概算費用や工事範囲をできるだけ明快にご提示し、比較してお選びいただけるようにします。" },
+  { index: "04", icon: "chat", title: "ご相談は無料。気軽に話せる", body: "「これってリフォームできる？」という小さな疑問から、どうぞお気軽にご相談ください。" },
+];
+
+/* 相談の流れ */
+const FLOW = [
+  { step: "01", title: "無料相談・お問い合わせ", body: "お電話・WEB・ご来店で。「どこに頼めばいいか分からない」段階で大丈夫です。", meta: "ご相談は無料" },
+  { step: "02", title: "現地調査・お見積り", body: "スタッフがご自宅へ伺い状態を確認。内容に応じてお見積りをお出しします。", meta: "調査・見積りの費用は要確認" },
+  { step: "03", title: "ご提案・お打ち合わせ", body: "ご予算とご要望に合わせ、複数の方法を比較しながらプランをご提案します。" },
+  { step: "04", title: "ご契約・着工", body: "工程と工期をご説明したうえで着工。近隣へのご挨拶も配慮します。" },
+  { step: "05", title: "お引き渡し・アフター", body: "完成後のお付き合いも大切に。点検・保証の内容はご契約時にご案内します。", meta: "保証内容は確認中" },
+];
+
+/* 会社案内（confirmed=社名・事業内容、その他は確認中表示） */
+const COMPANY = [
+  ["会社名", "株式会社アベルホーム", false],
+  ["所在地", "岡山県岡山市（詳細住所は確認中）", true],
+  ["事業内容", "住宅リフォーム全般（水回り・屋根外壁・内装・外構・増改築）", false],
+  ["施工実績", "多数（具体的な件数は確認中）", true],
+  ["対応エリア", "岡山市を中心に県内（エリア詳細は確認中）", true],
+  ["営業時間・定休日", "確認中", true],
+];
+
+Object.assign(window, { Frame, Container, Provisional, Icon, ABEL, NAV, STATS, CATEGORIES, WORKS, VOICES, REASONS, FLOW, COMPANY });
