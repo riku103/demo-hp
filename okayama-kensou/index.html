@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>株式会社岡山建装 | 営業提案用トップページラフ</title>
+  <meta name="description" content="株式会社岡山建装様向けの営業提案用トップページラフ案です。">
+  <style>
+    :root {
+      --ink: #16231f;
+      --muted: #5a6861;
+      --line: #d9e2dc;
+      --paper: #f7f6f0;
+      --white: #ffffff;
+      --green: #1f5b44;
+      --green-dark: #123a2c;
+      --blue: #18374d;
+      --gold: #d59b2d;
+      --gold-soft: #fff4d7;
+      --shadow: 0 18px 48px rgba(20, 42, 34, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif;
+      line-height: 1.7;
+      background: var(--paper);
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .top-note {
+      background: var(--blue);
+      color: #eef7fb;
+      font-size: 13px;
+      padding: 7px 20px;
+      text-align: center;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .header-inner {
+      width: min(1180px, calc(100% - 40px));
+      min-height: 72px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      min-width: 210px;
+    }
+
+    .brand-name {
+      display: block;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--green-dark);
+      line-height: 1.25;
+    }
+
+    .brand-sub {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      font-size: 14px;
+      color: #31433c;
+      white-space: nowrap;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      padding: 10px 16px;
+      font-weight: 800;
+      line-height: 1.25;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(18, 58, 44, 0.18);
+    }
+
+    .btn.primary {
+      background: var(--gold);
+      color: #1c170e;
+    }
+
+    .btn.dark {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .btn.light {
+      background: var(--white);
+      color: var(--green-dark);
+      border-color: var(--line);
+    }
+
+    .hero {
+      position: relative;
+      min-height: min(760px, calc(100vh - 46px));
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(13, 31, 24, 0.88) 0%, rgba(13, 31, 24, 0.72) 45%, rgba(13, 31, 24, 0.24) 100%),
+        url("https://okayamakensou.jp/wp-content/uploads/2019/06/ok_top_img01_pc.jpg") center / cover no-repeat;
+      color: var(--white);
+    }
+
+    .hero-inner {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 86px 0 48px;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 32px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #fff8de;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      margin: 20px 0 16px;
+      font-size: 72px;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .hero-lead {
+      max-width: 680px;
+      margin: 0 0 28px;
+      color: #edf5ef;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 900px;
+    }
+
+    .hero-meta > div {
+      min-height: 76px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.11);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 6px;
+    }
+
+    .hero-meta strong {
+      display: block;
+      color: #fff5d3;
+      font-size: 15px;
+    }
+
+    .hero-meta span {
+      display: block;
+      margin-top: 2px;
+      color: #e5eee9;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    main {
+      background: var(--paper);
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .eyebrow {
+      margin: 0 0 7px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--green-dark);
+      font-size: 42px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .section-lead {
+      max-width: 560px;
+      margin: 0;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .quick-item,
+    .reason,
+    .case-card,
+    .step,
+    .area-panel,
+    .scope-item {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      box-shadow: 0 8px 24px rgba(24, 55, 77, 0.07);
+    }
+
+    .quick-item {
+      min-height: 148px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .quick-icon {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 4px;
+      background: var(--gold-soft);
+      color: #8a5e10;
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .quick-item h3,
+    .reason h3,
+    .step h3,
+    .scope-item h3 {
+      margin: 0;
+      color: var(--green-dark);
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .quick-item p,
+    .reason p,
+    .step p,
+    .scope-item p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .flow {
+      background: var(--white);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .step {
+      min-height: 240px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step-number {
+      display: inline-grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      margin-bottom: 18px;
+      border-radius: 4px;
+      background: var(--green);
+      color: var(--white);
+      font-weight: 900;
+    }
+
+    .case-section {
+      background: #edf2ee;
+    }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .case-card {
+      overflow: hidden;
+    }
+
+    .case-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 160px;
+      background: #dfe7e2;
+    }
+
+    .case-images figure {
+      margin: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .case-images img {
+      width: 100%;
+      height: 100%;
+      min-height: 160px;
+      object-fit: cover;
+    }
+
+    .case-images figcaption {
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      padding: 3px 7px;
+      border-radius: 3px;
+      background: rgba(18, 58, 44, 0.88);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .case-body {
+      padding: 18px;
+    }
+
+    .case-body h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: var(--green-dark);
+    }
+
+    .case-detail {
+      min-height: 54px;
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .price {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .price span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .price strong {
+      color: var(--blue);
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .trust-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 28px;
+      align-items: center;
+    }
+
+    .trust-image {
+      overflow: hidden;
+      border-radius: 6px;
+      box-shadow: var(--shadow);
+      background: var(--green-dark);
+    }
+
+    .trust-image img {
+      width: 100%;
+      min-height: 420px;
+      object-fit: cover;
+    }
+
+    .reason-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .reason {
+      min-height: 156px;
+      padding: 18px;
+    }
+
+    .scope {
+      background: var(--green-dark);
+      color: var(--white);
+    }
+
+    .scope h2,
+    .scope .eyebrow {
+      color: var(--white);
+    }
+
+    .scope .section-lead {
+      color: #d8e5de;
+    }
+
+    .scope-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .scope-item {
+      min-height: 146px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: none;
+    }
+
+    .scope-item h3 {
+      color: #fff7d7;
+    }
+
+    .scope-item p {
+      color: #d8e5de;
+    }
+
+    .area {
+      background: var(--white);
+    }
+
+    .area-panel {
+      padding: 26px;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .area-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .area-tags span {
+      display: inline-flex;
+      min-height: 34px;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 4px;
+      background: #edf2ee;
+      color: var(--green-dark);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .cta {
+      padding: 0;
+      background: var(--white);
+    }
+
+    .cta-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+      gap: 28px;
+      align-items: stretch;
+      margin: 72px auto;
+      overflow: hidden;
+      border-radius: 6px;
+      background: var(--green);
+      color: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-copy {
+      padding: 38px;
+    }
+
+    .cta-copy h2 {
+      color: var(--white);
+    }
+
+    .cta-copy p {
+      margin: 14px 0 24px;
+      color: #e8f0eb;
+      font-weight: 600;
+    }
+
+    .contact-box {
+      padding: 32px;
+      background: #0f3025;
+      display: grid;
+      align-content: center;
+      gap: 12px;
+    }
+
+    .contact-row {
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .contact-row span {
+      display: block;
+      color: #bdd0c7;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .contact-row strong {
+      display: block;
+      color: var(--white);
+      font-size: 20px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+
+    .site-footer {
+      padding: 28px 20px 96px;
+      background: #10241e;
+      color: #cbd8d1;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .mobile-fixed {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 30;
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      background: var(--white);
+      border-top: 1px solid var(--line);
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .mobile-fixed a {
+      min-height: 58px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    .mobile-fixed a:first-child {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .mobile-fixed a:last-child {
+      background: var(--gold);
+      color: #241b0d;
+    }
+
+    @media (max-width: 980px) {
+      .header-inner {
+        min-height: 64px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-inner {
+        padding: 72px 0 42px;
+      }
+
+      .hero-meta,
+      .quick-grid,
+      .steps,
+      .case-grid,
+      .reason-list,
+      .scope-grid,
+      .trust-layout,
+      .area-panel,
+      .cta-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .trust-image img {
+        min-height: 280px;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-lead {
+        margin-top: 12px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .top-note {
+        font-size: 12px;
+        padding: 7px 12px;
+      }
+
+      .header-inner,
+      .container,
+      .hero-inner {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .header-actions {
+        display: none;
+      }
+
+      .brand-name {
+        font-size: 18px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .hero-lead {
+        font-size: 18px;
+      }
+
+      h2 {
+        font-size: 30px;
+      }
+
+      .hero {
+        background:
+          linear-gradient(180deg, rgba(13, 31, 24, 0.88) 0%, rgba(13, 31, 24, 0.72) 58%, rgba(13, 31, 24, 0.82) 100%),
+          url("https://okayamakensou.jp/wp-content/uploads/2019/06/ok_top_img01_sp.jpg") center top / cover no-repeat;
+      }
+
+      .hero-actions,
+      .cta-copy .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 52px 0;
+      }
+
+      .case-images {
+        min-height: 136px;
+      }
+
+      .case-images img {
+        min-height: 136px;
+      }
+
+      .cta-panel {
+        margin: 52px auto;
+      }
+
+      .cta-copy,
+      .contact-box {
+        padding: 24px;
+      }
+
+      .mobile-fixed {
+        display: grid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-note">提案用ラフ案です。写真・価格・保証・受付時間は正式確認後に差し替えます。</div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#">
+        <span class="brand-name">株式会社岡山建装</span>
+        <span class="brand-sub">外壁塗装・屋根塗装・リフォーム</span>
+      </a>
+      <nav class="nav" aria-label="主要ナビゲーション">
+        <a href="#first">はじめての方へ</a>
+        <a href="#cases">施工事例と価格</a>
+        <a href="#trust">外壁診断</a>
+        <a href="#scope">対応工事</a>
+        <a href="#contact">問い合わせ</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn light" href="tel:0865638816">0865-63-8816</a>
+        <a class="btn dark" href="#contact">写真で見積もり</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" aria-label="株式会社岡山建装">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="badge">倉敷・浅口・里庄周辺の外装リフォーム相談</span>
+        <h1>株式会社岡山建装</h1>
+        <p class="hero-lead">外壁診断士が住まいの状態を確認し、写真相談から塗り替え・屋根・防水・リフォームまで分かりやすくご提案します。</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#contact">写真を送って簡易見積もり</a>
+          <a class="btn light" href="tel:0865638816">電話で相談する</a>
+          <a class="btn light" href="#cases">施工事例と価格を見る</a>
+        </div>
+        <div class="hero-meta" aria-label="強み">
+          <div>
+            <strong>資格者による診断</strong>
+            <span>二級建築士・外壁診断士などの表記は正式確認後に反映</span>
+          </div>
+          <div>
+            <strong>価格例を掲載</strong>
+            <span>施工前後写真と費用感を見ながら相談できます</span>
+          </div>
+          <div>
+            <strong>LINE・メール対応</strong>
+            <span>自宅写真を送って簡易見積もりの相談へ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="first">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">First Action</p>
+            <h2>迷わず次へ進める入口</h2>
+          </div>
+          <p class="section-lead">トップページの初期導線を、相談方法・判断材料・信頼材料の3方向に整理します。</p>
+        </div>
+        <div class="quick-grid">
+          <a class="quick-item" href="#contact">
+            <span class="quick-icon">1</span>
+            <div>
+              <h3>写真で簡易見積もり</h3>
+              <p>外壁や屋根の写真を送るだけで、相談の第一歩を始めやすくします。</p>
+            </div>
+          </a>
+          <a class="quick-item" href="#cases">
+            <span class="quick-icon">2</span>
+            <div>
+              <h3>施工事例と価格</h3>
+              <p>施工前後、面積、塗料、価格例をカードで比較しやすくします。</p>
+            </div>
+          </a>
+          <a class="quick-item" href="#trust">
+            <span class="quick-icon">3</span>
+            <div>
+              <h3>外壁診断を相談</h3>
+              <p>診断から提案までの流れを見せ、初回の不安を減らします。</p>
+            </div>
+          </a>
+          <a class="quick-item" href="#scope">
+            <span class="quick-icon">4</span>
+            <div>
+              <h3>対応範囲を見る</h3>
+              <p>外壁、屋根、防水、内装、外構までまとめて確認できます。</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Simple Flow</p>
+            <h2>写真相談から施工までを3ステップに</h2>
+          </div>
+          <p class="section-lead">LINE・メール・電話のどれを使えばよいかを整理し、相談前の手間を減らします。</p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <span class="step-number">01</span>
+            <h3>写真を送る・電話で話す</h3>
+            <p>外壁、屋根、雨漏り、気になる箇所の写真を送って簡易相談。受付時間や返信目安は要確認です。</p>
+          </article>
+          <article class="step">
+            <span class="step-number">02</span>
+            <h3>診断・見積もり</h3>
+            <p>外壁診断士が状態を確認し、必要な工事と塗料の選択肢を分かりやすく整理します。</p>
+          </article>
+          <article class="step">
+            <span class="step-number">03</span>
+            <h3>比較して決める</h3>
+            <p>価格重視、性能重視、保証重視など、複数パターンを見ながら納得して選べる導線にします。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cases" class="case-section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Case & Price</p>
+            <h2>施工前後と費用感を見比べる</h2>
+          </div>
+          <p class="section-lead">現行サイト掲載の施工例を、スマホでも比較しやすいカード形式に再編集する想定です。</p>
+        </div>
+        <div class="case-grid">
+          <article class="case-card">
+            <div class="case-images">
+              <figure>
+                <img src="https://okayamakensou.jp/wp-content/uploads/2019/06/case_img01_before.jpg" alt="施工前の外壁">
+                <figcaption>施工前</figcaption>
+              </figure>
+              <figure>
+                <img src="https://okayamakensou.jp/wp-content/uploads/2019/06/case_img01_after.jpg" alt="施工後の外壁">
+                <figcaption>施工後</figcaption>
+              </figure>
+            </div>
+            <div class="case-body">
+              <h3>外壁塗装 140㎡</h3>
+              <p class="case-detail">モルタル外壁に高耐候シリコン塗料を施工した掲載例。</p>
+              <div class="price">
+                <span>掲載価格例</span>
+                <strong>65万円</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-card">
+            <div class="case-images">
+              <figure>
+                <img src="https://okayamakensou.jp/wp-content/uploads/2019/06/case_img02_before.jpg" alt="施工前の外壁">
+                <figcaption>施工前</figcaption>
+              </figure>
+              <figure>
+                <img src="https://okayamakensou.jp/wp-content/uploads/2019/06/case_img02_after.jpg" alt="施工後の外壁">
+                <figcaption>施工後</figcaption>
+              </figure>
+            </div>
+            <div class="case-body">
+              <h3>外壁塗装 176㎡</h3>
+              <p class="case-detail">サイディング外壁に高耐候シリコン塗料を施工した掲載例。</p>
+              <div class="price">
+                <span>掲載価格例</span>
+                <strong>84万円</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-card">
+            <div class="case-images">
+              <figure>
+                <img src="https://okayamakensou.jp/wp-content/uploads/2019/06/case_img05_before.jpg" alt="施工前の屋根と外壁">
+                <figcaption>施工前</figcaption>
+              </figure>
+              <figure>
+                <img src="https://okayamakensou.jp/wp-content/uploads/2019/06/case_img05_after.jpg" alt="施工後の屋根と外壁">
+                <figcaption>施工後</figcaption>
+              </figure>
+            </div>
+            <div class="case-body">
+              <h3>屋根・外壁塗装</h3>
+              <p class="case-detail">カラーベスト屋根とサイディング外壁の施工掲載例。</p>
+              <div class="price">
+                <span>掲載価格例</span>
+                <strong>105万円</strong>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="trust">
+      <div class="container trust-layout">
+        <div class="trust-image">
+          <img src="https://okayamakensou.jp/wp-content/uploads/2019/06/ok_top_img03_sp.jpg" alt="保有資格の案内">
+        </div>
+        <div>
+          <p class="eyebrow">Trust Points</p>
+          <h2>診断力と地域対応を判断材料にする</h2>
+          <p class="section-lead">資格、対応エリア、保証、塗料選定を近い位置にまとめ、価格だけで比較されにくいトップページへ整理します。</p>
+          <div class="reason-list" style="margin-top: 24px;">
+            <article class="reason">
+              <h3>外壁診断士の調査</h3>
+              <p>劣化状況、塗り替え時期、必要な補修を分かりやすく説明する導線。</p>
+            </article>
+            <article class="reason">
+              <h3>複数見積もり提案</h3>
+              <p>価格重視・性能重視など、選び方を比較できる表示にします。</p>
+            </article>
+            <article class="reason">
+              <h3>保証・塗料の確認</h3>
+              <p>10年保証や取り扱い塗料は条件を確認し、資料上は仮情報として扱います。</p>
+            </article>
+            <article class="reason">
+              <h3>地域密着の対応</h3>
+              <p>倉敷、浅口、里庄周辺から福山市まで、対応エリアを見やすく提示します。</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scope" class="scope">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Service Scope</p>
+            <h2>塗装以外の相談も受け止める</h2>
+          </div>
+          <p class="section-lead">事業内容ページにある対応範囲を、トップページでひと目で分かる形にします。</p>
+        </div>
+        <div class="scope-grid">
+          <article class="scope-item">
+            <h3>戸建て塗装</h3>
+            <p>外壁塗装、屋根塗装、付帯部塗装、塗り替え相談。</p>
+          </article>
+          <article class="scope-item">
+            <h3>集合住宅・社屋</h3>
+            <p>アパート、マンション、工場、倉庫、看板工事の相談。</p>
+          </article>
+          <article class="scope-item">
+            <h3>防水・雨漏り</h3>
+            <p>屋上防水、バルコニー防水、シーリング改修。</p>
+          </article>
+          <article class="scope-item">
+            <h3>リフォーム</h3>
+            <p>内装、水回り、屋根補修、外構・エクステリア。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="area">
+      <div class="container">
+        <div class="area-panel">
+          <div>
+            <p class="eyebrow">Area</p>
+            <h2>相談できる地域をすぐ確認</h2>
+            <p class="section-lead">対応地域は現行サイト情報をもとにした仮配置です。正式な対応可否は問い合わせ時に確認します。</p>
+          </div>
+          <div class="area-tags" aria-label="対応エリア">
+            <span>岡山市</span>
+            <span>倉敷市</span>
+            <span>浅口市</span>
+            <span>里庄町</span>
+            <span>早島町</span>
+            <span>笠岡市</span>
+            <span>井原市</span>
+            <span>総社市</span>
+            <span>矢掛町</span>
+            <span>福山市</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="cta">
+      <div class="container cta-panel">
+        <div class="cta-copy">
+          <p class="eyebrow">Contact</p>
+          <h2>外壁・屋根の写真を送って相談</h2>
+          <p>気になる箇所をスマホで撮影して、電話・LINE・メールから相談できる導線にします。返信目安、受付範囲、必要写真は正式確認後に反映します。</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="tel:0865638816">電話で相談する</a>
+            <a class="btn light" href="mailto:okayamakensou@outlook.jp">メールで写真を送る</a>
+          </div>
+        </div>
+        <div class="contact-box">
+          <div class="contact-row">
+            <span>電話</span>
+            <strong>0865-63-8816</strong>
+          </div>
+          <div class="contact-row">
+            <span>受付時間</span>
+            <strong>月曜から土曜 9:00-18:00</strong>
+          </div>
+          <div class="contact-row">
+            <span>メール</span>
+            <strong>okayamakensou@outlook.jp</strong>
+          </div>
+          <div class="contact-row">
+            <span>LINE</span>
+            <strong>正式URL・QRは要確認</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>株式会社岡山建装様 営業提案用ラフ案 / 写真・価格・資格・保証・受付情報は確認後に正式反映</p>
+  </footer>
+
+  <div class="mobile-fixed" aria-label="スマホ固定問い合わせ">
+    <a href="tel:0865638816">電話相談</a>
+    <a href="mailto:okayamakensou@outlook.jp">写真で見積もり</a>
+  </div>
+</body>
+</html>
