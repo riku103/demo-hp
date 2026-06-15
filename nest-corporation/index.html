@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ネストコーポレーション｜岡山のリフォーム トップページ ラフ案</title>
+  <meta name="description" content="ネストコーポレーション向けの営業提案用トップページラフ案です。岡山のリフォーム相談、施工事例、費用感の入口を整理した構成です。">
+  <style>
+    :root {
+      --ink: #16201d;
+      --muted: #5c6b66;
+      --paper: #faf8f3;
+      --surface: #ffffff;
+      --mist: #e8f0ed;
+      --sand: #eadbc4;
+      --green: #255f4b;
+      --green-deep: #174535;
+      --clay: #a95e35;
+      --blue: #325f73;
+      --line: rgba(22, 32, 29, .14);
+      --shadow: 0 20px 54px rgba(22, 32, 29, .13);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "YuGothic", "Noto Sans JP", sans-serif;
+      line-height: 1.75;
+      letter-spacing: 0;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 30;
+      background: rgba(250, 248, 243, .9);
+      border-bottom: 1px solid rgba(22, 32, 29, .08);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: grid;
+      gap: 2px;
+      min-width: 210px;
+      line-height: 1.2;
+    }
+
+    .brand strong { font-size: 18px; font-weight: 800; }
+    .brand span { color: var(--muted); font-size: 12px; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 22px;
+      color: #31433d;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      color: #fff;
+      background: var(--green);
+      border-radius: 999px;
+      font-weight: 750;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 94svh;
+      display: grid;
+      overflow: hidden;
+      background: #17211e;
+    }
+
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(15, 24, 21, .86) 0%, rgba(15, 24, 21, .66) 42%, rgba(15, 24, 21, .1) 82%),
+        linear-gradient(0deg, rgba(15, 24, 21, .38), rgba(15, 24, 21, .04));
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      min-height: 94svh;
+      display: grid;
+      align-content: center;
+      padding: 118px 0 64px;
+      color: #fff;
+    }
+
+    .mark {
+      width: fit-content;
+      padding: 7px 12px;
+      border: 1px solid rgba(255, 255, 255, .36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .09);
+      color: rgba(255, 255, 255, .88);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    h1 {
+      max-width: 780px;
+      margin: 24px 0 20px;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      font-size: clamp(42px, 7vw, 84px);
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .hero-lead {
+      max-width: 660px;
+      margin: 0;
+      color: rgba(255, 255, 255, .88);
+      font-size: clamp(16px, 2vw, 20px);
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .btn-primary { color: #fff; background: var(--clay); }
+    .btn-secondary { color: var(--ink); background: #fff; }
+    .btn-outline { color: #fff; border: 1px solid rgba(255, 255, 255, .44); }
+
+    .hero-facts {
+      width: min(790px, 100%);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 48px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .26);
+      box-shadow: var(--shadow);
+    }
+
+    .fact {
+      min-height: 108px;
+      padding: 18px;
+      background: rgba(250, 248, 243, .94);
+      color: var(--ink);
+    }
+
+    .fact b { display: block; font-size: 20px; line-height: 1.3; }
+    .fact span { color: var(--muted); font-size: 12px; }
+
+    section { padding: 92px 0; }
+    .kicker {
+      margin: 0 0 10px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      max-width: 780px;
+      margin: 0;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      font-size: clamp(30px, 4.8vw, 54px);
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+
+    .section-lead {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .issue-band {
+      background: var(--mist);
+      border-block: 1px solid var(--line);
+    }
+
+    .issue-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 34px;
+      align-items: start;
+      margin-top: 36px;
+    }
+
+    .issue-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .issue {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 14px;
+      padding: 18px;
+      background: rgba(255, 255, 255, .78);
+      border: 1px solid rgba(22, 32, 29, .1);
+      border-radius: 8px;
+    }
+
+    .num {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--green);
+      font-weight: 900;
+    }
+
+    .issue h3, .service h3, .case h3, .flow h3 { margin: 0 0 6px; font-size: 20px; }
+    .issue p, .service p, .case p, .flow p, .note p { margin: 0; color: var(--muted); }
+
+    .phone-panel {
+      position: sticky;
+      top: 104px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+    }
+
+    .phone-panel img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .phone-panel-content { padding: 22px; }
+    .phone-panel-content h3 { margin: 0 0 8px; font-size: 22px; }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .service {
+      min-height: 220px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: 0 10px 30px rgba(22, 32, 29, .07);
+    }
+
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      border-radius: 8px;
+      color: #fff;
+      background: var(--blue);
+      font-weight: 900;
+    }
+
+    .works-band {
+      background: #17211e;
+      color: #fff;
+    }
+
+    .works-band .kicker { color: #a8c9bd; }
+    .works-band .section-lead { color: rgba(255, 255, 255, .72); }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 38px;
+    }
+
+    .case {
+      overflow: hidden;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .14);
+    }
+
+    .case img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .case-body { padding: 20px; }
+    .case p { color: rgba(255, 255, 255, .72); }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 9px;
+      margin-bottom: 12px;
+      border-radius: 999px;
+      color: #173426;
+      background: #d9eadf;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 36px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--line);
+    }
+
+    .flow {
+      min-height: 230px;
+      padding: 22px;
+      background: var(--surface);
+    }
+
+    .flow-step {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      min-height: 30px;
+      padding: 0 10px;
+      margin-bottom: 18px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--green);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .cta-band {
+      padding: 76px 0;
+      background: var(--sand);
+    }
+
+    .cta-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 28px;
+      align-items: center;
+      padding: 34px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box h2 {
+      margin: 0 0 10px;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.24;
+    }
+
+    .cta-box p { margin: 0; color: var(--muted); }
+    .cta-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+    .cta-actions .btn-secondary { border: 1px solid var(--line); }
+
+    .note {
+      padding: 28px 0 46px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .site-footer {
+      padding: 34px 0;
+      background: #111815;
+      color: rgba(255, 255, 255, .72);
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+    }
+
+    @media (max-width: 960px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .issue-grid, .cta-box { grid-template-columns: 1fr; }
+      .phone-panel { position: relative; top: auto; }
+      .service-grid, .flow-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .case-grid { grid-template-columns: 1fr; }
+      .cta-actions { justify-content: flex-start; }
+    }
+
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      .brand { min-width: 0; }
+      .nav { min-height: 64px; }
+      .nav-cta { min-height: 38px; padding: 0 14px; font-size: 13px; }
+      .hero, .hero-content { min-height: 92svh; }
+      .hero-content { padding-top: 92px; }
+      .hero-facts, .service-grid, .flow-grid { grid-template-columns: 1fr; }
+      section { padding: 64px 0; }
+      .cta-box { padding: 24px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="トップへ">
+        <strong>ネストコーポレーション</strong>
+        <span>岡山のリフォーム専門工務店</span>
+      </a>
+      <nav class="nav-links" aria-label="主要ナビゲーション">
+        <a href="#concern">改善案</a>
+        <a href="#service">リフォーム</a>
+        <a href="#works">施工事例</a>
+        <a href="#flow">相談の流れ</a>
+        <a class="nav-cta" href="#contact">相談する</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="ファーストビュー">
+      <img class="hero-photo" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1800&amp;q=82" alt="明るい住まいのリビング空間">
+      <div class="wrap hero-content">
+        <span class="mark">営業提案用ラフ案</span>
+        <h1>住み慣れた岡山の家を、次の暮らしに合わせて整える。</h1>
+        <p class="hero-lead">
+          水回り、内装、外装、間取り変更まで。リフォームを検討し始めた方が、事例と費用感を見ながら相談しやすいトップページに整理します。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">無料相談の入口を見る</a>
+          <a class="btn btn-secondary" href="#works">施工事例の見せ方を見る</a>
+          <a class="btn btn-outline" href="#concern">改善ポイント</a>
+        </div>
+        <div class="hero-facts" aria-label="信頼情報">
+          <div class="fact">
+            <b>岡山密着</b>
+            <span>地域の住まいに合わせた提案</span>
+          </div>
+          <div class="fact">
+            <b>リフォーム相談</b>
+            <span>水回りから全面改修まで</span>
+          </div>
+          <div class="fact">
+            <b>事例で比較</b>
+            <span>予算と工事内容を見やすく</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="concern" class="issue-band">
+      <div class="wrap">
+        <p class="kicker">Proposal Focus</p>
+        <h2 class="section-title">問い合わせ前の不安を、トップページ上で先に解消する。</h2>
+        <p class="section-lead">
+          リフォームは「どこまで相談していいか」「費用がどれくらいか」「自分の家と似た事例があるか」が見えないと問い合わせに進みにくい領域です。ラフ案ではこの3点を先に整理します。
+        </p>
+
+        <div class="issue-grid">
+          <div class="issue-list">
+            <article class="issue">
+              <span class="num">1</span>
+              <div>
+                <h3>相談内容別の入口をつくる</h3>
+                <p>水回り、外壁、内装、間取り変更など、悩み別に最初のクリック先を用意します。</p>
+              </div>
+            </article>
+            <article class="issue">
+              <span class="num">2</span>
+              <div>
+                <h3>施工事例を比較しやすくする</h3>
+                <p>工事内容、築年数、費用帯、工期を揃えて、検討中の方が自分ごと化しやすくします。</p>
+              </div>
+            </article>
+            <article class="issue">
+              <span class="num">3</span>
+              <div>
+                <h3>無料相談の心理的ハードルを下げる</h3>
+                <p>「まだ予算が決まっていない」「部分的に相談したい」段階でも問い合わせやすい文言にします。</p>
+              </div>
+            </article>
+          </div>
+
+          <aside class="phone-panel" aria-label="スマートフォン表示イメージ">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" alt="住宅外観のイメージ">
+            <div class="phone-panel-content">
+              <h3>スマホでも次の行動がすぐ分かる構成へ。</h3>
+              <p>ファーストビュー、事例、相談CTAをスマホ上で近く配置し、フォームや電話への導線を迷わせない設計にします。</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="service">
+      <div class="wrap">
+        <p class="kicker">Reform Menu</p>
+        <h2 class="section-title">「何を頼める会社か」を、リフォーム内容別に整理する。</h2>
+        <p class="section-lead">サービス一覧は単なるメニューではなく、ユーザーが自分の悩みから該当ページへ進める入口として設計します。</p>
+
+        <div class="service-grid">
+          <article class="service">
+            <span class="service-icon">水</span>
+            <h3>水回りリフォーム</h3>
+            <p>キッチン、浴室、洗面、トイレ。毎日使う場所の不便を解消する導線。</p>
+          </article>
+          <article class="service">
+            <span class="service-icon">外</span>
+            <h3>外壁・屋根</h3>
+            <p>塗装、補修、雨漏り対策。劣化症状から相談できる入口を用意。</p>
+          </article>
+          <article class="service">
+            <span class="service-icon">間</span>
+            <h3>間取り変更</h3>
+            <p>子育て、二世帯、在宅ワークなど、暮らしの変化に合わせた改修。</p>
+          </article>
+          <article class="service">
+            <span class="service-icon">断</span>
+            <h3>断熱・省エネ</h3>
+            <p>暑さ寒さ、光熱費、窓まわりの改善など、体感価値が伝わる見せ方。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="works" class="works-band">
+      <div class="wrap">
+        <p class="kicker">Works</p>
+        <h2 class="section-title">施工事例は「写真」だけでなく、判断材料として見せる。</h2>
+        <p class="section-lead">検討中の方が比較しやすいように、課題、工事内容、費用帯、工期、担当コメントを揃えたカード型にします。</p>
+
+        <div class="case-grid">
+          <article class="case">
+            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&amp;fit=crop&amp;w=900&amp;q=82" alt="明るいキッチンリフォームのイメージ">
+            <div class="case-body">
+              <span class="tag">キッチン</span>
+              <h3>家族で使いやすい対面キッチンへ</h3>
+              <p>収納不足と動線の悩みを解消。写真と合わせて費用帯・工期を掲載する想定です。</p>
+            </div>
+          </article>
+          <article class="case">
+            <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&amp;fit=crop&amp;w=900&amp;q=82" alt="リビングリフォームのイメージ">
+            <div class="case-body">
+              <span class="tag">内装</span>
+              <h3>暗かったリビングを、家族が集まる空間へ</h3>
+              <p>ビフォーアフターと暮らしの変化を見せ、相談のきっかけにします。</p>
+            </div>
+          </article>
+          <article class="case">
+            <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&amp;fit=crop&amp;w=900&amp;q=82" alt="住宅外観リフォームのイメージ">
+            <div class="case-body">
+              <span class="tag">外装</span>
+              <h3>外壁と玄関まわりを整え、印象を刷新</h3>
+              <p>劣化症状、施工範囲、メンテナンス周期までまとめて比較しやすくします。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="flow">
+      <div class="wrap">
+        <p class="kicker">Consultation Flow</p>
+        <h2 class="section-title">問い合わせ後の流れを見せて、相談前の不安を減らす。</h2>
+        <p class="section-lead">現地調査や見積もりの流れが分かると、初めての方でも問い合わせしやすくなります。</p>
+
+        <div class="flow-grid">
+          <article class="flow">
+            <span class="flow-step">STEP 01</span>
+            <h3>まずは相談</h3>
+            <p>フォームまたは電話で、気になる場所や困っていることを共有。</p>
+          </article>
+          <article class="flow">
+            <span class="flow-step">STEP 02</span>
+            <h3>現地確認</h3>
+            <p>住まいの状態、寸法、使い方を確認し、必要な工事範囲を整理。</p>
+          </article>
+          <article class="flow">
+            <span class="flow-step">STEP 03</span>
+            <h3>提案・見積</h3>
+            <p>優先順位、費用、工期を分かりやすく提示。比較検討しやすくします。</p>
+          </article>
+          <article class="flow">
+            <span class="flow-step">STEP 04</span>
+            <h3>施工・引渡し</h3>
+            <p>工事中の連絡、完了確認、アフター対応までの流れを明示。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="cta-band">
+      <div class="wrap">
+        <div class="cta-box">
+          <div>
+            <h2>「うちの場合はいくら？」に答える入口を前に出す。</h2>
+            <p>資料請求だけでなく、写真送付、現地相談、概算費用の相談など、検討段階に合わせたCTAを並べる想定です。</p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="mailto:m@nest-co.jp">メール相談</a>
+            <a class="btn btn-secondary" href="tel:0120371100">0120-37-1100</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap note">
+      <p>※ このページは営業提案用のラフ案です。写真、文章、施工事例、費用、工期、連絡先表記などには仮情報または確認前の情報を含みます。実制作時は正式情報に合わせて差し替えます。</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span>ネストコーポレーション トップページ改善ラフ案</span>
+      <span>Published as a demo for GitHub Pages.</span>
+    </div>
+  </footer>
+</body>
+</html>
