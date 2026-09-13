@@ -202,7 +202,7 @@
   <script>
     const tabs = document.querySelectorAll('.tab');
     const views = document.querySelectorAll('.view');
-    tabs.forEach((tab) => tab.addEventListener('click', () => {
+    const activateTab = (tab) => {
       tabs.forEach((item) => {
         const active = item === tab;
         item.classList.toggle('active', active);
@@ -210,7 +210,22 @@
         item.tabIndex = active ? 0 : -1;
       });
       views.forEach((view) => { view.hidden = view.id !== tab.dataset.view; });
-    }));
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activateTab(tab));
+      tab.addEventListener('keydown', (event) => {
+        let nextIndex;
+        if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+        if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === 'Home') nextIndex = 0;
+        if (event.key === 'End') nextIndex = tabs.length - 1;
+        if (nextIndex === undefined) return;
+        event.preventDefault();
+        const nextTab = tabs[nextIndex];
+        activateTab(nextTab);
+        nextTab.focus();
+      });
+    });
     document.querySelectorAll('.task input').forEach((input) => input.addEventListener('change', () => {
       input.closest('.task').classList.toggle('done', input.checked);
     }));
