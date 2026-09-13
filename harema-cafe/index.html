@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="岡山で開業するカフェの提案用サービスサイトデモ。過ごし方から選べる来店導線を提案します。">
+  <title>HAREMA CAFE｜岡山カフェ 提案用デモ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="proposal-note">提案用デモサイト｜店名・住所・メニュー・価格はすべて仮情報です</div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="HAREMA CAFE トップへ">
+      <span class="brand-mark">H</span>
+      <span><strong>HAREMA</strong><small>COFFEE &amp; KITCHEN</small></span>
+    </a>
+    <nav aria-label="メインナビゲーション">
+      <a href="#time">過ごし方</a>
+      <a href="#menu">メニュー</a>
+      <a href="#story">岡山の素材</a>
+      <a class="nav-cta" href="#access">お店へ行く</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false">MENU</button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <img src="assets/hero-cafe.jpg" alt="岡山の白桃を使ったタルトと珈琲が並ぶ、瀬戸内の景色を望むカフェのイメージ（AI生成）">
+      <div class="hero-shade"></div>
+      <div class="hero-copy">
+        <p class="hero-kicker">OKAYAMA · MORNING TO SUNSET</p>
+        <h1>晴れの日を、<br><em>味わう。</em></h1>
+        <p class="hero-lead">岡山の果実と、丁寧に淹れた一杯。<br>今日の気分にちょうどいい時間を見つけるカフェ。</p>
+        <div class="hero-actions">
+          <a class="button button-light" href="#time">今日の過ごし方を選ぶ</a>
+          <a class="text-link" href="#menu">メニューを見る <span aria-hidden="true">↘</span></a>
+        </div>
+      </div>
+      <div class="hero-meta" aria-label="店舗基本情報">
+        <span>OPEN 8:00–18:00</span>
+        <span>岡山市内・駐車場あり（仮）</span>
+      </div>
+    </section>
+
+    <section class="difference" aria-label="サイトの特徴">
+      <p>メニューを並べるだけではなく、<strong>「誰と、いつ、どう過ごしたいか」</strong>から来店理由をつくる。</p>
+      <span>SCROLL TO FIND YOUR TIME</span>
+    </section>
+
+    <section class="time-section" id="time">
+      <div class="section-heading">
+        <p class="eyebrow">YOUR TIME AT HAREMA</p>
+        <h2>今日、どんな時間を<br>過ごしますか。</h2>
+        <p>時間帯や目的から、おすすめの席とメニューをご案内します。</p>
+      </div>
+
+      <div class="time-picker" role="group" aria-label="過ごし方を選ぶ">
+        <button class="time-tab active" type="button" data-time="morning" aria-pressed="true">
+          <span>08:00</span><strong>朝を整える</strong>
+        </button>
+        <button class="time-tab" type="button" data-time="afternoon" aria-pressed="false">
+          <span>13:00</span><strong>話を楽しむ</strong>
+        </button>
+        <button class="time-tab" type="button" data-time="sunset" aria-pressed="false">
+          <span>16:30</span><strong>余白に戻る</strong>
+        </button>
+      </div>
+
+      <article class="time-result" aria-live="polite">
+        <div class="time-number" id="timeNumber">01</div>
+        <div>
+          <p class="result-label" id="timeLabel">MORNING</p>
+          <h3 id="timeTitle">焼きたてと珈琲で、<br>一日の輪郭を整える。</h3>
+        </div>
+        <div class="time-detail">
+          <p id="timeText">岡山県産小麦のトーストと、季節のジャム。窓際の光がやわらかな朝の席をご用意しています。</p>
+          <dl>
+            <div><dt>おすすめ</dt><dd id="timeMenu">季節のモーニングプレート</dd></div>
+            <div><dt>過ごし方</dt><dd id="timeScene">ひとり時間・出勤前</dd></div>
+          </dl>
+        </div>
+      </article>
+    </section>
+
+    <section class="menu-section" id="menu">
+      <div class="menu-intro">
+        <p class="eyebrow">SEASONAL MENU</p>
+        <h2>岡山の旬を、<br>ひと皿の景色に。</h2>
+        <p>季節ごとに出会う果実や野菜を、珈琲に寄り添うメニューへ。産地とつくり手の背景まで、短い言葉でお伝えします。</p>
+      </div>
+      <div class="menu-list">
+        <article class="menu-item peach">
+          <span class="menu-index">01</span>
+          <div><p>SEASONAL SWEETS</p><h3>白桃と発酵バターのタルト</h3><small>岡山県産白桃 / 自家製カスタード</small></div>
+          <strong>¥980 <small>（仮）</small></strong>
+        </article>
+        <article class="menu-item blue">
+          <span class="menu-index">02</span>
+          <div><p>HAND DRIP</p><h3>晴れ間ブレンド</h3><small>軽やかな酸味 / カカオの余韻</small></div>
+          <strong>¥620 <small>（仮）</small></strong>
+        </article>
+        <article class="menu-item wheat">
+          <span class="menu-index">03</span>
+          <div><p>BRUNCH PLATE</p><h3>岡山小麦の季節プレート</h3><small>県産小麦パン / 旬野菜 / スープ</small></div>
+          <strong>¥1,480 <small>（仮）</small></strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="story-section" id="story">
+      <div class="story-title">
+        <p class="eyebrow">FROM OKAYAMA</p>
+        <h2>土地の名前が、<br>記憶に残る味になる。</h2>
+      </div>
+      <div class="story-copy">
+        <p>「岡山産」を飾り言葉にせず、白桃、小麦、季節の野菜がどこから届き、どんな一皿になるのかを伝えます。</p>
+        <div class="origin-grid">
+          <div><span>01</span><strong>白桃</strong><small>芳賀地区より（仮）</small></div>
+          <div><span>02</span><strong>小麦</strong><small>岡山県内の製粉所より（仮）</small></div>
+          <div><span>03</span><strong>珈琲</strong><small>店内で一杯ずつ抽出</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="access-section" id="access">
+      <div class="access-card">
+        <p class="eyebrow">VISIT US</p>
+        <h2>次の晴れ間に、<br>会いましょう。</h2>
+        <dl>
+          <div><dt>営業時間</dt><dd>8:00–18:00（仮）</dd></div>
+          <div><dt>定休日</dt><dd>水曜日（仮）</dd></div>
+          <div><dt>所在地</dt><dd>岡山県岡山市内（仮）</dd></div>
+          <div><dt>アクセス</dt><dd>駐車場あり / 最寄駅から徒歩圏（仮）</dd></div>
+        </dl>
+        <div class="access-actions">
+          <a class="button button-dark" href="#" data-demo-link>Google Mapsで見る</a>
+          <a class="text-link dark" href="#" data-demo-link>Instagramで最新情報 <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="access-visual" aria-hidden="true">
+        <span class="sun"></span>
+        <p>34.6551° N<br>133.9195° E</p>
+        <strong>OKAYAMA</strong>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand footer-brand" href="#top"><span class="brand-mark">H</span><span><strong>HAREMA</strong><small>COFFEE &amp; KITCHEN</small></span></a>
+    <p>提案用デモサイト｜掲載内容は仮情報、メイン写真はAI生成イメージです。</p>
+    <small>© HAREMA CAFE DEMO</small>
+  </footer>
+
+  <div class="demo-toast" role="status" aria-live="polite">実サイトでは店舗のリンクを設定します</div>
+  <script src="script.js"></script>
+</body>
+</html>
